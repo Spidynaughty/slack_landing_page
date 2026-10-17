@@ -18,7 +18,7 @@ export function AppIcon({ app, size = "md", className }: { app: App; size?: "sm"
 /** App summary card. Links to the app's Marketplace page unless `link` is false. */
 export function AppCard({ app, link = true }: { app: App; link?: boolean }) {
   const cls =
-    "flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-soft transition-all hover:-translate-y-1 hover:shadow-card";
+    "glow-card flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-soft transition-all hover:-translate-y-1 hover:shadow-card";
   const body = (
     <>
       <div className="flex items-start gap-4">

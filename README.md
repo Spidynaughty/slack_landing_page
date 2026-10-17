@@ -37,12 +37,18 @@ the top of `app/globals.css`.
 
 ## Design system
 
-- Tokens are CSS variables (`app/globals.css`) for one deep primary (`--primary`, `--deep`), five vivid accents and soft
-  tinted section backgrounds, each redefined for dark mode under `[data-theme="dark"]`.
-- Display font is Bricolage Grotesque, text font is Inter and code uses JetBrains Mono. The type scale is fluid (`text-display-*`, `text-lead`).
-- Motion includes scroll reveals, staggered cards, hover lift, CSS gradient blobs, the typing chat, the logo marquee, count-ups and page transitions
-  (`app/template.tsx`). Everything respects `prefers-reduced-motion`.
-- Accessibility: there's a skip link and visible focus rings. Dialogs trap focus and close on Escape, tabs use roving tabindex, and form fields are labelled.
+- **Identity:** an electric violet → fuchsia → orange brand gradient (`--brand-gradient`) with teal, amber and cyan accents.
+  All colours are CSS variables in `app/globals.css`, redefined for dark mode under `[data-theme="dark"]`.
+- **Layout language:** a floating glass pill navigation with floating mega-menu panels, centred heroes with the product
+  shown in a tilted glowing frame, bento grids, panel-style feature rows, sticky scroll storytelling, and an inset
+  footer card with a giant gradient wordmark.
+- **Effects:** aurora backgrounds (`bg-aurora`), film grain (`grain`), gradient borders (`border-gradient`) and a
+  cursor-following glow on cards (`glow-card` + `components/ui/pointer-glow.tsx`).
+- **Type:** Bricolage Grotesque (display), Inter (text), JetBrains Mono (code), with a fluid scale (`text-display-*`, `text-lead`).
+- **Motion:** scroll reveals, staggered cards, hover lift, parallax hero chips, a typing AI prompt, marquees (horizontal and
+  vertical), count-ups and page transitions (`app/template.tsx`). Everything respects `prefers-reduced-motion`.
+- **Accessibility:** skip link, visible focus rings, focus-trapped dialogs, roving-tabindex tabs, labelled form fields, and
+  AA contrast for gradient buttons (darker gradient stops in light mode, dark labels in dark mode).
 
 ## Notes
 

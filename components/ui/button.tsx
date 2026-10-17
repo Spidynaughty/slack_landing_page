@@ -10,8 +10,8 @@ const base =
   "group/btn inline-flex shrink-0 items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap transition-[background-color,color,box-shadow,transform,border-color] duration-200 active:scale-[0.98] disabled:opacity-60";
 
 const variants: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-primary-fg shadow-[0_8px_20px_-8px_var(--primary)] hover:bg-primary-hover hover:shadow-glow",
-  secondary: "border border-line-strong bg-surface text-fg hover:border-fg/40 hover:bg-surface-2",
+  primary: "bg-button-gradient text-white shadow-[0_10px_24px_-10px_var(--primary)] hover:shadow-glow hover:brightness-110 dark:text-deep",
+  secondary: "border border-line-strong bg-surface text-fg hover:border-fg/30 hover:bg-surface-2",
   ghost: "text-fg hover:bg-surface-2",
   light: "bg-white text-deep shadow-lg hover:bg-white/90",
   "outline-light": "border border-white/35 text-white hover:border-white/60 hover:bg-white/10",

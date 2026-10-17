@@ -103,7 +103,7 @@ function Card({ item, style, onPreview }: { item: ListingItem; style: ListingCar
     </>
   );
   const cls =
-    "group/card flex h-full w-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface text-left shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-card";
+    "glow-card group/card flex h-full w-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface text-left shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-card";
   if (item.preview) {
     return (
       <button type="button" onClick={() => onPreview(item)} className={cls} aria-haspopup="dialog">

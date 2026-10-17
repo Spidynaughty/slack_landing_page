@@ -78,26 +78,25 @@ export function Header() {
   const elevated = scrolled || openId !== null;
 
   return (
-    <header
-      id="site-header"
-      className={cn(
-        "sticky top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300",
-        elevated
-          ? "border-line bg-glass shadow-[0_8px_30px_-12px_rgb(23_17_63/0.18)] backdrop-blur-xl backdrop-saturate-150"
-          : "border-transparent bg-glass backdrop-blur-md",
-      )}
-    >
+    <header id="site-header" className="sticky top-0 z-50 px-3 pt-3 sm:px-4">
       <a
         href="#main"
-        className="sr-only z-[60] rounded-full bg-primary px-4 py-2 font-semibold text-primary-fg focus:not-sr-only focus:absolute focus:top-3 focus:left-3"
+        className="sr-only z-[60] rounded-full bg-primary px-4 py-2 font-semibold text-primary-fg focus:not-sr-only focus:absolute focus:top-4 focus:left-4"
       >
         Skip to content
       </a>
-      <div className="container-page flex h-[4.5rem] items-center gap-4">
-        <Logo onClick={close} className="mr-2 xl:mr-4" />
+      <div
+        className={cn(
+          "relative mx-auto flex h-16 max-w-[76rem] items-center gap-2 rounded-full border pr-2 pl-4 transition-[background-color,border-color,box-shadow] duration-300 sm:pl-5",
+          elevated
+            ? "border-line bg-glass-strong shadow-float backdrop-blur-xl backdrop-saturate-150"
+            : "border-line/70 bg-glass shadow-soft backdrop-blur-lg",
+        )}
+      >
+        <Logo onClick={close} className="mr-1 shrink-0" />
 
-        <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center">
+        <nav aria-label="Main" className="mx-auto hidden lg:block">
+          <ul className="flex items-center gap-0.5 rounded-full bg-surface-2/70 p-1">
             {mainNav.map((item) => {
               if (item.kind === "link") {
                 return (
@@ -106,7 +105,7 @@ export function Header() {
                       href={item.href}
                       onClick={close}
                       onMouseEnter={scheduleClose}
-                      className="inline-flex h-10 items-center rounded-full px-2 text-[0.95rem] font-semibold text-fg transition-colors hover:bg-surface-2 xl:px-3"
+                      className="inline-flex h-9 items-center rounded-full px-3 text-[0.92rem] font-semibold text-fg transition-colors hover:bg-surface xl:px-4"
                     >
                       {item.label}
                     </Link>
@@ -140,15 +139,12 @@ export function Header() {
                       setOpenId(open ? null : item.id);
                     }}
                     className={cn(
-                      "inline-flex h-10 items-center gap-1 rounded-full px-2 text-[0.95rem] font-semibold transition-colors xl:px-3",
-                      open ? "bg-surface-2 text-primary" : "text-fg hover:bg-surface-2",
+                      "inline-flex h-9 items-center gap-1 rounded-full px-3 text-[0.92rem] font-semibold transition-colors xl:px-4",
+                      open ? "bg-surface text-primary shadow-soft" : "text-fg hover:bg-surface",
                     )}
                   >
                     {item.label}
-                    <ChevronDown
-                      className={cn("size-4 transition-transform duration-200", open && "rotate-180")}
-                      aria-hidden="true"
-                    />
+                    <ChevronDown className={cn("size-4 transition-transform duration-200", open && "rotate-180")} aria-hidden="true" />
                   </button>
                   <AnimatePresence>
                     {open && (
@@ -156,17 +152,13 @@ export function Header() {
                         id={panelId}
                         role="region"
                         aria-label={`${item.label} menu`}
-                        initial={{ opacity: 0, y: -8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6, transition: { duration: 0.12 } }}
-                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                        className="absolute inset-x-0 top-full max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-b border-line bg-surface shadow-float"
+                        initial={{ opacity: 0, y: -10, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -6, scale: 0.99, transition: { duration: 0.12 } }}
+                        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute top-[calc(100%+0.75rem)] left-1/2 max-h-[calc(100dvh-6.5rem)] w-[min(72rem,calc(100vw-2rem))] -translate-x-1/2 origin-top overflow-y-auto rounded-[1.75rem] border border-line bg-surface shadow-float"
                       >
-                        {item.kind === "mega" ? (
-                          <MegaPanel menu={item} onNavigate={close} />
-                        ) : (
-                          <CardsPanel menu={item} onNavigate={close} />
-                        )}
+                        {item.kind === "mega" ? <MegaPanel menu={item} onNavigate={close} /> : <CardsPanel menu={item} onNavigate={close} />}
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -176,7 +168,7 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="ml-auto flex items-center gap-1 sm:gap-2">
+        <div className="ml-auto flex items-center gap-1 lg:ml-0">
           {headerActions.map((action) => {
             if (action.kind === "search") {
               return (
@@ -196,21 +188,14 @@ export function Header() {
               );
             }
             const visibility =
-              action.variant === "ghost"
-                ? "hidden lg:inline-flex"
-                : action.variant === "outline"
-                  ? "hidden xl:inline-flex"
-                  : "hidden sm:inline-flex";
+              action.variant === "ghost" ? "hidden lg:inline-flex" : action.variant === "outline" ? "hidden 2xl:inline-flex" : "hidden sm:inline-flex";
             return (
               <Link
                 key={action.href}
                 href={action.href}
                 onClick={close}
                 className={cn(
-                  buttonClasses(
-                    action.variant === "primary" ? "primary" : action.variant === "outline" ? "secondary" : "ghost",
-                    "sm",
-                  ),
+                  buttonClasses(action.variant === "primary" ? "primary" : action.variant === "outline" ? "secondary" : "ghost", "sm"),
                   visibility,
                   "h-10",
                 )}
@@ -219,7 +204,7 @@ export function Header() {
               </Link>
             );
           })}
-          <ThemeToggle className="hidden sm:inline-flex lg:hidden xl:inline-flex" />
+          <ThemeToggle className="hidden sm:inline-flex" />
           <MobileNav />
         </div>
       </div>

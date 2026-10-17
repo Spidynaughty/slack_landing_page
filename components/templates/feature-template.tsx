@@ -3,7 +3,8 @@ import { ArrowRight } from "lucide-react";
 import { getDemo } from "@/data/demos";
 import { getFeature, type Feature } from "@/data/features";
 import { Mockup } from "@/components/mockups";
-import { CTABand, FAQ, IconCardGrid, SplitFeature, StatsBand } from "@/components/sections/common";
+import { CTABand, FAQ, IconCardGrid, StatsBand } from "@/components/sections/common";
+import { StickySteps } from "@/components/sections/home/sticky-steps";
 import { PageHero, type Crumb } from "@/components/sections/page-hero";
 import { Highlight } from "@/components/ui/highlight";
 import { Icon } from "@/components/ui/icon";
@@ -17,7 +18,7 @@ export function FeatureCard({ feature }: { feature: Feature }) {
   return (
     <Link
       href={feature.href}
-      className="group/fc flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-soft transition-shadow hover:shadow-card"
+      className="glow-card group/fc flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-soft transition-shadow hover:shadow-card"
     >
       <span className={cn("inline-flex size-12 items-center justify-center rounded-2xl", t.solid)}>
         <Icon name={feature.icon} className="size-6" />
@@ -52,30 +53,20 @@ export function FeatureTemplate({ feature, crumbs }: { feature: Feature; crumbs?
 
       <StatsBand stats={feature.stats} />
 
-      <Section>
-        <div className="flex flex-col gap-24 md:gap-32">
-          {feature.sections.map((s, i) => (
-            <SplitFeature
-              key={s.title}
-              reverse={i % 2 === 1}
-              eyebrow={s.eyebrow}
-              tone={feature.tone}
-              title={s.title}
-              body={s.body}
-              bullets={s.bullets}
-              visual={<Mockup kind={s.mockup} />}
-            />
-          ))}
-        </div>
+      <Section bg="soft">
+        <SectionHeader align="left" eyebrow={`How ${feature.name} works`} tone={feature.tone} title={<>Built for the way <span className="text-gradient">your team works</span></>} />
+        <StickySteps
+          steps={feature.sections.map((s) => ({ kicker: s.eyebrow, title: s.title, body: s.body, bullets: s.bullets, visual: <Mockup kind={s.mockup} /> }))}
+        />
       </Section>
 
-      <Section bg={feature.tone}>
+      <Section>
         <SectionHeader eyebrow="Use cases" tone={feature.tone} title={`How teams use ${feature.name}`} />
         <IconCardGrid items={feature.useCases.map((u) => ({ ...u, tone: feature.tone }))} />
       </Section>
 
       {related.length > 0 && (
-        <Section>
+        <Section bg="soft">
           <SectionHeader eyebrow="Related" title="Works even better together" subtitle="Pair it with these capabilities to get more done." />
           <Stagger className="grid gap-5 md:grid-cols-3">
             {related.map((r) => (
@@ -87,7 +78,7 @@ export function FeatureTemplate({ feature, crumbs }: { feature: Feature; crumbs?
         </Section>
       )}
 
-      <FAQ items={feature.faqs} bg="soft" subtitle={`Everything you need to know about ${feature.name}.`} />
+      <FAQ items={feature.faqs} subtitle={`Everything you need to know about ${feature.name}.`} />
 
       <CTABand title={feature.cta.title} subtitle={feature.cta.subtitle} />
     </>

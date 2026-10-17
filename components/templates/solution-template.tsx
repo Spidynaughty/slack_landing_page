@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, Check, X } from "lucide-react";
 import { getFeature, type Feature } from "@/data/features";
 import { apps, type App } from "@/data/integrations";
 import type { Solution } from "@/data/solutions";
@@ -9,7 +9,6 @@ import { CTABand, FAQ, IconCardGrid, QuoteBlock, StatsBand } from "@/components/
 import { PageHero } from "@/components/sections/page-hero";
 import { FeatureCard } from "@/components/templates/feature-template";
 import { ArrowLink } from "@/components/ui/button";
-import { GradientBlobs } from "@/components/ui/blobs";
 import { Highlight } from "@/components/ui/highlight";
 import { Icon } from "@/components/ui/icon";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
@@ -23,7 +22,7 @@ export function SolutionCard({ solution }: { solution: Solution }) {
   return (
     <Link
       href={`/solutions/${solution.slug}`}
-      className="group/sc flex h-full items-start gap-4 rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-soft transition-shadow hover:shadow-card"
+      className="glow-card group/sc flex h-full items-start gap-4 rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-soft transition-shadow hover:shadow-card"
     >
       <span className={cn("inline-flex size-11 shrink-0 items-center justify-center rounded-xl", t.soft)}>
         <Icon name={solution.icon} className="size-5" />
@@ -65,18 +64,44 @@ export function SolutionTemplate({ solution }: { solution: Solution }) {
         primary={{ label: "Get started", href: "/get-started" }}
         secondary={{ label: "Talk to sales", href: "/contact-sales" }}
         visual={<Mockup kind={solution.hero.mockup} />}
-      >
-        <ul className="flex animate-fade-up flex-col gap-2 [animation-delay:320ms]" aria-label="Problems this solves">
-          {solution.hero.painPoints.map((p) => (
-            <li key={p} className="inline-flex items-center gap-2.5 text-sm text-muted">
-              <span className="inline-flex size-5 items-center justify-center rounded-full bg-coral/15 text-coral-ink">
-                <X className="size-3" aria-hidden="true" />
-              </span>
-              <span className="line-through decoration-coral/60 decoration-2">{p}</span>
-            </li>
-          ))}
-        </ul>
-      </PageHero>
+      />
+
+      {/* Before vs after */}
+      <Section className="!pb-0">
+        <div className="grid gap-5 md:grid-cols-2">
+          <Reveal className="rounded-[2rem] border border-dashed border-line-strong bg-bg-soft p-7 sm:p-9">
+            <p className="text-xs font-bold tracking-[0.16em] text-subtle uppercase">Before</p>
+            <h2 className="mt-2 font-display text-2xl font-bold text-fg">Work without {B}</h2>
+            <ul className="mt-6 flex flex-col gap-3" aria-label="Problems this solves">
+              {solution.hero.painPoints.map((p) => (
+                <li key={p} className="flex items-center gap-3 rounded-xl bg-surface px-4 py-3 text-muted shadow-soft">
+                  <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-full bg-coral/15 text-coral-ink">
+                    <X className="size-4" aria-hidden="true" />
+                  </span>
+                  <span className="line-through decoration-coral/50 decoration-2">{p}</span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+          <Reveal delay={0.1} className="border-gradient relative overflow-hidden rounded-[2rem] p-7 shadow-card sm:p-9">
+            <div aria-hidden="true" className="absolute inset-0 bg-aurora opacity-70" />
+            <p className="relative text-xs font-bold tracking-[0.16em] text-primary uppercase">After</p>
+            <h2 className="relative mt-2 font-display text-2xl font-bold text-fg">
+              Work with <span className="text-gradient">{B}</span>
+            </h2>
+            <ul className="relative mt-6 flex flex-col gap-3">
+              {solution.benefits.slice(0, 3).map((b) => (
+                <li key={b.title} className="flex items-center gap-3 rounded-xl bg-surface/90 px-4 py-3 font-medium text-fg shadow-soft">
+                  <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-full bg-mint/15 text-mint-ink">
+                    <Check className="size-4" aria-hidden="true" />
+                  </span>
+                  {b.title}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+      </Section>
 
       <StatsBand stats={solution.stats} />
 
@@ -91,34 +116,40 @@ export function SolutionTemplate({ solution }: { solution: Solution }) {
       </Section>
 
       {/* Workflow */}
-      <section className="relative overflow-hidden bg-deep py-20 text-on-deep md:py-28" aria-labelledby="workflow-heading">
-        <GradientBlobs variant="deep" />
-        <div className="container-page relative grid items-center gap-14 lg:grid-cols-2">
-          <Reveal className="flex flex-col gap-6">
-            <p className="w-fit rounded-full bg-white/10 px-3 py-1 text-xs font-bold tracking-[0.12em] uppercase">How it works</p>
-            <h2 id="workflow-heading" className="text-display-md font-bold text-white">
+      <section className="px-3 sm:px-4" aria-labelledby="workflow-heading">
+        <div className="grain relative mx-auto max-w-[80rem] overflow-hidden rounded-[2rem] bg-deep px-5 py-16 text-on-deep sm:rounded-[2.5rem] sm:px-10 md:py-20">
+          <div aria-hidden="true" className="absolute inset-0 bg-aurora opacity-80" />
+          <Reveal className="relative mx-auto mb-12 flex max-w-3xl flex-col items-center gap-4 text-center">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 py-1 pr-3.5 pl-2 text-[0.8rem] font-semibold">
+              <span className="size-2 rounded-full bg-pink" /> How it works
+            </p>
+            <h2 id="workflow-heading" className="text-display-md font-extrabold tracking-tight text-white">
               {solution.workflow.title}
             </h2>
             <p className="text-lead text-on-deep-muted">{solution.workflow.subtitle}</p>
-            <ol className="mt-2 flex flex-col gap-5">
-              {solution.workflow.steps.map((s, i) => (
-                <li key={s.title} className="flex gap-4">
-                  <span className="relative flex flex-col items-center">
+          </Reveal>
+          <Stagger as="ol" className="relative grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {solution.workflow.steps.map((s, i) => (
+              <StaggerItem as="li" key={s.title} className="relative h-full">
+                <div className="flex h-full flex-col rounded-3xl border border-white/10 bg-white/[0.06] p-6">
+                  <div className="flex items-center justify-between">
                     <span className={cn("inline-flex size-11 items-center justify-center rounded-2xl", t.solid)}>
                       <Icon name={s.icon} className="size-5" />
                     </span>
-                    {i < solution.workflow.steps.length - 1 && <span className="mt-2 w-px flex-1 bg-white/15" aria-hidden="true" />}
+                    <span className="font-mono text-sm font-semibold text-on-deep-muted">{String(i + 1).padStart(2, "0")}</span>
+                  </div>
+                  <h3 className="mt-6 font-display text-lg font-bold text-white">{s.title}</h3>
+                  <p className="mt-2 text-sm text-on-deep-muted">{s.body}</p>
+                </div>
+                {i < solution.workflow.steps.length - 1 && (
+                  <span aria-hidden="true" className="absolute top-1/2 -right-3 z-10 hidden size-6 -translate-y-1/2 items-center justify-center rounded-full bg-white text-deep lg:inline-flex">
+                    <ArrowRight className="size-3.5" />
                   </span>
-                  <span className="pb-2">
-                    <span className="text-xs font-bold tracking-widest text-on-deep-muted uppercase">Step {i + 1}</span>
-                    <span className="block font-display text-lg font-bold text-white">{s.title}</span>
-                    <span className="mt-1 block text-on-deep-muted">{s.body}</span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </Reveal>
-          <Reveal delay={0.1}>
+                )}
+              </StaggerItem>
+            ))}
+          </Stagger>
+          <Reveal className="relative mx-auto mt-12 max-w-4xl">
             <Mockup kind={solution.workflow.mockup} />
           </Reveal>
         </div>
@@ -165,7 +196,7 @@ export function SolutionTemplate({ solution }: { solution: Solution }) {
         </Section>
       )}
 
-      {solution.faqs.length > 0 && <FAQ items={solution.faqs} bg="soft" />}
+      {solution.faqs.length > 0 && <FAQ items={solution.faqs} />}
 
       <CTABand title={solution.cta.title} subtitle={solution.cta.subtitle} />
     </>

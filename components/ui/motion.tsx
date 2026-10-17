@@ -10,6 +10,7 @@ const tags = {
   section: motion.section,
   article: motion.article,
   ul: motion.ul,
+  ol: motion.ol,
   span: motion.span,
 } as const;
 

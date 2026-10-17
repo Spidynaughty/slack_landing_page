@@ -1,22 +1,22 @@
 import Link from "next/link";
-import { ArrowRight, Bot, Check, Headphones, ShieldCheck, Sparkles, Workflow } from "lucide-react";
-import { departmentLinks, industryLinks } from "@/data/nav";
-import { featuredApps } from "@/data/integrations";
+import { ArrowRight, Check, Lock, PlayCircle, ShieldCheck, Star } from "lucide-react";
+import { apps } from "@/data/integrations";
+import { plans } from "@/data/pricing";
 import { stories, testimonials } from "@/data/stories";
 import { Mockup } from "@/components/mockups";
-import { ChatMockup } from "@/components/mockups/chat-mockup";
 import { Avatar } from "@/components/mockups/parts";
-import { AppOrbit } from "@/components/sections/apps";
-import { CTABand, IconCardGrid, LinkChips, LogoCloud, SplitFeature, StatsBand, StoryCard } from "@/components/sections/common";
-import { FeatureTabs } from "@/components/sections/feature-tabs";
-import { TestimonialCarousel } from "@/components/sections/testimonial-carousel";
-import { ArrowLink, ButtonLink } from "@/components/ui/button";
-import { GradientBlobs } from "@/components/ui/blobs";
-import { Icon } from "@/components/ui/icon";
+import { CTABand, LogoCloud, StatsBand, StoryCard } from "@/components/sections/common";
+import { AiPrompt } from "@/components/sections/home/ai-prompt";
+import { ProductBento } from "@/components/sections/home/bento";
+import { HeroShowcase } from "@/components/sections/home/hero-showcase";
+import { StickySteps } from "@/components/sections/home/sticky-steps";
+import { AppWall, WallOfLove } from "@/components/sections/home/walls";
+import { ArrowLink, ButtonLink, buttonClasses } from "@/components/ui/button";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { B, site } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
 export const metadata = {
   ...buildMetadata({
@@ -27,290 +27,182 @@ export const metadata = {
   title: { absolute: `${site.name} | AI-powered work platform for every team` },
 };
 
-function HeroVisual() {
-  return (
-    <div className="relative">
-      <ChatMockup script="launch" />
-      {/* floating accents */}
-      <div className="absolute -top-6 -left-4 hidden animate-float items-center gap-2 rounded-2xl border border-line bg-surface px-3 py-2.5 shadow-float md:flex lg:-left-10">
-        <span className="inline-flex size-8 items-center justify-center rounded-xl bg-mint text-white">
-          <Headphones className="size-4" aria-hidden="true" />
-        </span>
-        <span className="text-xs">
-          <span className="block font-bold text-fg">Huddle live</span>
-          <span className="flex -space-x-1 pt-0.5">
-            <Avatar who="priya" size="xs" className="rounded-full ring-2 ring-surface" />
-            <Avatar who="marcus" size="xs" className="rounded-full ring-2 ring-surface" />
-            <Avatar who="sofia" size="xs" className="rounded-full ring-2 ring-surface" />
-          </span>
-        </span>
-      </div>
-      <div className="absolute -right-3 bottom-24 hidden animate-float items-center gap-2 rounded-2xl border border-line bg-surface px-3 py-2.5 shadow-float [animation-delay:-2s] md:flex lg:-right-8">
-        <span className="inline-flex size-8 items-center justify-center rounded-xl bg-sun text-deep">
-          <Workflow className="size-4" aria-hidden="true" />
-        </span>
-        <span className="text-xs">
-          <span className="block font-bold text-fg">Workflow ran</span>
-          <span className="text-muted">Launch email approved</span>
-        </span>
-      </div>
-      <div className="absolute -bottom-6 left-10 hidden animate-float items-center gap-2 rounded-2xl border border-line bg-surface px-3 py-2.5 shadow-float [animation-delay:-4s] sm:flex">
-        <span className="inline-flex size-8 items-center justify-center rounded-xl bg-primary text-primary-fg">
-          <Bot className="size-4" aria-hidden="true" />
-        </span>
-        <span className="text-xs">
-          <span className="block font-bold text-fg">Agent finished 3 tasks</span>
-          <span className="text-muted">Saved your team 2.5 hours</span>
-        </span>
-      </div>
-    </div>
-  );
-}
-
 export default function Home() {
-  const tabs = [
-    {
-      id: "channels",
-      label: "Channels",
-      icon: "hash" as const,
-      tone: "violet" as const,
-      title: "Organized spaces for every project, team and topic",
-      body: "Channels bring the right people and information together, so decisions happen in the open and anyone can catch up in seconds.",
-      href: "/features/channels",
-      cta: "Explore channels",
-      visual: <Mockup kind="chat-channels" />,
-    },
-    {
-      id: "huddles",
-      label: "Huddles",
-      icon: "headphones" as const,
-      tone: "mint" as const,
-      title: "Talk it out with audio, video and screen sharing",
-      body: "Start a huddle from any conversation. Live captions, drawing and auto-generated notes mean nothing said gets lost.",
-      href: "/features/huddles",
-      cta: "Explore huddles",
-      visual: <Mockup kind="huddle" />,
-    },
-    {
-      id: "canvas",
-      label: "Canvas",
-      icon: "file" as const,
-      tone: "sun" as const,
-      title: "Docs that live right next to the conversation",
-      body: "Write briefs, plans and runbooks in canvases embedded in channels, with checklists, tables and live collaboration built in.",
-      href: "/features/canvas",
-      cta: "Explore canvas",
-      visual: <Mockup kind="canvas" />,
-    },
-    {
-      id: "lists",
-      label: "Lists",
-      icon: "listChecks" as const,
-      tone: "coral" as const,
-      title: "Track projects and requests where the work happens",
-      body: "Lists turn conversations into accountable plans with owners, statuses and due dates, plus board and table views.",
-      href: "/features/task-list",
-      cta: "Explore lists",
-      visual: <Mockup kind="lists" />,
-    },
-    {
-      id: "ai",
-      label: "AI",
-      icon: "sparkles" as const,
-      tone: "pink" as const,
-      title: "AI that already knows your work",
-      body: "Recaps, thread summaries and answers grounded in your conversations, files and connected apps, with your permissions respected.",
-      href: "/features/ai",
-      cta: `Explore ${B} AI`,
-      visual: <Mockup kind="ai" />,
-    },
-  ];
-
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden pt-10 pb-20 sm:pt-16 md:pb-28">
-        <GradientBlobs />
-        <div aria-hidden="true" className="absolute inset-0 bg-grid mask-fade-b opacity-70" />
-        <div className="container-page relative grid items-center gap-14 lg:grid-cols-[1fr_1.05fr] lg:gap-12">
-          <div className="flex flex-col items-start gap-7">
+      <section className="relative overflow-hidden pt-12 pb-24 sm:pt-16 md:pb-32">
+        <div aria-hidden="true" className="absolute inset-0 bg-aurora" />
+        <div aria-hidden="true" className="absolute inset-0 bg-grid mask-fade-b opacity-50" />
+        <div aria-hidden="true" className="absolute top-24 left-1/2 size-[42rem] -translate-x-1/2 animate-spin-slow rounded-full bg-[conic-gradient(from_0deg,transparent,color-mix(in_srgb,var(--primary)_18%,transparent),transparent_40%)] blur-2xl" />
+        <div className="container-page relative">
+          <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
             <Link
               href="/whats-new"
               className="group inline-flex animate-fade-up items-center gap-2 rounded-full border border-line bg-surface/80 py-1 pr-3 pl-1 text-sm font-semibold text-fg shadow-soft backdrop-blur hover:border-primary/40"
             >
-              <span className="rounded-full bg-primary px-2.5 py-0.5 text-xs font-bold text-primary-fg">New</span>
+              <span className="relative inline-flex items-center gap-1.5 rounded-full bg-button-gradient px-2.5 py-0.5 text-xs font-bold text-white dark:text-deep">
+                <span className="relative flex size-1.5">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-white opacity-75" />
+                  <span className="relative inline-flex size-1.5 rounded-full bg-white" />
+                </span>
+                New
+              </span>
               Agents now work in every channel
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
             </Link>
-            <h1 className="animate-fade-up text-display-xl font-extrabold text-fg [animation-delay:80ms]">
-              Where people, AI and work <span className="text-gradient">come together</span>
+            <h1 className="mt-7 animate-fade-up text-display-xl font-extrabold tracking-tight text-fg [animation-delay:80ms]">
+              Where teams and AI <span className="text-gradient">get things done</span>
             </h1>
-            <p className="max-w-xl animate-fade-up text-lead text-muted [animation-delay:160ms]">
-              {B} is the work platform where conversations, apps and AI agents meet. Move faster in channels, decide
-              together in huddles and automate the busywork in between.
+            <p className="mt-6 max-w-2xl animate-fade-up text-lead text-muted [animation-delay:160ms]">
+              {B} is the one place for conversations, meetings, docs, projects and AI agents, so your team spends less time
+              chasing updates and more time shipping.
             </p>
-            <div className="flex animate-fade-up flex-wrap gap-3 [animation-delay:240ms]">
+            <div className="mt-9 flex animate-fade-up flex-wrap justify-center gap-3 [animation-delay:240ms]">
               <ButtonLink href="/get-started" size="lg" arrow>
-                Get started free
+                Start free
               </ButtonLink>
-              <ButtonLink href="/contact-sales" size="lg" variant="secondary">
-                Request a demo
-              </ButtonLink>
+              <Link href="/demo" className={buttonClasses("secondary", "lg")}>
+                <PlayCircle className="size-5" aria-hidden="true" /> Watch the 2-min demo
+              </Link>
             </div>
-            <ul className="flex animate-fade-up flex-wrap gap-x-5 gap-y-2 text-sm text-muted [animation-delay:320ms]">
-              {["Free for small teams", "No credit card needed", "2,600+ integrations"].map((t) => (
-                <li key={t} className="inline-flex items-center gap-1.5">
-                  <Check className="size-4 text-mint-ink" aria-hidden="true" />
-                  {t}
-                </li>
-              ))}
-            </ul>
+            <div className="mt-8 flex animate-fade-up flex-wrap items-center justify-center gap-4 text-sm text-muted [animation-delay:320ms]">
+              <span className="flex -space-x-2">
+                {(["amara", "jonah", "hana", "diego", "leo"] as const).map((p) => (
+                  <Avatar key={p} who={p} size="sm" className="rounded-full ring-2 ring-bg" />
+                ))}
+              </span>
+              <span className="text-left">
+                <span className="flex items-center gap-0.5 text-sun" role="img" aria-label="Rated 4.8 out of 5">
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <Star key={i} className="size-4 fill-current" aria-hidden="true" />
+                  ))}
+                </span>
+                <span>
+                  Loved by <strong className="text-fg">750,000+</strong> teams
+                </span>
+              </span>
+            </div>
           </div>
-          <div className="animate-fade-up [animation-delay:200ms]">
-            <HeroVisual />
+          <div className="mt-16 animate-fade-up [animation-delay:200ms] md:mt-20">
+            <HeroShowcase />
           </div>
         </div>
       </section>
 
       <LogoCloud />
 
-      {/* Feature tabs */}
+      {/* Bento */}
       <Section>
         <SectionHeader
           eyebrow="One platform"
           title={
             <>
-              Everything your team needs, <span className="text-gradient">all in one place</span>
+              Every way your team works, <span className="text-gradient">beautifully connected</span>
             </>
           }
-          subtitle={`Stop switching between a dozen tools. ${B} brings messaging, meetings, docs, projects and AI into a single home for work.`}
+          subtitle="Messaging, meetings, docs, projects and automation share one home, one search and one AI that understands it all."
         />
-        <FeatureTabs tabs={tabs} />
+        <ProductBento />
       </Section>
+
+      {/* Scroll story */}
+      <Section bg="soft">
+        <SectionHeader
+          align="left"
+          eyebrow="How it works"
+          tone="pink"
+          title={
+            <>
+              From scattered to <span className="text-gradient">shipped</span>, in four moves
+            </>
+          }
+          subtitle="Follow a launch team through a single day and see how the pieces fit together."
+        />
+        <StickySteps
+          steps={[
+            { kicker: "Gather", title: "Bring everyone into one channel", body: "Teammates, partners and the apps you rely on, together in one searchable space.", visual: <Mockup kind="chat-channels" /> },
+            { kicker: "Decide", title: "Talk it out in a huddle", body: "Jump from a thread into audio or video. AI notes post the decisions back automatically.", visual: <Mockup kind="huddle" /> },
+            { kicker: "Document", title: "Turn decisions into plans", body: "Canvases and lists sit right beside the conversation, so nothing gets lost in a doc graveyard.", visual: <Mockup kind="canvas" /> },
+            { kicker: "Automate", title: "Let agents handle the rest", body: "Workflows route approvals while agents draft replies and update records, with you in control.", visual: <Mockup kind="agent" /> },
+          ]}
+        />
+      </Section>
+
+      {/* AI */}
+      <section className="grain relative overflow-hidden bg-deep py-24 text-on-deep md:py-32" aria-labelledby="ai-heading">
+        <div aria-hidden="true" className="absolute inset-0 bg-aurora opacity-80" />
+        <div aria-hidden="true" className="absolute inset-0 bg-dots opacity-[0.12] invert" />
+        <div className="container-page relative">
+          <Reveal className="mx-auto mb-14 flex max-w-3xl flex-col items-center gap-5 text-center">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 py-1 pr-3.5 pl-2 text-[0.8rem] font-semibold">
+              <span className="size-2 rounded-full bg-pink" /> {B} AI
+            </p>
+            <h2 id="ai-heading" className="text-display-lg font-extrabold tracking-tight text-white">
+              Ask anything. <span className="text-gradient">Get answers you can trust.</span>
+            </h2>
+            <p className="text-lead text-on-deep-muted">
+              Because your work already lives here, AI answers with real context and shows its sources. It never trains on your data.
+            </p>
+          </Reveal>
+          <AiPrompt />
+          <div className="mt-12 flex flex-wrap justify-center gap-3">
+            <ButtonLink href="/features/ai" variant="light" arrow>
+              Explore {B} AI
+            </ButtonLink>
+            <ButtonLink href="/ai-agents" variant="outline-light">
+              Meet the agents
+            </ButtonLink>
+          </div>
+        </div>
+      </section>
 
       <StatsBand
         stats={[
-          { value: 750, suffix: "K+", label: "organizations work in " + B },
+          { value: 750, suffix: "K+", label: `organizations work in ${B}` },
           { value: 37, suffix: "%", label: "faster decision making" },
           { value: 97, suffix: " min", label: "saved per person, per week" },
           { value: 2600, suffix: "+", label: "apps and agents to connect" },
         ]}
       />
 
-      {/* AI section */}
-      <section className="relative overflow-hidden bg-deep py-20 text-on-deep md:py-28" aria-labelledby="ai-heading">
-        <GradientBlobs variant="deep" />
-        <div className="container-page relative">
-          <div className="grid items-center gap-14 lg:grid-cols-2">
-            <Reveal className="flex flex-col items-start gap-6">
-              <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-bold tracking-[0.12em] uppercase">
-                <Sparkles className="size-3.5" aria-hidden="true" /> {B} AI
-              </p>
-              <h2 id="ai-heading" className="text-display-lg font-extrabold text-white">
-                AI with the context to actually help
-              </h2>
-              <p className="text-lead text-on-deep-muted">
-                Because your conversations already live in {B}, our AI understands projects, people and decisions. It
-                recaps what you missed, answers questions from your knowledge and hands routine work to agents.
-              </p>
-              <ul className="grid w-full gap-3 sm:grid-cols-3">
-                {[
-                  { icon: "sparkles" as const, t: "Recaps", d: "Daily digests of busy channels" },
-                  { icon: "search" as const, t: "Answers", d: "Grounded in your workspace" },
-                  { icon: "bot" as const, t: "Agents", d: "Finish tasks end to end" },
-                ].map((f) => (
-                  <li key={f.t} className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <Icon name={f.icon} className="size-5 text-sun" />
-                    <p className="mt-3 font-semibold text-white">{f.t}</p>
-                    <p className="text-sm text-on-deep-muted">{f.d}</p>
-                  </li>
-                ))}
-              </ul>
-              <div className="flex flex-wrap gap-3">
-                <ButtonLink href="/features/ai" variant="light" arrow>
-                  Explore {B} AI
-                </ButtonLink>
-                <ButtonLink href="/ai-agents" variant="outline-light">
-                  Meet the agents
-                </ButtonLink>
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <Mockup kind="ai" />
-            </Reveal>
+      {/* Integrations */}
+      <section className="px-3 sm:px-4" aria-labelledby="apps-heading">
+        <div className="grain relative mx-auto max-w-[80rem] overflow-hidden rounded-[2rem] bg-deep py-16 text-on-deep sm:rounded-[2.5rem] md:py-20">
+          <div aria-hidden="true" className="absolute -bottom-40 left-1/2 h-80 w-[50rem] -translate-x-1/2 rounded-full bg-brand-gradient opacity-30 blur-3xl" />
+          <div className="relative mb-12 flex flex-col items-center gap-4 px-6 text-center">
+            <h2 id="apps-heading" className="max-w-2xl text-display-md font-extrabold tracking-tight text-white">
+              Plugs into the <span className="text-gradient">2,600+ tools</span> you already love
+            </h2>
+            <p className="max-w-xl text-on-deep-muted">Approve, update and search every app without switching tabs.</p>
+            <div className="mt-2 flex flex-wrap justify-center gap-3">
+              <ButtonLink href="/marketplace" variant="light" arrow>
+                Browse the Marketplace
+              </ButtonLink>
+              <ButtonLink href="/integrations" variant="outline-light">
+                How integrations work
+              </ButtonLink>
+            </div>
+          </div>
+          <div className="relative">
+            <AppWall apps={apps} />
           </div>
         </div>
       </section>
 
-      {/* Agents + workflow */}
-      <Section>
-        <div className="flex flex-col gap-24 md:gap-32">
-          <SplitFeature
-            eyebrow="Agents"
-            tone="mint"
-            title="A home for every agent, from any vendor"
-            body={`Deploy ${B} agents, bring in partner agents or build your own. They work in channels alongside your team, follow your permissions and ask for approval when it matters.`}
-            bullets={["Pre-built agents for service, sales, IT and HR", "Human approval steps for sensitive actions", "Full audit trail of every agent action"]}
-            visual={<Mockup kind="agent" />}
-            cta={{ label: "Explore the agentic platform", href: "/features/agentic-platform" }}
-          />
-          <SplitFeature
-            reverse
-            eyebrow="Automation"
-            tone="sun"
-            title="Automate the busywork without writing code"
-            body="Workflow Builder turns repetitive requests, approvals and hand-offs into automations anyone can build in minutes, with AI steps included."
-            bullets={["50+ ready-made workflow templates", "Triggers from forms, schedules, apps and emoji", "AI steps that classify, summarize and route"]}
-            visual={<Mockup kind="workflow" />}
-            cta={{ label: "Discover Workflow Builder", href: "/features/workflow-automation" }}
-          />
-        </div>
-      </Section>
-
-      {/* Integrations */}
-      <Section bg="soft">
-        <div className="grid items-center gap-14 lg:grid-cols-2">
-          <Reveal className="flex flex-col items-start gap-6">
-            <p className="inline-flex rounded-full bg-mint/15 px-3 py-1 text-xs font-bold tracking-[0.12em] text-mint-ink uppercase">
-              Integrations
-            </p>
-            <h2 className="text-display-md font-bold text-fg">Bring every tool into the flow of work</h2>
-            <p className="text-lead text-muted">
-              Connect the apps your teams already rely on, from file storage and issue trackers to CRM and HR systems.
-              Approve, update and search them all without leaving {B}.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <ButtonLink href="/marketplace" arrow>
-                Browse 2,600+ apps
-              </ButtonLink>
-              <ButtonLink href="/integrations" variant="secondary">
-                How integrations work
-              </ButtonLink>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <AppOrbit apps={featuredApps} />
-          </Reveal>
-        </div>
-      </Section>
-
       {/* Testimonials */}
       <Section>
-        <SectionHeader
-          eyebrow="Loved by teams"
-          title="Teams do their best work here"
-          subtitle="From startups to global enterprises, people use it every day to move work forward."
-        />
-        <TestimonialCarousel items={testimonials} />
+        <SectionHeader eyebrow="Wall of love" tone="sun" title="Teams can't stop talking about it" subtitle="Hover to pause and read what people say about working here." />
+        <WallOfLove items={testimonials} />
       </Section>
 
-      {/* Customer stories */}
-      <Section bg="violet">
+      {/* Stories */}
+      <Section bg="soft">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
-          <SectionHeader align="left" className="!mb-0" eyebrow="Customer stories" title="Real results from real teams" />
+          <SectionHeader align="left" className="!mb-0" eyebrow="Customer stories" tone="coral" title="Real results from real teams" />
           <ArrowLink href="/customer-stories">See all customer stories</ArrowLink>
         </div>
-        <Stagger className="grid gap-6 md:grid-cols-3">
+        <Stagger className="grid gap-5 md:grid-cols-3">
           {stories.slice(0, 3).map((s) => (
             <StaggerItem key={s.slug} lift className="h-full">
               <StoryCard story={s} />
@@ -319,52 +211,86 @@ export default function Home() {
         </Stagger>
       </Section>
 
-      {/* Enterprise & security */}
+      {/* Security */}
       <Section>
-        <SplitFeature
-          eyebrow="Enterprise-grade"
-          tone="sky"
-          title="Security and scale you never have to think about"
-          body="Data residency, Enterprise Key Management, granular admin controls and compliance with the standards your industry demands. Built for organizations with 500,000 people, priced for teams of five."
-          bullets={["SOC 2 Type II, ISO 27001, HIPAA-ready, FedRAMP Moderate", "Bring-your-own encryption keys with EKM", "99.99% uptime SLA on Enterprise plans"]}
-          visual={<Mockup kind="security" />}
-          cta={{ label: "Visit the Trust Center", href: "/trust" }}
-        />
-        <Reveal className="mt-16 flex flex-wrap items-center justify-center gap-3">
-          {["SOC 2 Type II", "ISO 27001", "ISO 27018", "HIPAA", "FedRAMP Moderate", "GDPR", "CSA STAR"].map((b) => (
-            <span key={b} className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-semibold text-fg">
-              <ShieldCheck className="size-4 text-mint-ink" aria-hidden="true" />
-              {b}
-            </span>
-          ))}
-        </Reveal>
+        <div className="grid items-center gap-12 lg:grid-cols-2">
+          <Reveal className="flex flex-col items-start gap-5">
+            <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1 pr-3.5 pl-2 text-[0.8rem] font-semibold text-fg shadow-soft">
+              <Lock className="size-3.5 text-mint-ink" aria-hidden="true" /> Enterprise-grade security
+            </p>
+            <h2 className="text-display-md font-extrabold tracking-tight text-fg">Locked down by default. Loved by IT.</h2>
+            <p className="text-lead text-muted">
+              Enterprise Key Management, data residency in 9 regions, granular admin controls and the certifications regulated industries require.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {["SOC 2 Type II", "ISO 27001", "HIPAA", "FedRAMP Moderate", "GDPR"].map((b) => (
+                <span key={b} className="inline-flex items-center gap-1.5 rounded-full bg-tint-mint px-3 py-1.5 text-sm font-semibold text-mint-ink">
+                  <ShieldCheck className="size-4" aria-hidden="true" />
+                  {b}
+                </span>
+              ))}
+            </div>
+            <ArrowLink href="/trust">Visit the Trust Center</ArrowLink>
+          </Reveal>
+          <Reveal delay={0.1} className="relative">
+            <div aria-hidden="true" className="absolute -inset-6 rounded-[2.5rem] bg-mint/20 blur-3xl" />
+            <div className="relative">
+              <Mockup kind="security" />
+            </div>
+          </Reveal>
+        </div>
       </Section>
 
-      {/* Solutions teaser */}
+      {/* Pricing teaser */}
       <Section bg="soft">
-        <SectionHeader
-          eyebrow="Solutions"
-          title="Built for every team and industry"
-          subtitle="Pre-built templates, workflows and agents for the way your team works."
-        />
-        <IconCardGrid
-          columns={4}
-          items={departmentLinks.map((l) => ({
-            icon: l.icon ?? "grid",
-            title: l.label,
-            body: l.description ?? "",
-            href: l.href,
-            cta: "See the solution",
-          }))}
-        />
-        <Reveal className="mt-12 text-center">
-          <p className="mb-4 text-sm font-semibold text-muted">Or explore by industry</p>
-          <LinkChips className="justify-center" links={industryLinks.map((l) => ({ label: l.label, href: l.href, icon: l.icon }))} />
-        </Reveal>
+        <SectionHeader eyebrow="Pricing" tone="sky" title="Start free. Upgrade when you're ready." subtitle="Simple per-user pricing, and you only pay for people who are active." />
+        <Stagger className="grid gap-5 md:grid-cols-3">
+          {plans
+            .filter((p) => p.id !== "enterprise")
+            .map((p) => (
+              <StaggerItem key={p.id} lift className="h-full">
+                <Link
+                  href={`/pricing/${p.id === "business" ? "business-plus" : p.id}`}
+                  className={cn(
+                    "glow-card flex h-full flex-col rounded-[var(--radius-card)] border p-7 shadow-soft transition-shadow hover:shadow-card",
+                    p.highlight ? "border-gradient" : "border-line bg-surface",
+                  )}
+                >
+                  <span className="flex items-center justify-between">
+                    <span className="font-display text-xl font-bold text-fg">{p.name}</span>
+                    {p.highlight && <span className="rounded-full bg-button-gradient px-2.5 py-0.5 text-xs font-bold text-white dark:text-deep">Popular</span>}
+                  </span>
+                  <span className="mt-4 font-display text-4xl font-extrabold tracking-tight text-fg">
+                    ${p.annual}
+                    <span className="ml-1 text-sm font-medium text-muted">/ user / mo</span>
+                  </span>
+                  <span className="mt-2 text-sm text-muted">{p.tagline}</span>
+                  <ul className="mt-5 flex flex-col gap-2 text-sm">
+                    {p.features.slice(0, 3).map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-fg">
+                        <Check className="mt-0.5 size-4 shrink-0 text-mint-ink" aria-hidden="true" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-semibold text-primary">
+                    See {p.name} <ArrowRight className="size-4" aria-hidden="true" />
+                  </span>
+                </Link>
+              </StaggerItem>
+            ))}
+        </Stagger>
+        <div className="mt-10 text-center">
+          <ArrowLink href="/pricing">Compare all plans, including Enterprise</ArrowLink>
+        </div>
       </Section>
 
       <CTABand
-        title="Ready to bring your team together?"
+        title={
+          <>
+            Your team&apos;s best work <span className="text-gradient">starts here</span>
+          </>
+        }
         subtitle={`Join hundreds of thousands of organizations already working in ${B}. Free to start, no credit card required.`}
       />
     </>

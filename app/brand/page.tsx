@@ -22,18 +22,18 @@ export const metadata = buildMetadata({
 /* ------------------------------------------------------------------ */
 /* Color helpers (brand values mirror the tokens in app/globals.css)    */
 /* ------------------------------------------------------------------ */
-const DEEP = "#17113f";
+const DEEP = "#0b0a1a";
 
 type Swatch = { name: string; token: string; hex: string; role: string; tone?: Tone };
 
 const palette: Swatch[] = [
-  { name: "Primary", token: "--primary", hex: "#4228d6", role: "Our signature color for buttons, links and the moments that matter most.", tone: "violet" },
-  { name: "Deep", token: "--deep", hex: "#17113f", role: "Dark surfaces, footers and high-contrast type. Our neutral anchor." },
-  { name: "Coral", token: "--coral", hex: "#ff6a3d", role: "Energy and momentum. Use sparingly to draw attention.", tone: "coral" },
-  { name: "Mint", token: "--mint", hex: "#10b981", role: "Success, progress and positive status.", tone: "mint" },
-  { name: "Sun", token: "--sun", hex: "#ffb21e", role: "Optimism and highlights. Always pair with deep text.", tone: "sun" },
-  { name: "Pink", token: "--pink", hex: "#e8479b", role: "Celebration, community and the end of our gradient.", tone: "pink" },
-  { name: "Sky", token: "--sky", hex: "#3b82f6", role: "Information, data visualization and calm moments.", tone: "sky" },
+  { name: "Primary", token: "--primary", hex: "#5b3df5", role: "Our signature color for buttons, links and the moments that matter most.", tone: "violet" },
+  { name: "Deep", token: "--deep", hex: "#0b0a1a", role: "Dark surfaces, footers and high-contrast type. Our neutral anchor." },
+  { name: "Orange", token: "--coral", hex: "#ff7a1a", role: "Energy and momentum. Use sparingly to draw attention.", tone: "coral" },
+  { name: "Teal", token: "--mint", hex: "#14b8a6", role: "Success, progress and positive status.", tone: "mint" },
+  { name: "Amber", token: "--sun", hex: "#fbbf24", role: "Optimism and highlights. Always pair with deep text.", tone: "sun" },
+  { name: "Fuchsia", token: "--pink", hex: "#d946ef", role: "Celebration, community and the end of our gradient.", tone: "pink" },
+  { name: "Cyan", token: "--sky", hex: "#22d3ee", role: "Information, data visualization and calm moments.", tone: "sky" },
 ];
 
 function channels(hex: string) {
@@ -105,7 +105,7 @@ const rules: Rule[] = [
     label: "Logo surrounded by generous clear space",
     preview: (
       <div className="flex h-full items-center justify-center bg-white">
-        <span className="rounded-lg border-2 border-dashed border-[#4228d6]/40 p-4">
+        <span className="rounded-lg border-2 border-dashed border-[#5b3df5]/40 p-4">
           <Wordmark />
         </span>
       </div>
@@ -164,8 +164,8 @@ const rules: Rule[] = [
     body: "Avoid patterns, photos or gradients that compete with the logo and hurt legibility.",
     label: "Logo incorrectly placed on a busy, colorful background",
     preview: (
-      <div className="relative flex h-full items-center justify-center overflow-hidden bg-[linear-gradient(120deg,#ff6a3d,#ffb21e,#e8479b,#3b82f6)]">
-        <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(#17113f_1.5px,transparent_1.5px)] [background-size:12px_12px] opacity-40" />
+      <div className="relative flex h-full items-center justify-center overflow-hidden bg-[linear-gradient(120deg,#5b3df5,#d946ef,#ff7a1a)]">
+        <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(#0b0a1a_1.5px,transparent_1.5px)] [background-size:12px_12px] opacity-40" />
         <Wordmark className="relative" />
       </div>
     ),
@@ -226,8 +226,8 @@ function BrandVisual() {
     <div className="relative grid grid-cols-6 gap-4" aria-hidden="true">
       <div className="relative col-span-6 flex h-56 items-center justify-center overflow-hidden rounded-[var(--radius-panel)] bg-deep shadow-float sm:h-64">
         <div className="absolute inset-0 bg-dots opacity-10" />
-        <div className="absolute -top-16 -right-10 size-56 rounded-full bg-[#4228d6] opacity-60 blur-3xl" />
-        <div className="absolute -bottom-20 -left-10 size-56 rounded-full bg-[#e8479b] opacity-40 blur-3xl" />
+        <div className="absolute -top-16 -right-10 size-56 rounded-full bg-[#5b3df5] opacity-60 blur-3xl" />
+        <div className="absolute -bottom-20 -left-10 size-56 rounded-full bg-[#d946ef] opacity-40 blur-3xl" />
         <span className="relative inline-flex items-center gap-3 sm:gap-4">
           <LogoMark className="size-14 sm:size-20" />
           <span className="font-display text-4xl font-extrabold tracking-tight text-white sm:text-6xl">{B}</span>
@@ -319,13 +319,13 @@ export default function BrandPage() {
               <span className="inline-flex items-center gap-3 sm:gap-4">
                 <span className="relative">
                   <LogoMark className="size-14 sm:size-20" />
-                  <span className="absolute -bottom-9 left-1/2 -translate-x-1/2 text-xs font-bold tracking-[0.12em] whitespace-nowrap text-[#4228d6] uppercase">
+                  <span className="absolute -bottom-9 left-1/2 -translate-x-1/2 text-xs font-bold tracking-[0.12em] whitespace-nowrap text-[#5b3df5] uppercase">
                     Mark
                   </span>
                 </span>
                 <span className="relative">
                   <span className="font-display text-4xl font-extrabold tracking-tight text-deep sm:text-6xl">{B}</span>
-                  <span className="absolute -bottom-9 left-1/2 -translate-x-1/2 text-xs font-bold tracking-[0.12em] whitespace-nowrap text-[#4228d6] uppercase">
+                  <span className="absolute -bottom-9 left-1/2 -translate-x-1/2 text-xs font-bold tracking-[0.12em] whitespace-nowrap text-[#5b3df5] uppercase">
                     Wordmark
                   </span>
                 </span>
@@ -350,12 +350,12 @@ export default function BrandPage() {
               aria-label="Diagram showing clear space equal to x on every side of the logo"
               className="relative mt-8 flex flex-1 items-center justify-center rounded-2xl bg-white p-4 sm:p-10"
             >
-              <div className="relative border-2 border-dashed border-[#e8479b]/60 p-6 sm:p-10">
+              <div className="relative border-2 border-dashed border-[#d946ef]/60 p-6 sm:p-10">
                 <span className="absolute top-1 left-1/2 -translate-x-1/2 font-mono text-xs font-bold text-[#be185d]">x</span>
                 <span className="absolute bottom-1 left-1/2 -translate-x-1/2 font-mono text-xs font-bold text-[#be185d]">x</span>
                 <span className="absolute top-1/2 left-2 -translate-y-1/2 font-mono text-xs font-bold text-[#be185d]">x</span>
                 <span className="absolute top-1/2 right-2 -translate-y-1/2 font-mono text-xs font-bold text-[#be185d]">x</span>
-                <span className="inline-flex items-center gap-2 outline outline-1 outline-[#4228d6]/25">
+                <span className="inline-flex items-center gap-2 outline outline-1 outline-[#5b3df5]/25">
                   <LogoMark className="size-8 sm:size-10" />
                   <span className="font-display text-2xl font-extrabold tracking-tight text-deep sm:text-3xl">{B}</span>
                 </span>
@@ -376,7 +376,7 @@ export default function BrandPage() {
                   </span>
                 </span>
                 <span className="text-center">
-                  <span className="block font-display text-2xl font-extrabold text-[#17113f]">96 px</span>
+                  <span className="block font-display text-2xl font-extrabold text-[#0b0a1a]">96 px</span>
                   <span className="block text-sm text-[#57536f]">Full logo, 25 mm in print</span>
                 </span>
               </li>
@@ -385,7 +385,7 @@ export default function BrandPage() {
                   <LogoMark className="size-5" />
                 </span>
                 <span className="text-center">
-                  <span className="block font-display text-2xl font-extrabold text-[#17113f]">20 px</span>
+                  <span className="block font-display text-2xl font-extrabold text-[#0b0a1a]">20 px</span>
                   <span className="block text-sm text-[#57536f]">Mark only, 6 mm in print</span>
                 </span>
               </li>
@@ -475,16 +475,16 @@ export default function BrandPage() {
           <h3 className="font-display text-xl font-bold text-fg">Color proportions</h3>
           <p className="mt-1 text-muted">Lead with plenty of white space and deep type. Primary carries the brand, and accents add energy in small doses.</p>
           <div className="mt-6 flex h-14 overflow-hidden rounded-2xl border border-line" role="img" aria-label="Recommended color balance: 60% white, 18% deep, 12% primary, 10% accents">
-            <span className="flex items-center overflow-hidden bg-white pl-4 text-xs font-bold whitespace-nowrap text-[#17113f]" style={{ width: "60%" }}>
+            <span className="flex items-center overflow-hidden bg-white pl-4 text-xs font-bold whitespace-nowrap text-[#0b0a1a]" style={{ width: "60%" }}>
               White 60%
             </span>
-            <span className="flex items-center overflow-hidden bg-[#17113f] pl-3 text-xs font-bold whitespace-nowrap text-white" style={{ width: "18%" }}>
+            <span className="flex items-center overflow-hidden bg-[#0b0a1a] pl-3 text-xs font-bold whitespace-nowrap text-white" style={{ width: "18%" }}>
               Deep 18%
             </span>
-            <span className="flex items-center overflow-hidden bg-[#4228d6] pl-3 text-xs font-bold whitespace-nowrap text-white" style={{ width: "12%" }}>
+            <span className="flex items-center overflow-hidden bg-[#5b3df5] pl-3 text-xs font-bold whitespace-nowrap text-white" style={{ width: "12%" }}>
               <span className="hidden sm:inline">Primary 12%</span>
             </span>
-            {["#ff6a3d", "#10b981", "#ffb21e", "#e8479b", "#3b82f6"].map((hex) => (
+            {["#ff7a1a", "#14b8a6", "#fbbf24", "#d946ef", "#22d3ee"].map((hex) => (
               <span key={hex} style={{ width: "2%", backgroundColor: hex }} />
             ))}
           </div>

@@ -1,11 +1,10 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowRight, Check, Quote } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
 import { customerLogos } from "@/data/customers";
 import type { Story, Testimonial } from "@/data/stories";
 import type { Faq, Stat } from "@/data/types";
 import { ArrowLink, ButtonLink } from "@/components/ui/button";
-import { GradientBlobs } from "@/components/ui/blobs";
 import { CustomerLogo } from "@/components/ui/customer-logo";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { Marquee } from "@/components/ui/marquee";
@@ -15,40 +14,74 @@ import { toneStyles, toneAt, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 import type { Cta } from "./page-hero";
 
+/** Solid background per tone, for decorative glows. */
+const glow: Record<Tone, string> = {
+  violet: "bg-primary",
+  mint: "bg-mint",
+  sun: "bg-sun",
+  coral: "bg-coral",
+  pink: "bg-pink",
+  sky: "bg-sky",
+};
+
 /* ------------------------------------------------------------------ */
 export function LogoCloud({ title = "Trusted by teams at the world's most innovative companies", className }: { title?: string; className?: string }) {
+  const half = Math.ceil(customerLogos.length / 2);
+  const rows = [customerLogos.slice(0, half), customerLogos.slice(half)];
   return (
-    <section aria-label="Customers" className={cn("border-y border-line bg-bg py-10", className)}>
-      <p className="container-page mb-6 text-center text-sm font-semibold text-muted">{title}</p>
-      <Marquee duration={45}>
-        {customerLogos.map((l) => (
-          <CustomerLogo key={l.name} logo={l} className="mx-8 text-fg/70 transition-colors hover:text-fg sm:mx-10" />
+    <section aria-label="Customers" className={cn("bg-bg py-12", className)}>
+      <div className="container-page mb-8 flex items-center gap-4">
+        <span className="h-px flex-1 bg-gradient-to-r from-transparent to-line-strong" />
+        <p className="text-center text-sm font-semibold text-muted">{title}</p>
+        <span className="h-px flex-1 bg-gradient-to-l from-transparent to-line-strong" />
+      </div>
+      <div className="flex flex-col gap-6">
+        {rows.map((row, i) => (
+          <Marquee key={i} duration={38 + i * 8} reverse={i === 1}>
+            {row.map((l) => (
+              <span key={l.name} className="mx-3 inline-flex items-center rounded-full border border-line bg-surface px-6 py-3 shadow-soft">
+                <CustomerLogo logo={l} className="text-base text-fg/75" />
+              </span>
+            ))}
+          </Marquee>
         ))}
-      </Marquee>
+      </div>
     </section>
   );
 }
 
 /* ------------------------------------------------------------------ */
-export function StatsBand({ stats, bg = "soft", title }: { stats: Stat[]; bg?: SectionBg; title?: string }) {
+export function StatsBand({ stats, bg = "default", title }: { stats: Stat[]; bg?: SectionBg; title?: string }) {
   return (
-    <Section bg={bg} className="!py-16 md:!py-20">
-      {title && <p className="mb-10 text-center font-display text-display-sm font-bold text-fg">{title}</p>}
-      <Stagger className={cn("grid gap-8 text-center", stats.length >= 4 ? "grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3")}>
-        {stats.map((s, i) => (
-          <StaggerItem key={s.label}>
-            <p className={cn("font-display text-display-md font-extrabold", toneStyles[toneAt(i)].ink)}>
-              <CountUp value={s.value} prefix={s.prefix} suffix={s.suffix} decimals={s.decimals} />
-            </p>
-            <p className="mt-2 text-sm font-medium text-muted md:text-base">{s.label}</p>
-          </StaggerItem>
-        ))}
-      </Stagger>
+    <Section bg={bg} className="!py-14 md:!py-20">
+      {title && <p className="mb-8 text-center font-display text-display-sm font-bold text-fg">{title}</p>}
+      <Reveal>
+        <div className="border-gradient relative overflow-hidden rounded-[2rem] shadow-card">
+          <div aria-hidden="true" className="absolute inset-0 bg-aurora opacity-70" />
+          <dl
+            className={cn(
+              "relative grid divide-line",
+              stats.length >= 4 ? "grid-cols-2 lg:grid-cols-4 lg:divide-x" : "sm:grid-cols-3 sm:divide-x",
+            )}
+          >
+            {stats.map((s) => (
+              <div key={s.label} className="px-6 py-8 text-center sm:py-10">
+                <dt className="sr-only">{s.label}</dt>
+                <dd className="font-display text-display-md font-extrabold tracking-tight text-gradient">
+                  <CountUp value={s.value} prefix={s.prefix} suffix={s.suffix} decimals={s.decimals} />
+                </dd>
+                <dd className="mx-auto mt-2 max-w-[16rem] text-sm font-medium text-muted md:text-base">{s.label}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </Reveal>
     </Section>
   );
 }
 
 /* ------------------------------------------------------------------ */
+/** Feature row presented as a self-contained panel with a soft tone glow. */
 export function SplitFeature({
   eyebrow,
   title,
@@ -71,68 +104,75 @@ export function SplitFeature({
   id?: string;
 }) {
   return (
-    <div id={id} className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
-      <Reveal className={cn("flex flex-col items-start gap-5", reverse && "lg:order-2")}>
-        {eyebrow && <Eyebrow tone={tone}>{eyebrow}</Eyebrow>}
-        <h2 className="text-display-md font-bold text-fg">{title}</h2>
-        <div className="text-lead text-muted">{body}</div>
-        {bullets && (
-          <ul className="flex flex-col gap-3">
-            {bullets.map((b) => (
-              <li key={b} className="flex items-start gap-3 text-fg">
-                <span className={cn("mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full", toneStyles[tone].soft)}>
-                  <Check className="size-3.5" aria-hidden="true" />
-                </span>
-                {b}
-              </li>
-            ))}
-          </ul>
-        )}
-        {cta && (
-          <ArrowLink href={cta.href} className="mt-2">
-            {cta.label}
-          </ArrowLink>
-        )}
-      </Reveal>
-      <Reveal delay={0.1} className={cn("relative", reverse && "lg:order-1")}>
-        <div aria-hidden="true" className={cn("absolute -inset-6 -z-0 rounded-[2rem] bg-gradient-to-br opacity-80 blur-2xl", toneStyles[tone].gradient)} />
-        <div className="relative">{visual}</div>
-      </Reveal>
-    </div>
+    <Reveal id={id}>
+      <div className="relative overflow-hidden rounded-[2rem] border border-line bg-surface p-6 shadow-soft sm:p-10 lg:p-12">
+        <div aria-hidden="true" className={cn("absolute -top-32 size-[26rem] rounded-full opacity-25 blur-3xl", reverse ? "-left-32" : "-right-32", glow[tone])} />
+        <div className="relative grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+          <div className={cn("flex flex-col items-start gap-5", reverse && "lg:order-2")}>
+            {eyebrow && <Eyebrow tone={tone}>{eyebrow}</Eyebrow>}
+            <h2 className="text-display-sm font-extrabold tracking-tight text-fg lg:text-[2.35rem] lg:leading-[1.1]">{title}</h2>
+            <div className="text-lead text-muted">{body}</div>
+            {bullets && (
+              <ul className="grid w-full gap-2.5">
+                {bullets.map((b) => (
+                  <li key={b} className="flex items-center gap-3 rounded-xl bg-bg-soft px-3 py-2.5 text-fg">
+                    <span className={cn("inline-flex size-6 shrink-0 items-center justify-center rounded-full", toneStyles[tone].solid)}>
+                      <Check className="size-3.5" aria-hidden="true" />
+                    </span>
+                    <span className="text-[0.95rem] font-medium">{b}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {cta && (
+              <ArrowLink href={cta.href} className="mt-1">
+                {cta.label}
+              </ArrowLink>
+            )}
+          </div>
+          <div className={cn("relative", reverse && "lg:order-1")}>{visual}</div>
+        </div>
+      </div>
+    </Reveal>
   );
 }
 
 /* ------------------------------------------------------------------ */
 export type IconCard = { icon: IconName; title: string; body: string; href?: string; tone?: Tone; cta?: string };
 
+/** Card grid with a bento rhythm: in 3-column grids of 6, three cards span two columns. */
 export function IconCardGrid({ items, columns = 3, variant = "card" }: { items: IconCard[]; columns?: 2 | 3 | 4; variant?: "card" | "plain" }) {
   const cols = { 2: "md:grid-cols-2", 3: "md:grid-cols-2 lg:grid-cols-3", 4: "sm:grid-cols-2 lg:grid-cols-4" }[columns];
+  const wide = columns === 3 && items.length === 6 ? new Set([0, 3, 4]) : new Set<number>();
   return (
-    <Stagger className={cn("grid gap-5", cols)}>
+    <Stagger className={cn("grid gap-4 md:gap-5", cols)}>
       {items.map((item, i) => {
         const tone = item.tone ?? toneAt(i);
         const t = toneStyles[tone];
+        const big = wide.has(i);
         const inner = (
           <>
-            <span className={cn("inline-flex size-12 items-center justify-center rounded-2xl", t.soft)}>
+            <div aria-hidden="true" className={cn("absolute -right-16 -bottom-16 size-48 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover/card:opacity-30", glow[tone])} />
+            <span className={cn("relative inline-flex size-12 items-center justify-center rounded-2xl ring-1 ring-inset ring-black/5", t.soft)}>
               <Icon name={item.icon} className="size-6" />
             </span>
-            <h3 className="mt-5 font-display text-xl font-bold text-fg">{item.title}</h3>
-            <p className="mt-2 text-muted">{item.body}</p>
+            <h3 className={cn("relative mt-6 font-display font-bold tracking-tight text-fg", big ? "text-2xl" : "text-xl")}>{item.title}</h3>
+            <p className={cn("relative mt-2 text-muted", big && "max-w-md text-lg")}>{item.body}</p>
             {item.href && (
-              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+              <span className="relative mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-semibold text-primary">
                 {item.cta ?? "Learn more"}
-                <ArrowRight className="size-4 transition-transform group-hover/card:translate-x-1" aria-hidden="true" />
+                <ArrowUpRight className="size-4 transition-transform group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5" aria-hidden="true" />
               </span>
             )}
           </>
         );
         const cls = cn(
-          "group/card flex h-full flex-col rounded-[var(--radius-card)] p-6 transition-shadow duration-300",
-          variant === "card" ? "border border-line bg-surface shadow-soft hover:shadow-card" : "",
+          "group/card relative flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] p-6 sm:p-7",
+          variant === "card" ? "glow-card border border-line bg-surface shadow-soft transition-shadow duration-300 hover:shadow-card" : "",
+          big && "lg:min-h-[15rem]",
         );
         return (
-          <StaggerItem key={item.title} lift={variant === "card"} className="h-full">
+          <StaggerItem key={item.title} lift={variant === "card"} className={cn("h-full", big && "lg:col-span-2")}>
             {item.href ? (
               <Link href={item.href} className={cls}>
                 {inner}
@@ -151,11 +191,14 @@ export function IconCardGrid({ items, columns = 3, variant = "card" }: { items: 
 export function QuoteBlock({ quote, name, role, tone = "violet" }: { quote: string; name: string; role: string; tone?: Tone }) {
   return (
     <Reveal>
-      <figure className={cn("relative mx-auto max-w-4xl overflow-hidden rounded-[var(--radius-panel)] p-8 md:p-14", toneStyles[tone].tint)}>
-        <Quote className={cn("size-12", toneStyles[tone].ink)} aria-hidden="true" />
-        <blockquote className="mt-4 font-display text-display-sm leading-snug font-semibold text-fg">“{quote}”</blockquote>
-        <figcaption className="mt-6 flex items-center gap-3">
-          <span className={cn("inline-flex size-11 items-center justify-center rounded-full font-bold", toneStyles[tone].solid)}>
+      <figure className="border-gradient relative mx-auto max-w-4xl overflow-hidden rounded-[2rem] p-8 text-center shadow-card md:p-14">
+        <div aria-hidden="true" className="absolute inset-0 bg-aurora opacity-60" />
+        <span aria-hidden="true" className="relative block font-display text-[6rem] leading-[0.6] font-extrabold text-gradient">
+          &ldquo;
+        </span>
+        <blockquote className="relative mt-4 font-display text-display-sm leading-snug font-semibold text-fg">{quote}</blockquote>
+        <figcaption className="relative mt-8 inline-flex items-center gap-3 text-left">
+          <span className={cn("inline-flex size-12 items-center justify-center rounded-full font-bold", toneStyles[tone].solid)}>
             {name
               .split(" ")
               .map((p) => p[0])
@@ -178,18 +221,20 @@ export function StoryCard({ story }: { story: Story }) {
   return (
     <Link
       href={`/customer-stories/${story.slug}`}
-      className="group/story flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface shadow-soft transition-shadow hover:shadow-card"
+      className="glow-card group/story flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface shadow-soft transition-shadow hover:shadow-card"
     >
-      <div className={cn("flex h-36 items-center justify-center", t.tint)}>
-        <CustomerLogo logo={story.logo} className={cn("text-2xl", t.ink)} />
+      <div className={cn("relative flex h-40 items-center justify-center overflow-hidden", t.tint)}>
+        <div aria-hidden="true" className={cn("absolute -top-10 -right-10 size-40 rounded-full opacity-30 blur-2xl", glow[story.tone])} />
+        <div aria-hidden="true" className="absolute inset-0 bg-dots opacity-30" />
+        <CustomerLogo logo={story.logo} className={cn("relative text-2xl transition-transform duration-500 group-hover/story:scale-110", t.ink)} />
       </div>
       <div className="flex flex-1 flex-col p-6">
         <p className="text-xs font-bold tracking-[0.12em] text-subtle uppercase">{story.industry}</p>
         <h3 className="mt-2 font-display text-lg leading-snug font-bold text-fg">{story.headline}</h3>
-        <div className="mt-4 flex gap-6 border-t border-line pt-4">
+        <div className="mt-5 grid grid-cols-2 gap-3">
           {story.stats.slice(0, 2).map((s) => (
-            <div key={s.label}>
-              <p className={cn("font-display text-2xl font-extrabold", t.ink)}>
+            <div key={s.label} className="rounded-xl bg-bg-soft p-3">
+              <p className="font-display text-2xl font-extrabold text-gradient">
                 {s.prefix}
                 {s.decimals ? s.value.toFixed(s.decimals) : s.value.toLocaleString("en-US")}
                 {s.suffix}
@@ -211,10 +256,16 @@ export function StoryCard({ story }: { story: Story }) {
 export function TestimonialCard({ t }: { t: Testimonial }) {
   const s = toneStyles[t.tone];
   return (
-    <figure className="flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-soft">
-      <Quote className={cn("size-8", s.ink)} aria-hidden="true" />
-      <blockquote className="mt-4 flex-1 text-lg leading-relaxed text-fg">“{t.quote}”</blockquote>
-      <figcaption className="mt-6 flex items-center gap-3">
+    <figure className="glow-card flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-soft">
+      <div className="flex gap-0.5 text-sun" role="img" aria-label="5 out of 5 stars">
+        {Array.from({ length: 5 }, (_, i) => (
+          <svg key={i} viewBox="0 0 20 20" className="size-4 fill-current" aria-hidden="true">
+            <path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z" />
+          </svg>
+        ))}
+      </div>
+      <blockquote className="mt-4 flex-1 text-[1.05rem] leading-relaxed text-fg">“{t.quote}”</blockquote>
+      <figcaption className="mt-6 flex items-center gap-3 border-t border-line pt-5">
         <span className={cn("inline-flex size-10 items-center justify-center rounded-full text-sm font-bold", s.solid)}>
           {t.name
             .split(" ")
@@ -245,12 +296,13 @@ export function CTABand({
   secondary?: Cta | null;
 }) {
   return (
-    <section className="bg-bg px-3 py-10 sm:px-6 md:py-16" aria-label="Get started">
-      <div className="relative mx-auto max-w-[82rem] overflow-hidden rounded-[2rem] bg-deep px-6 py-16 text-center md:px-16 md:py-24">
-        <GradientBlobs variant="deep" />
-        <div aria-hidden="true" className="absolute inset-0 bg-dots opacity-20" />
+    <section className="bg-bg px-3 py-10 sm:px-4 md:py-16" aria-label="Get started">
+      <div className="grain relative mx-auto max-w-[80rem] overflow-hidden rounded-[2rem] bg-deep px-6 py-16 text-center sm:rounded-[2.5rem] md:px-16 md:py-24">
+        <div aria-hidden="true" className="absolute -top-40 left-1/2 h-[30rem] w-[60rem] -translate-x-1/2 rounded-full bg-brand-gradient opacity-40 blur-3xl" />
+        <div aria-hidden="true" className="absolute inset-0 bg-grid opacity-[0.07] invert" />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
         <Reveal className="relative mx-auto flex max-w-3xl flex-col items-center gap-6">
-          <h2 className="text-display-lg font-extrabold text-white">{title}</h2>
+          <h2 className="text-display-lg font-extrabold tracking-tight text-white">{title}</h2>
           {subtitle && <p className="text-lead text-on-deep-muted">{subtitle}</p>}
           <div className="mt-2 flex flex-wrap justify-center gap-3">
             <ButtonLink href={primary.href} variant="light" size="lg" arrow>
@@ -269,7 +321,6 @@ export function CTABand({
 }
 
 /* ------------------------------------------------------------------ */
-
 export function FAQ({ items, title = "Frequently asked questions", subtitle, bg = "default" }: { items: Faq[]; title?: string; subtitle?: string; bg?: SectionBg }) {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -278,25 +329,20 @@ export function FAQ({ items, title = "Frequently asked questions", subtitle, bg 
   };
   return (
     <Section bg={bg}>
-      <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-        <SectionHeader align="left" eyebrow="FAQ" title={title} subtitle={subtitle} className="lg:sticky lg:top-28 lg:self-start" />
-        <div className="flex flex-col gap-3">
-          {items.map((f) => (
-            <details
-              key={f.q}
-              className="group rounded-2xl border border-line bg-surface px-6 py-5 transition-shadow open:shadow-card"
-            >
-              <summary className="flex items-center justify-between gap-6 text-left font-semibold text-fg">
-                {f.q}
-                <span className="relative inline-flex size-7 shrink-0 items-center justify-center rounded-full bg-surface-2 text-primary">
-                  <span className="absolute h-0.5 w-3 rounded bg-current" />
-                  <span className="absolute h-3 w-0.5 rounded bg-current transition-transform group-open:rotate-90 group-open:opacity-0" />
-                </span>
-              </summary>
-              <p className="mt-3 pr-10 text-muted">{f.a}</p>
-            </details>
-          ))}
-        </div>
+      <SectionHeader eyebrow="FAQ" title={title} subtitle={subtitle} />
+      <div className="mx-auto flex max-w-3xl flex-col gap-3">
+        {items.map((f, i) => (
+          <details key={f.q} className="group rounded-2xl border border-line bg-surface px-5 py-4 shadow-soft transition-shadow open:shadow-card sm:px-6 sm:py-5">
+            <summary className="flex items-center gap-4 text-left font-semibold text-fg">
+              <span className="font-mono text-xs text-subtle">{String(i + 1).padStart(2, "0")}</span>
+              <span className="flex-1">{f.q}</span>
+              <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-full bg-surface-2 text-primary transition-all group-open:rotate-45 group-open:bg-button-gradient group-open:text-white dark:group-open:text-deep">
+                <Plus className="size-4" aria-hidden="true" />
+              </span>
+            </summary>
+            <p className="mt-3 pr-12 pl-8 text-muted">{f.a}</p>
+          </details>
+        ))}
       </div>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </Section>
@@ -311,7 +357,7 @@ export function LinkChips({ links, className }: { links: { label: string; href: 
         <li key={l.href}>
           <Link
             href={l.href}
-            className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2.5 text-sm font-semibold text-fg shadow-soft transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary"
+            className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2.5 text-sm font-semibold text-fg shadow-soft transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary hover:shadow-card"
           >
             {l.icon && <Icon name={l.icon} className="size-4" />}
             {l.label}

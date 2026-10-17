@@ -36,6 +36,16 @@ export function Section({
   );
 }
 
+const dot: Record<Tone, string> = {
+  violet: "bg-primary",
+  mint: "bg-mint",
+  sun: "bg-sun",
+  coral: "bg-coral",
+  pink: "bg-pink",
+  sky: "bg-sky",
+};
+
+/** Small pill label above headings: hairline border, glass fill and a coloured status dot. */
 export function Eyebrow({
   children,
   className,
@@ -48,11 +58,11 @@ export function Eyebrow({
   return (
     <p
       className={cn(
-        "inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold tracking-[0.12em] uppercase",
-        toneStyles[tone].soft,
+        "inline-flex items-center gap-2 rounded-full border border-line bg-surface/80 py-1 pr-3.5 pl-2 text-[0.8rem] font-semibold text-fg shadow-soft",
         className,
       )}
     >
+      <span className={cn("size-2 rounded-full shadow-[0_0_0_3px] shadow-current/15", dot[tone])} />
       {children}
     </p>
   );
@@ -89,13 +99,14 @@ export function SectionHeader({
     >
       {eyebrow &&
         (onDark ? (
-          <p className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-bold tracking-[0.12em] text-on-deep uppercase">
+          <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 py-1 pr-3.5 pl-2 text-[0.8rem] font-semibold text-on-deep">
+            <span className="size-2 rounded-full bg-pink" />
             {eyebrow}
           </p>
         ) : (
           <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
         ))}
-      <As id={id} className={cn("text-display-md font-bold", onDark ? "text-white" : "text-fg")}>
+      <As id={id} className={cn("text-display-md font-extrabold tracking-tight", onDark ? "text-white" : "text-fg")}>
         {title}
       </As>
       {subtitle && <p className={cn("text-lead", onDark ? "text-on-deep-muted" : "text-muted")}>{subtitle}</p>}

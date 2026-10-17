@@ -1,6 +1,7 @@
 "use client";
 
 import { MotionConfig } from "framer-motion";
+import { PointerGlow } from "@/components/ui/pointer-glow";
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
 
 export type ConsentView = "preferences" | "choices" | null;
@@ -39,7 +40,10 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <UIContext.Provider value={value}>
       {/* "user" honours prefers-reduced-motion for every Framer Motion animation */}
-      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+      <MotionConfig reducedMotion="user">
+        <PointerGlow />
+        {children}
+      </MotionConfig>
     </UIContext.Provider>
   );
 }

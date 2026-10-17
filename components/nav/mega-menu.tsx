@@ -65,7 +65,7 @@ export function MegaPanel({ menu, onNavigate }: { menu: MegaMenu } & CloseProps)
   const cols = menu.groups.length;
   // Solutions lists industries without descriptions; render them compactly in two columns.
   return (
-    <div className="container-page grid gap-8 py-8 lg:grid-cols-[1fr_17rem] xl:grid-cols-[1fr_19rem]">
+    <div className="grid gap-8 p-6 lg:grid-cols-[1fr_17rem] lg:p-8 xl:grid-cols-[1fr_19rem]">
       <div>
         <div
           className={cn(
@@ -126,7 +126,7 @@ export function MegaPanel({ menu, onNavigate }: { menu: MegaMenu } & CloseProps)
 
 export function CardsPanel({ menu, onNavigate }: { menu: CardsMenu } & CloseProps) {
   return (
-    <div className="container-page py-8">
+    <div className="p-6 lg:p-8">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <p className="max-w-xl text-lead text-muted">{menu.intro}</p>
         <Link
