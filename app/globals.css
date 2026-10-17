@@ -8,6 +8,8 @@
 /* ------------------------------------------------------------------ */
 :root {
   color-scheme: light;
+  /* Height of the sticky header: 0.75rem top gap + 4rem pill */
+  --header-h: 4.75rem;
 
   --bg: #fbfbfd;
   --bg-soft: #f4f3fa;
@@ -162,8 +164,9 @@
   --color-glass: var(--glass);
   --color-glass-strong: var(--glass-strong);
 
-  --font-display: var(--font-display-family), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-text-family), ui-sans-serif, system-ui, sans-serif;
+  /* Google Sans everywhere: display and body text share one family */
+  --font-display: var(--font-sans-family), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans-family), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-family), ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --shadow-soft: var(--shadow-sm);
@@ -320,7 +323,7 @@
     overflow-x: clip;
     background: var(--bg);
     color: var(--fg);
-    font-family: var(--font-text-family), ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-sans-family), ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -329,7 +332,6 @@
   h2,
   h3,
   h4 {
-    font-family: var(--font-display-family), ui-sans-serif, system-ui, sans-serif;
     text-wrap: balance;
   }
 
@@ -382,6 +384,19 @@
 
 @utility section-y {
   padding-block: clamp(4rem, 2.8rem + 5vw, 7.5rem);
+}
+
+/*
+ * For a page's first section: slides it up behind the floating header so its
+ * background reaches the top of the window. Content keeps its place; set
+ * --hero-pt to change the space above it (defaults to 2.5rem, 3.5rem from sm).
+ */
+@utility under-header {
+  margin-top: calc(-1 * var(--header-h));
+  padding-top: calc(var(--header-h) + var(--hero-pt, 2.5rem));
+  @media (width >= 40rem) {
+    padding-top: calc(var(--header-h) + var(--hero-pt, 3.5rem));
+  }
 }
 
 @utility text-gradient {

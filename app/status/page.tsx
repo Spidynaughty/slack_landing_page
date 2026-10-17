@@ -42,7 +42,7 @@ export default function StatusPage() {
   const avg = services.reduce((s, x) => s + x.uptime, 0) / services.length;
   return (
     <>
-      <section className="bg-bg-soft pt-10 pb-12 sm:pt-14">
+      <section className="under-header bg-bg-soft pb-12">
         <div className="container-page">
           <Breadcrumbs items={[{ label: "Status" }]} />
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">

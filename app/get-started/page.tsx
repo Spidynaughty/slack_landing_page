@@ -11,7 +11,7 @@ export const metadata = buildMetadata({
 
 export default function GetStartedPage() {
   return (
-    <section className="relative overflow-hidden py-12 md:py-20">
+    <section className="under-header relative overflow-hidden pb-12 [--hero-pt:3rem] md:pb-20 md:[--hero-pt:5rem]">
       <GradientBlobs className="opacity-70" />
       <div className="container-page relative">
         <div className="mx-auto mb-10 max-w-2xl text-center">

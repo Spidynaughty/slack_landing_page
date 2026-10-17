@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden pt-12 pb-24 sm:pt-16 md:pb-32">
+      <section className="under-header relative overflow-hidden pb-24 [--hero-pt:3rem] sm:[--hero-pt:4rem] md:pb-32">
         <div aria-hidden="true" className="absolute inset-0 bg-aurora" />
         <div aria-hidden="true" className="absolute inset-0 bg-grid mask-fade-b opacity-50" />
         <div aria-hidden="true" className="absolute top-24 left-1/2 size-[42rem] -translate-x-1/2 animate-spin-slow rounded-full bg-[conic-gradient(from_0deg,transparent,color-mix(in_srgb,var(--primary)_18%,transparent),transparent_40%)] blur-2xl" />

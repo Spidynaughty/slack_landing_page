@@ -16,7 +16,7 @@ export const metadata = buildMetadata({
 export default function ContactSalesPage() {
   return (
     <>
-      <section className="relative overflow-hidden pt-10 pb-20 sm:pt-14">
+      <section className="under-header relative overflow-hidden pb-20">
         <GradientBlobs />
         <div className="container-page relative">
           <Breadcrumbs items={[{ label: "Request a demo" }]} />

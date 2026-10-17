@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <section className="relative overflow-hidden py-24 md:py-36">
+    <section className="under-header relative overflow-hidden pb-24 [--hero-pt:6rem] md:pb-36 md:[--hero-pt:9rem]">
       <GradientBlobs />
       <div className="container-page relative mx-auto flex max-w-3xl flex-col items-center text-center">
         <p className="font-display text-[clamp(6rem,4rem+10vw,11rem)] leading-none font-extrabold text-gradient">404</p>

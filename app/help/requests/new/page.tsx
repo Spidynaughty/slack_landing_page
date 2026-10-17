@@ -17,7 +17,7 @@ export const metadata = buildMetadata({
 export default function SupportRequestPage() {
   const suggested = helpArticles.slice(0, 4);
   return (
-    <section className="bg-bg-soft pt-10 pb-24 sm:pt-14">
+    <section className="under-header bg-bg-soft pb-24">
       <div className="container-page">
         <Breadcrumbs items={navCrumbs("/help/requests/new", { section: "resources", label: "Customer support" })} />
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-14">

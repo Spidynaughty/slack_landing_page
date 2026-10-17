@@ -87,7 +87,7 @@ async function TemplateContent({ params }: { params: Promise<{ slug: string }> }
 
   return (
     <>
-      <section className={cn("relative overflow-hidden pt-10 pb-14 sm:pt-14 md:pb-20", t.tint)}>
+      <section className={cn("under-header relative overflow-hidden pb-14 md:pb-20", t.tint)}>
         <GradientBlobs className="opacity-50" />
         <div className="container-page relative">
           <Breadcrumbs items={navCrumbs("/templates/gallery", { section: "solutions", label: "Template gallery" }, [{ label: tpl.category }, { label: tpl.name }])} />

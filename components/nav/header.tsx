@@ -78,7 +78,7 @@ export function Header() {
   const elevated = scrolled || openId !== null;
 
   return (
-    <header id="site-header" className="sticky top-0 z-50 px-3 pt-3 sm:px-4">
+    <header id="site-header" className="sticky top-0 z-50 -mb-(--header-h) px-3 pt-3 sm:px-4">
       <a
         href="#main"
         className="sr-only z-[60] rounded-full bg-primary px-4 py-2 font-semibold text-primary-fg focus:not-sr-only focus:absolute focus:top-4 focus:left-4"

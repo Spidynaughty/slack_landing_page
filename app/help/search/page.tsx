@@ -25,7 +25,7 @@ export default function HelpSearchPage() {
       .toLowerCase(),
   }));
   return (
-    <section className="bg-bg-soft pt-10 pb-24 sm:pt-14">
+    <section className="under-header bg-bg-soft pb-24">
       <div className="container-page max-w-4xl">
         <Breadcrumbs items={navCrumbs("/help", { section: "resources", label: "Help Centre" }, [{ label: "Search" }])} />
         <h1 className="mb-8 text-center text-display-md font-extrabold text-fg">Search the Help Centre</h1>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google";
+import { Google_Sans, Google_Sans_Code } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { Header } from "@/components/nav/header";
 import { Footer } from "@/components/nav/footer";
@@ -10,22 +10,20 @@ import { themeScript } from "@/lib/theme";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const display = Bricolage_Grotesque({
-  variable: "--font-display-family",
+/** Google Sans for headings and body text alike; Google Sans Code for code. */
+const sans = Google_Sans({
+  variable: "--font-sans-family",
   subsets: ["latin"],
   display: "swap",
+  // next/font has no fallback metrics for Google Sans; globals.css lists the fallbacks
+  adjustFontFallback: false,
 });
 
-const text = Inter({
-  variable: "--font-text-family",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const mono = JetBrains_Mono({
+const mono = Google_Sans_Code({
   variable: "--font-mono-family",
   subsets: ["latin"],
   display: "swap",
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
@@ -60,7 +58,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${display.variable} ${text.variable} ${mono.variable}`}
+      className={`${sans.variable} ${mono.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
@@ -68,7 +66,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-dvh flex-col">
         <Providers>
           <Header />
-          <main id="main" tabIndex={-1} className="flex-1 outline-none">
+          <main id="main" tabIndex={-1} className="flex-1 pt-(--header-h) outline-none">
             {children}
           </main>
           <Footer />

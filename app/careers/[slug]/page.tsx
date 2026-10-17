@@ -77,7 +77,7 @@ async function JobContent({ params }: { params: Promise<{ slug: string }> }) {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-tint-pink pt-10 pb-14 sm:pt-14 md:pb-16">
+      <section className="under-header relative overflow-hidden bg-tint-pink pb-14 md:pb-16">
         <GradientBlobs className="opacity-50" />
         <div className="container-page relative">
           <Breadcrumbs items={[{ label: "Careers", href: "/careers" }, { label: job.team }, { label: job.title }]} />
