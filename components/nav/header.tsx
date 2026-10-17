@@ -1,0 +1,231 @@
+"use client";
+
+import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown, Search } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { headerActions, mainNav } from "@/data/nav";
+import { useUI } from "@/components/providers";
+import { buttonClasses } from "@/components/ui/button";
+import { Logo } from "@/components/ui/logo";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { cn } from "@/lib/utils";
+import { CardsPanel, MegaPanel } from "./mega-menu";
+import { MobileNav } from "./mobile-nav";
+
+const OPEN_DELAY = 90;
+const CLOSE_DELAY = 160;
+
+export function Header() {
+  const { openSearch } = useUI();
+  const [openId, setOpenId] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Menus opened by click or keyboard stay open until dismissed; hover-opened ones follow the pointer.
+  const pinned = useRef(false);
+  const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+
+  const clearTimer = () => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = null;
+  };
+
+  const close = useCallback(() => {
+    clearTimer();
+    pinned.current = false;
+    setOpenId(null);
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!openId) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        const id = openId;
+        close();
+        triggerRefs.current[id]?.focus();
+      }
+    };
+    const onPointer = (e: PointerEvent) => {
+      const header = document.getElementById("site-header");
+      if (header && !header.contains(e.target as Node)) close();
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointer);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointer);
+    };
+  }, [openId, close]);
+
+  const scheduleOpen = (id: string) => {
+    if (pinned.current) return;
+    clearTimer();
+    timer.current = setTimeout(() => setOpenId(id), openId ? 0 : OPEN_DELAY);
+  };
+  const scheduleClose = () => {
+    if (pinned.current) return;
+    clearTimer();
+    timer.current = setTimeout(() => setOpenId(null), CLOSE_DELAY);
+  };
+
+  const elevated = scrolled || openId !== null;
+
+  return (
+    <header
+      id="site-header"
+      className={cn(
+        "sticky top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300",
+        elevated
+          ? "border-line bg-glass shadow-[0_8px_30px_-12px_rgb(23_17_63/0.18)] backdrop-blur-xl backdrop-saturate-150"
+          : "border-transparent bg-glass backdrop-blur-md",
+      )}
+    >
+      <a
+        href="#main"
+        className="sr-only z-[60] rounded-full bg-primary px-4 py-2 font-semibold text-primary-fg focus:not-sr-only focus:absolute focus:top-3 focus:left-3"
+      >
+        Skip to content
+      </a>
+      <div className="container-page flex h-[4.5rem] items-center gap-4">
+        <Logo onClick={close} className="mr-2 xl:mr-4" />
+
+        <nav aria-label="Main" className="hidden lg:block">
+          <ul className="flex items-center">
+            {mainNav.map((item) => {
+              if (item.kind === "link") {
+                return (
+                  <li key={item.id}>
+                    <Link
+                      href={item.href}
+                      onClick={close}
+                      onMouseEnter={scheduleClose}
+                      className="inline-flex h-10 items-center rounded-full px-2 text-[0.95rem] font-semibold text-fg transition-colors hover:bg-surface-2 xl:px-3"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              }
+              const open = openId === item.id;
+              const panelId = `mega-${item.id}`;
+              return (
+                <li
+                  key={item.id}
+                  onMouseEnter={() => scheduleOpen(item.id)}
+                  onMouseLeave={scheduleClose}
+                  onBlur={(e) => {
+                    if (!e.currentTarget.contains(e.relatedTarget as Node | null) && open) {
+                      const header = document.getElementById("site-header");
+                      if (!header?.contains(e.relatedTarget as Node | null)) close();
+                    }
+                  }}
+                >
+                  <button
+                    ref={(el) => {
+                      triggerRefs.current[item.id] = el;
+                    }}
+                    type="button"
+                    aria-expanded={open}
+                    aria-controls={panelId}
+                    onClick={() => {
+                      clearTimer();
+                      pinned.current = !open;
+                      setOpenId(open ? null : item.id);
+                    }}
+                    className={cn(
+                      "inline-flex h-10 items-center gap-1 rounded-full px-2 text-[0.95rem] font-semibold transition-colors xl:px-3",
+                      open ? "bg-surface-2 text-primary" : "text-fg hover:bg-surface-2",
+                    )}
+                  >
+                    {item.label}
+                    <ChevronDown
+                      className={cn("size-4 transition-transform duration-200", open && "rotate-180")}
+                      aria-hidden="true"
+                    />
+                  </button>
+                  <AnimatePresence>
+                    {open && (
+                      <motion.div
+                        id={panelId}
+                        role="region"
+                        aria-label={`${item.label} menu`}
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6, transition: { duration: 0.12 } }}
+                        transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute inset-x-0 top-full max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-b border-line bg-surface shadow-float"
+                      >
+                        {item.kind === "mega" ? (
+                          <MegaPanel menu={item} onNavigate={close} />
+                        ) : (
+                          <CardsPanel menu={item} onNavigate={close} />
+                        )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+
+        <div className="ml-auto flex items-center gap-1 sm:gap-2">
+          {headerActions.map((action) => {
+            if (action.kind === "search") {
+              return (
+                <button
+                  key="search"
+                  type="button"
+                  onClick={() => {
+                    close();
+                    openSearch();
+                  }}
+                  className="group inline-flex h-10 items-center gap-2 rounded-full px-2.5 text-fg transition-colors hover:bg-surface-2"
+                  aria-label="Search (Ctrl+K)"
+                  aria-keyshortcuts="Control+K Meta+K"
+                >
+                  <Search className="size-[1.15rem]" aria-hidden="true" />
+                  <kbd className="hidden rounded-md border border-line px-1.5 py-0.5 font-sans text-[0.7rem] font-semibold text-subtle 2xl:inline">
+                    Ctrl K
+                  </kbd>
+                </button>
+              );
+            }
+            const visibility =
+              action.variant === "ghost"
+                ? "hidden lg:inline-flex"
+                : action.variant === "outline"
+                  ? "hidden xl:inline-flex"
+                  : "hidden sm:inline-flex";
+            return (
+              <Link
+                key={action.href}
+                href={action.href}
+                onClick={close}
+                className={cn(
+                  buttonClasses(
+                    action.variant === "primary" ? "primary" : action.variant === "outline" ? "secondary" : "ghost",
+                    "sm",
+                  ),
+                  visibility,
+                  "h-10",
+                )}
+              >
+                {action.label}
+              </Link>
+            );
+          })}
+          <ThemeToggle className="hidden sm:inline-flex lg:hidden xl:inline-flex" />
+          <MobileNav />
+        </div>
+      </div>
+    </header>
+  );
+}
