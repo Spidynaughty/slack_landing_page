@@ -17,7 +17,7 @@ export function FooterActionButton({
     <button
       type="button"
       onClick={() => openConsent(action === "cookie-preferences" ? "preferences" : "choices")}
-      className="inline-flex items-center gap-1.5 text-on-deep-muted underline-offset-4 hover:text-white hover:underline"
+      className="inline-flex items-center gap-1.5 text-muted underline-offset-4 hover:text-fg hover:underline"
       aria-haspopup="dialog"
     >
       {action === "privacy-choices" && (
@@ -40,12 +40,12 @@ export function NewsletterForm() {
   const id = useId();
   if (done) {
     return (
-      <div role="status" className="flex items-center gap-3 rounded-2xl bg-white/10 p-5">
-        <span className="inline-flex size-9 items-center justify-center rounded-full bg-mint text-deep">
+      <div role="status" className="flex items-center gap-3 rounded-2xl bg-tint-mint p-5 dark:bg-white/10">
+        <span className="inline-flex size-9 items-center justify-center rounded-full bg-mint text-white dark:text-deep">
           <Check className="size-5" aria-hidden="true" />
         </span>
-        <p className="text-sm text-on-deep">
-          <strong className="block text-white">You&apos;re on the list.</strong>
+        <p className="text-sm text-muted">
+          <strong className="block text-fg">You&apos;re on the list.</strong>
           Look out for our monthly product digest in your inbox.
         </p>
       </div>
@@ -69,7 +69,7 @@ export function NewsletterForm() {
       }}
       className="w-full"
     >
-      <label htmlFor={id} className="mb-2 block text-sm font-semibold text-white">
+      <label htmlFor={id} className="mb-2 block text-sm font-semibold text-fg">
         Get the monthly product digest
       </label>
       <div className="flex flex-col gap-2 sm:flex-row">
@@ -80,17 +80,17 @@ export function NewsletterForm() {
           required
           autoComplete="email"
           placeholder="you@company.com"
-          className="h-12 flex-1 rounded-full border border-white/15 bg-white/5 px-5 text-white outline-none placeholder:text-on-deep-muted/70 focus:border-white/40"
+          className="h-12 flex-1 rounded-full border border-line-strong bg-surface px-5 text-fg outline-none placeholder:text-subtle focus:border-primary focus:ring-4 focus:ring-primary/15 dark:border-white/15 dark:bg-white/5"
         />
         <button
           type="submit"
           disabled={sending}
-          className="h-12 rounded-full bg-white px-6 font-semibold text-deep transition-colors hover:bg-white/90 disabled:opacity-70"
+          className="h-12 rounded-full bg-primary px-6 font-semibold text-primary-fg transition-colors hover:bg-primary-hover disabled:opacity-70"
         >
           {sending ? "Subscribing…" : "Subscribe"}
         </button>
       </div>
-      <p className="mt-2 text-xs text-on-deep-muted/80" role={failure ? "alert" : undefined}>
+      <p className="mt-2 text-xs text-subtle" role={failure ? "alert" : undefined}>
         {failure || "No spam. Unsubscribe any time."}
       </p>
     </form>
@@ -106,11 +106,11 @@ export function RegionSelect() {
       <label htmlFor={id} className="sr-only">
         Region and language
       </label>
-      <Globe className="pointer-events-none absolute left-3 size-4 text-on-deep-muted" aria-hidden="true" />
+      <Globe className="pointer-events-none absolute left-3 size-4 text-muted" aria-hidden="true" />
       <select
         id={id}
         defaultValue={regions[0]}
-        className="h-9 appearance-none rounded-full border border-white/15 bg-white/5 pr-4 pl-9 text-xs font-semibold text-on-deep outline-none hover:border-white/30 [&>option]:text-deep"
+        className="h-9 appearance-none rounded-full border border-line-strong bg-surface pr-4 pl-9 text-xs font-semibold text-fg outline-none hover:border-primary/40 dark:border-white/15 dark:bg-white/5 [&>option]:bg-surface [&>option]:text-fg"
       >
         {regions.map((r) => (
           <option key={r}>{r}</option>

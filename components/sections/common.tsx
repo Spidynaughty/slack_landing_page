@@ -275,19 +275,20 @@ export function CTABand({
 }) {
   return (
     <section className="bg-bg px-3 py-10 sm:px-4 md:py-16" aria-label="Get started">
-      <div className="grain relative mx-auto max-w-[80rem] overflow-hidden rounded-[2rem] bg-deep px-6 py-16 text-center sm:rounded-[2.5rem] md:px-16 md:py-24">
-        <div aria-hidden="true" className="absolute -top-40 left-1/2 h-[30rem] w-[60rem] -translate-x-1/2 rounded-full bg-brand-gradient opacity-40 blur-3xl" />
-        <div aria-hidden="true" className="absolute inset-0 bg-grid opacity-[0.07] invert" />
-        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+      {/* Follows the theme: a white card in light mode, deep navy in dark mode */}
+      <div className="relative mx-auto max-w-[80rem] overflow-hidden rounded-[2rem] border border-line bg-surface px-6 py-16 text-center shadow-card sm:rounded-[2.5rem] md:px-16 md:py-24 dark:grain dark:border-transparent dark:bg-deep">
+        <div aria-hidden="true" className="absolute -top-40 left-1/2 h-[30rem] w-[60rem] -translate-x-1/2 rounded-full bg-brand-gradient opacity-15 blur-3xl dark:opacity-40" />
+        <div aria-hidden="true" className="absolute inset-0 bg-grid mask-fade-b opacity-60 dark:opacity-30" />
+        <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent dark:via-white/40" />
         <Reveal className="relative mx-auto flex max-w-3xl flex-col items-center gap-6">
-          <h2 className="text-display-lg font-extrabold tracking-tight text-white">{title}</h2>
-          {subtitle && <p className="text-lead text-on-deep-muted">{subtitle}</p>}
+          <h2 className="text-display-lg font-extrabold tracking-tight text-fg">{title}</h2>
+          {subtitle && <p className="text-lead text-muted">{subtitle}</p>}
           <div className="mt-2 flex flex-wrap justify-center gap-3">
-            <ButtonLink href={primary.href} variant="light" size="lg" arrow>
+            <ButtonLink href={primary.href} variant="primary" size="lg" arrow>
               {primary.label}
             </ButtonLink>
             {secondary && (
-              <ButtonLink href={secondary.href} variant="outline-light" size="lg">
+              <ButtonLink href={secondary.href} variant="secondary" size="lg">
                 {secondary.label}
               </ButtonLink>
             )}

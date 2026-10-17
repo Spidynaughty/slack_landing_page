@@ -43,7 +43,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
     <div
       role="radiogroup"
       aria-label="Colour theme"
-      className={cn("inline-flex rounded-full border border-white/15 bg-white/5 p-1", className)}
+      className={cn("inline-flex rounded-full border border-line bg-bg-soft p-1 dark:border-white/15 dark:bg-white/5", className)}
     >
       {options.map(({ value, label, icon: I }) => {
         const active = pref === value;
@@ -56,7 +56,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
             onClick={() => applyPreference(value)}
             className={cn(
               "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors",
-              active ? "bg-white text-deep" : "text-on-deep-muted hover:text-white",
+              active ? "bg-primary text-primary-fg shadow-soft" : "text-muted hover:text-fg",
             )}
           >
             <I className="size-3.5" aria-hidden="true" />
