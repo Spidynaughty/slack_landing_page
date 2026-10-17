@@ -19,11 +19,11 @@ export type Story = {
   publishedAt: string;
   stats: Stat[];
   sections: ArticleSection[];
-  quote: { text: string; name: string; role: string };
   products: { label: string; href: string }[];
 };
 
-export type Testimonial = { quote: string; name: string; role: string; company: string; tone: Tone };
+/** A review as the review cards display it (see lib/content.ts for where reviews come from). */
+export type Testimonial = { quote: string; name: string; role: string; company: string; tone: Tone; rating?: number };
 
 const logo = (name: string) => customerLogos.find((l) => l.name === name) ?? customerLogos[0];
 
@@ -81,11 +81,6 @@ export const stories: Story[] = [
         ],
       },
     ],
-    quote: {
-      text: "Our best agents used to spend half their day chasing people for answers. Now the answers come to the case channel, and the agent drafts the reply before we've finished reading.",
-      name: "Danielle Ortiz",
-      role: "VP Customer Experience, Brightline",
-    },
     products: [
       { label: "Channels", href: "/features/channels" },
       { label: `${B} Agents`, href: "/ai-agents" },
@@ -134,11 +129,6 @@ export const stories: Story[] = [
         ],
       },
     ],
-    quote: {
-      text: "The code channel is the closest thing we have to a shared brain. Every decision about a service is there, searchable, with the PR right next to it.",
-      name: "Mateo Fischer",
-      role: "Director of Engineering, Kestrel Labs",
-    },
     products: [
       { label: `${B} Code`, href: "/features/code-channels" },
       { label: "Huddles", href: "/features/huddles" },
@@ -187,11 +177,6 @@ export const stories: Story[] = [
         ],
       },
     ],
-    quote: {
-      text: "We went from reacting to yesterday's numbers to seeing what is happening right now across every hospital, with the controls our compliance team needs.",
-      name: "Dr. Naomi Brooks",
-      role: "Chief Operating Officer, Halcyon Health",
-    },
     products: [
       { label: "Lists", href: "/features/task-list" },
       { label: "Enterprise Key Management", href: "/enterprise-key-management" },
@@ -239,11 +224,6 @@ export const stories: Story[] = [
         ],
       },
     ],
-    quote: {
-      text: "Security was non-negotiable. We got stronger controls than we had before, and our people finally have one place to work.",
-      name: "Rafael Mendes",
-      role: "Chief Information Security Officer, Vantage Bank",
-    },
     products: [
       { label: `${B} Connect`, href: "/connect" },
       { label: "Enterprise", href: "/enterprise" },
@@ -290,75 +270,11 @@ export const stories: Story[] = [
         ],
       },
     ],
-    quote: {
-      text: "Our drivers aren't desk workers, so it had to be dead simple. Two taps, and the whole operation knows what's happening.",
-      name: "Kenji Watanabe",
-      role: "Head of Operations, Orbital Freight",
-    },
     products: [
       { label: "Workflow Builder", href: "/features/workflow-automation" },
       { label: "Lists", href: "/features/task-list" },
       { label: `${B} Connect`, href: "/connect" },
     ],
-  },
-];
-
-export const testimonials: Testimonial[] = [
-  {
-    quote: "We closed our biggest quarter ever, and the deal channels are why. Everyone who can help a deal is one mention away.",
-    name: "Marisol Grant",
-    role: "Chief Revenue Officer",
-    company: "Copperleaf",
-    tone: "violet",
-  },
-  {
-    quote: "Huddles replaced half our meetings. We jump in, solve it, and the notes are already in the channel when we hang up.",
-    name: "Tobias Engel",
-    role: "Head of Product",
-    company: "Juniper Studios",
-    tone: "mint",
-  },
-  {
-    quote: "AI recaps give me back an hour every morning. I start the day knowing exactly what changed and what needs me.",
-    name: "Aisha Rahman",
-    role: "VP Operations",
-    company: "Meridian Air",
-    tone: "sun",
-  },
-  {
-    quote: "Our IT helpdesk agent resolves 40% of requests before a human ever sees them, and it never sleeps.",
-    name: "Grant Whitfield",
-    role: "Director of IT",
-    company: "Pinecrest University",
-    tone: "coral",
-  },
-  {
-    quote: "Shared channels with our agencies changed everything. Feedback that took a week by email now takes an afternoon.",
-    name: "Lena Novak",
-    role: "Marketing Director",
-    company: "Lumen & Co",
-    tone: "pink",
-  },
-  {
-    quote: "Security reviewed every control before rollout. EKM and data residency made the decision easy.",
-    name: "Samuel Osei",
-    role: "Chief Information Security Officer",
-    company: "Vantage Bank",
-    tone: "sky",
-  },
-  {
-    quote: "New hires search old channels to learn how we work. Onboarding went from a month to a week.",
-    name: "Chloe Martin",
-    role: "People Partner",
-    company: "Northwind",
-    tone: "violet",
-  },
-  {
-    quote: "We built 30 workflows in the first month without writing a line of code. Our ops team feels superhuman.",
-    name: "Ravi Iyer",
-    role: "Operations Lead",
-    company: "Atlas Motors",
-    tone: "mint",
   },
 ];
 

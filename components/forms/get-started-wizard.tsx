@@ -7,6 +7,7 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import { Icon, type IconName } from "@/components/ui/icon";
 import { LogoMark } from "@/components/ui/logo";
 import { site } from "@/lib/site";
+import { submitForm } from "@/lib/submit-form";
 import { cn, slugify } from "@/lib/utils";
 import { inputClass } from "./lead-form";
 
@@ -34,6 +35,7 @@ export function GetStartedWizard() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [creating, setCreating] = useState(false);
   const [done, setDone] = useState(false);
+  const [failure, setFailure] = useState("");
 
   const validate = () => {
     const e: Record<string, string> = {};
@@ -50,15 +52,20 @@ export function GetStartedWizard() {
     return Object.keys(e).length === 0;
   };
 
-  const next = (ev?: FormEvent) => {
+  const next = async (ev?: FormEvent) => {
     ev?.preventDefault();
     if (!validate()) return;
     if (step === steps.length - 1) {
       setCreating(true);
-      setTimeout(() => {
-        setCreating(false);
+      setFailure("");
+      try {
+        await submitForm("Sign-up", { ...data });
         setDone(true);
-      }, 1200);
+      } catch (err) {
+        setFailure(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      } finally {
+        setCreating(false);
+      }
       return;
     }
     setDir(1);
@@ -302,6 +309,11 @@ export function GetStartedWizard() {
           </motion.div>
         </AnimatePresence>
 
+        {failure && (
+          <p role="alert" className="mt-6 text-sm font-medium text-coral-ink">
+            {failure}
+          </p>
+        )}
         <div className="mt-8 flex items-center justify-between gap-3">
           <button type="button" onClick={back} disabled={step === 0} className="inline-flex h-12 items-center gap-1.5 rounded-full px-5 font-semibold text-fg hover:bg-surface-2 disabled:invisible">
             <ArrowLeft className="size-4" aria-hidden="true" /> Back

@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useId, useState, type FormEvent } from "react";
+import { submitForm } from "@/lib/submit-form";
 import { cn } from "@/lib/utils";
 
 export type FieldDef = {
@@ -21,7 +22,7 @@ export type FieldDef = {
 export const inputClass =
   "h-12 w-full rounded-xl border border-line-strong bg-bg px-4 text-fg outline-none transition-colors placeholder:text-subtle focus:border-primary focus:ring-4 focus:ring-primary/15 aria-[invalid=true]:border-coral";
 
-/** Front-end-only form: validates, fakes a short submit and shows a success state. */
+/** Validates in the browser, then saves the entry to the backend (it appears in the admin inbox). */
 export function LeadForm({
   fields,
   submitLabel,
@@ -30,9 +31,12 @@ export function LeadForm({
   className,
   consent = true,
   onDark = false,
+  formName,
 }: {
   fields: FieldDef[];
   submitLabel: string;
+  /** How the entry is labelled in the admin inbox. Defaults to the submit button label. */
+  formName?: string;
   successTitle: string;
   successBody: string;
   className?: string;
@@ -42,8 +46,9 @@ export function LeadForm({
   const id = useId();
   const [status, setStatus] = useState<"idle" | "submitting" | "done">("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [failure, setFailure] = useState("");
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const next: Record<string, string> = {};
@@ -59,8 +64,17 @@ export function LeadForm({
       first?.focus();
       return;
     }
+    const values: Record<string, string | boolean> = {};
+    for (const f of fields) values[f.name] = f.type === "checkbox" ? Boolean(data.get(f.name)) : String(data.get(f.name) ?? "").trim();
+    setFailure("");
     setStatus("submitting");
-    setTimeout(() => setStatus("done"), 900);
+    try {
+      await submitForm(formName ?? submitLabel, values, String(data.get("website") ?? ""));
+      setStatus("done");
+    } catch (err) {
+      setFailure(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setStatus("idle");
+    }
   };
 
   return (
@@ -94,6 +108,8 @@ export function LeadForm({
           </motion.div>
         ) : (
           <motion.form key="form" noValidate onSubmit={onSubmit} exit={{ opacity: 0 }} className="grid gap-4 sm:grid-cols-2">
+            {/* Honeypot: hidden from people, filled in by bots */}
+            <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
             {fields.map((f) => {
               const fid = `${id}-${f.name}`;
               const err = errors[f.name];
@@ -182,10 +198,15 @@ export function LeadForm({
                 <Link href="/legal/privacy" className="underline">
                   Privacy Policy
                 </Link>
-                . This is a demo form; nothing is sent.
+                .
               </p>
             )}
             <div className="sm:col-span-2">
+              {failure && (
+                <p role="alert" className="mb-3 text-sm font-medium text-coral-ink">
+                  {failure}
+                </p>
+              )}
               <button
                 type="submit"
                 disabled={status === "submitting"}

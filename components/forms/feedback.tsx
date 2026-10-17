@@ -2,6 +2,7 @@
 
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import { useState } from "react";
+import { submitForm } from "@/lib/submit-form";
 import { cn } from "@/lib/utils";
 
 /** "Was this article helpful?" widget for help articles. */
@@ -21,7 +22,11 @@ export function HelpfulWidget() {
               <button
                 key={v}
                 type="button"
-                onClick={() => setVote(v)}
+                onClick={() => {
+                  setVote(v);
+                  // Best effort: the thank-you shows even if saving fails
+                  submitForm("Article feedback", { helpful: v === "yes" ? "Yes" : "No", article: document.title }).catch(() => {});
+                }}
                 className={cn(
                   "inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-semibold text-fg transition-colors hover:border-primary/40 hover:text-primary",
                 )}

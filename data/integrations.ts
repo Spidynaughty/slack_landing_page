@@ -23,7 +23,6 @@ export type App = {
   icon: IconName;
   tone: Tone;
   installs: string;
-  rating: number;
   featured?: boolean;
   agent?: boolean;
   bullets: string[];
@@ -39,7 +38,6 @@ export const apps: App[] = [
     icon: "folder",
     tone: "sky",
     installs: "1.2M",
-    rating: 4.8,
     featured: true,
     bullets: ["Rich file previews", "Access requests in DMs", "Search files from the search bar"],
   },
@@ -51,7 +49,6 @@ export const apps: App[] = [
     icon: "kanban",
     tone: "violet",
     installs: "860K",
-    rating: 4.7,
     featured: true,
     bullets: ["Turn messages into issues", "Sprint summaries", "Status changes posted to channels"],
   },
@@ -63,7 +60,6 @@ export const apps: App[] = [
     icon: "calendar",
     tone: "coral",
     installs: "2.1M",
-    rating: 4.9,
     featured: true,
     bullets: ["Morning agenda in DMs", "Auto-set status in meetings", "Join with one click"],
   },
@@ -75,7 +71,6 @@ export const apps: App[] = [
     icon: "siren",
     tone: "pink",
     installs: "340K",
-    rating: 4.8,
     featured: true,
     bullets: ["Auto-created incident channels", "Acknowledge from a message", "Postmortem canvases"],
   },
@@ -87,7 +82,6 @@ export const apps: App[] = [
     icon: "branch",
     tone: "mint",
     installs: "720K",
-    rating: 4.7,
     featured: true,
     bullets: ["PR previews and reviews", "CI notifications", "Suggested reviewers"],
   },
@@ -99,7 +93,6 @@ export const apps: App[] = [
     icon: "palette",
     tone: "pink",
     installs: "510K",
-    rating: 4.6,
     featured: true,
     bullets: ["Live frame previews", "Comment notifications", "Version updates"],
   },
@@ -111,7 +104,6 @@ export const apps: App[] = [
     icon: "receipt",
     tone: "sun",
     installs: "190K",
-    rating: 4.5,
     featured: true,
     bullets: ["One-click approvals", "Budget snapshots", "Audit trail"],
   },
@@ -123,7 +115,6 @@ export const apps: App[] = [
     icon: "userPlus",
     tone: "mint",
     installs: "260K",
-    rating: 4.7,
     featured: true,
     agent: true,
     bullets: ["Interview channels", "Scorecard reminders", "Recruiting agent"],
@@ -136,7 +127,6 @@ export const apps: App[] = [
     icon: "chart",
     tone: "sky",
     installs: "430K",
-    rating: 4.6,
     featured: true,
     bullets: ["Dashboard snapshots", "Threshold alerts", "Ask questions in plain English"],
   },
@@ -148,7 +138,6 @@ export const apps: App[] = [
     icon: "shieldCheck",
     tone: "violet",
     installs: "150K",
-    rating: 4.8,
     featured: true,
     bullets: ["Alert triage channels", "Access review workflows", "Threat intel enrichment"],
   },
@@ -160,7 +149,6 @@ export const apps: App[] = [
     icon: "headset",
     tone: "coral",
     installs: "380K",
-    rating: 4.7,
     featured: true,
     agent: true,
     bullets: ["Case channels", "Two-way ticket sync", "Service agent handoff"],
@@ -173,7 +161,6 @@ export const apps: App[] = [
     icon: "clipboard",
     tone: "sun",
     installs: "640K",
-    rating: 4.6,
     featured: true,
     bullets: ["Form-triggered workflows", "Responses to lists", "Conditional logic"],
   },
@@ -185,7 +172,6 @@ export const apps: App[] = [
     icon: "pen",
     tone: "violet",
     installs: "220K",
-    rating: 4.5,
     bullets: ["Notes to canvas", "Action item extraction", "Attendee sharing"],
   },
   {
@@ -196,7 +182,6 @@ export const apps: App[] = [
     icon: "video",
     tone: "sky",
     installs: "1.6M",
-    rating: 4.6,
     bullets: ["Start meetings with a command", "Recordings posted to channel", "Transcripts"],
   },
   {
@@ -207,7 +192,6 @@ export const apps: App[] = [
     icon: "fileSignature",
     tone: "mint",
     installs: "300K",
-    rating: 4.7,
     bullets: ["Send for signature", "Signing notifications", "Template library"],
   },
   {
@@ -218,7 +202,6 @@ export const apps: App[] = [
     icon: "rocket",
     tone: "coral",
     installs: "280K",
-    rating: 4.6,
     bullets: ["Build status", "Deploy approvals", "One-click rollback"],
   },
   {
@@ -229,7 +212,6 @@ export const apps: App[] = [
     icon: "mail",
     tone: "pink",
     installs: "170K",
-    rating: 4.4,
     bullets: ["Send approvals", "Performance digests", "Audience alerts"],
   },
   {
@@ -240,7 +222,6 @@ export const apps: App[] = [
     icon: "message",
     tone: "sun",
     installs: "410K",
-    rating: 4.5,
     bullets: ["Polls in threads", "Anonymous surveys", "Results charts"],
   },
   {
@@ -251,7 +232,6 @@ export const apps: App[] = [
     icon: "users",
     tone: "mint",
     installs: "520K",
-    rating: 4.8,
     bullets: ["Time-off approvals", "Team calendars", "Celebrations"],
   },
   {
@@ -262,7 +242,6 @@ export const apps: App[] = [
     icon: "database",
     tone: "sky",
     installs: "95K",
-    rating: 4.5,
     agent: true,
     bullets: ["Natural-language queries", "Chart sharing", "Data agent"],
   },
@@ -274,7 +253,6 @@ export const apps: App[] = [
     icon: "key",
     tone: "violet",
     installs: "210K",
-    rating: 4.7,
     bullets: ["Access requests", "Risky sign-in alerts", "Offboarding workflows"],
   },
   {
@@ -285,7 +263,6 @@ export const apps: App[] = [
     icon: "handshake",
     tone: "coral",
     installs: "160K",
-    rating: 4.6,
     agent: true,
     bullets: ["Quote approvals", "Deal alerts", "Pricing agent"],
   },
@@ -297,7 +274,6 @@ export const apps: App[] = [
     icon: "globe",
     tone: "sun",
     installs: "130K",
-    rating: 4.4,
     bullets: ["Policy-aware booking", "Itinerary updates", "Expense hand-off"],
   },
   {
@@ -308,7 +284,6 @@ export const apps: App[] = [
     icon: "wallet",
     tone: "mint",
     installs: "350K",
-    rating: 4.6,
     bullets: ["Receipt capture", "Approvals in DMs", "Reimbursement status"],
   },
 ];

@@ -572,7 +572,7 @@ export function ClipsMockup({ className }: { className?: string }) {
           Quick walkthrough of the new onboarding flow (2 min).
         </Message>
         <div className="mx-4 overflow-hidden rounded-xl border border-line">
-          <div className="relative flex aspect-video items-center justify-center bg-gradient-to-br from-[#2a1a8f] via-[#5b3df5] to-[#d946ef]">
+          <div className="relative flex aspect-video items-center justify-center bg-gradient-to-br from-[#051121] via-[#0d55c7] to-[#2588ff]">
             <div className="absolute inset-x-6 top-6 h-16 rounded-lg bg-white/15 backdrop-blur" />
             <div className="absolute right-6 bottom-12 left-6 grid grid-cols-3 gap-2">
               <div className="h-10 rounded-md bg-white/20" />

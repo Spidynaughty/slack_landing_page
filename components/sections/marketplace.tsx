@@ -12,7 +12,7 @@ export function Marketplace() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("All");
   const [agentsOnly, setAgentsOnly] = useState(false);
-  const [sort, setSort] = useState<"popular" | "rating" | "name">("popular");
+  const [sort, setSort] = useState<"popular" | "name">("popular");
 
   const list = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -20,7 +20,7 @@ export function Marketplace() {
     return apps
       .filter((a) => (category === "All" || a.category === category) && (!agentsOnly || a.agent))
       .filter((a) => !q || `${a.name} ${a.description} ${a.category}`.toLowerCase().includes(q))
-      .sort((a, b) => (sort === "name" ? a.name.localeCompare(b.name) : sort === "rating" ? b.rating - a.rating : parse(b.installs) - parse(a.installs)));
+      .sort((a, b) => (sort === "name" ? a.name.localeCompare(b.name) : parse(b.installs) - parse(a.installs)));
   }, [query, category, agentsOnly, sort]);
 
   const counts = (c: string) => (c === "All" ? apps.length : apps.filter((a) => a.category === c).length);
@@ -73,7 +73,6 @@ export function Marketplace() {
             Sort
             <select value={sort} onChange={(e) => setSort(e.target.value as typeof sort)} className="bg-transparent font-semibold text-fg outline-none">
               <option value="popular">Most installed</option>
-              <option value="rating">Highest rated</option>
               <option value="name">Name</option>
             </select>
           </label>

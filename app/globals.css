@@ -11,114 +11,130 @@
   /* Height of the sticky header: 0.75rem top gap + 4rem pill */
   --header-h: 4.75rem;
 
-  --bg: #fbfbfd;
-  --bg-soft: #f4f3fa;
+  /* Electric Messenger: bright blue accents, navy text, pale blue backgrounds */
+  --bg: #f4f7fb;
+  --bg-soft: #eff4fb;
   --surface: #ffffff;
-  --surface-2: #f1f0f8;
-  --surface-3: #e6e4f2;
-  --fg: #0e0d1a;
-  --fg-muted: #555268;
-  --fg-subtle: #706d86;
-  --line: #e7e5f0;
-  --line-strong: #d3d0e2;
+  --surface-2: #f1f5fb;
+  --surface-3: #e2eaf5;
+  --fg: #102039;
+  --fg-muted: #5e718d;
+  --fg-subtle: #5f7290;
+  --line: #e2e8f2;
+  --line-strong: #cdd7e5;
 
-  /* Electric violet primary */
-  --primary: #5b3df5;
-  --primary-hover: #4a2ee0;
+  --primary: #1769f5;
+  --primary-hover: #0f58d6;
   --primary-fg: #ffffff;
-  --primary-soft: #efebff;
-  --deep: #0b0a1a;
-  --deep-2: #17142e;
-  --on-deep: #f6f5ff;
-  --on-deep-muted: #b9b5d6;
+  --primary-soft: #e2efff;
+  --highlight: #2588ff;
+  --brand-deep: #0d55c7;
+  --deep: #051121;
+  --deep-2: #0b1a2e;
+  --on-deep: #f3f7fd;
+  --on-deep-muted: #9eb0c6;
 
-  /* Accents: orange, teal, amber, fuchsia, cyan */
-  --coral: #ff7a1a;
-  --mint: #14b8a6;
-  --sun: #fbbf24;
-  --pink: #d946ef;
-  --sky: #22d3ee;
+  /* Status */
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --unread: #ff4968;
+
+  /* Accents for categories and illustrations */
+  --coral: #ff4968;
+  --mint: #16a34a;
+  --sun: #f59e0b;
+  --pink: #e51b5b;
+  --sky: #0ea5e9;
 
   /* Accent text variants that keep AA contrast on light surfaces */
-  --coral-ink: #c2410c;
-  --mint-ink: #0f766e;
-  --sun-ink: #a16207;
-  --pink-ink: #a21caf;
-  --sky-ink: #0e7490;
+  --coral-ink: #c81e45;
+  --mint-ink: #166534;
+  --sun-ink: #b45309;
+  --pink-ink: #be123c;
+  --sky-ink: #0369a1;
 
   /* Soft tinted section backgrounds */
-  --tint-violet: #f1edff;
-  --tint-mint: #e6f8f5;
-  --tint-sun: #fff6dc;
-  --tint-coral: #fff0e5;
-  --tint-pink: #fbeafe;
-  --tint-sky: #e4f9fd;
+  --tint-violet: #e2efff;
+  --tint-mint: #e6f6ec;
+  --tint-sun: #fef3e2;
+  --tint-coral: #ffebef;
+  --tint-pink: #fde8ef;
+  --tint-sky: #e0f2fe;
 
-  --brand-gradient: linear-gradient(110deg, #5b3df5 0%, #d946ef 55%, #ff7a1a 100%);
-  /* Darker stops keep white button labels at AA contrast */
-  --button-gradient: linear-gradient(110deg, #5b3df5 0%, #9b1fb0 60%, #c2410c 100%);
-  --ring: #7c5cff;
-  --glass: rgb(255 255 255 / 0.7);
-  --glass-strong: rgb(255 255 255 / 0.94);
+  /* The three blues of the logo */
+  --brand-gradient: linear-gradient(110deg, #0d55c7 0%, #1769f5 45%, #2588ff 100%);
+  /* Kept dark enough for white button labels at AA contrast */
+  --button-gradient: linear-gradient(110deg, #0d55c7 0%, #1769f5 100%);
+  --ring: #2588ff;
+  --glass: rgb(255 255 255 / 0.75);
+  --glass-strong: rgb(255 255 255 / 0.95);
 
-  --shadow-sm: 0 1px 2px rgb(14 13 26 / 0.05), 0 1px 3px rgb(14 13 26 / 0.05);
-  --shadow-md: 0 4px 12px -2px rgb(14 13 26 / 0.07), 0 16px 32px -12px rgb(14 13 26 / 0.12);
-  --shadow-lg: 0 12px 28px -8px rgb(14 13 26 / 0.12), 0 40px 80px -24px rgb(14 13 26 / 0.25);
-  --shadow-glow: 0 24px 70px -20px rgb(91 61 245 / 0.5);
+  --shadow-sm: 0 1px 2px rgb(16 32 57 / 0.05), 0 1px 3px rgb(16 32 57 / 0.05);
+  --shadow-md: 0 4px 12px -2px rgb(16 32 57 / 0.06), 0 16px 32px -12px rgb(16 32 57 / 0.12);
+  --shadow-lg: 0 12px 28px -8px rgb(16 32 57 / 0.12), 0 40px 80px -24px rgb(16 32 57 / 0.22);
+  --shadow-glow: 0 24px 70px -20px rgb(23 105 245 / 0.45);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --bg: #07070f;
-  --bg-soft: #0c0c18;
-  --surface: #121222;
-  --surface-2: #1a1a2e;
-  --surface-3: #24243d;
-  --fg: #f5f4ff;
-  --fg-muted: #aeacc6;
-  --fg-subtle: #8e8ba8;
-  --line: #232339;
-  --line-strong: #33334f;
+  --bg: #051121;
+  --bg-soft: #081729;
+  --surface: #0b1a2e;
+  --surface-2: #112943;
+  --surface-3: #183555;
+  --fg: #f3f7fd;
+  --fg-muted: #9eb0c6;
+  --fg-subtle: #8a9db5;
+  --line: #1c3551;
+  --line-strong: #29486b;
 
-  --primary: #9d8cff;
-  --primary-hover: #b2a5ff;
-  --primary-fg: #07070f;
-  --primary-soft: #1d1840;
-  --deep: #05050c;
-  --deep-2: #12112a;
-  --on-deep: #f6f5ff;
-  --on-deep-muted: #b9b5d6;
+  --primary: #37a7ff;
+  --primary-hover: #5db8ff;
+  --primary-fg: #051121;
+  --primary-soft: #0e2a4a;
+  --highlight: #5db8ff;
+  --brand-deep: #2588ff;
+  --deep: #030b17;
+  --deep-2: #0b1a2e;
+  --on-deep: #f3f7fd;
+  --on-deep-muted: #9eb0c6;
 
-  --coral: #ff9447;
-  --mint: #2dd4bf;
-  --sun: #fcd34d;
-  --pink: #e879f9;
-  --sky: #67e8f9;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #ff9a6b;
+  --unread: #ff4968;
 
-  --coral-ink: #ffb27d;
-  --mint-ink: #5eead4;
-  --sun-ink: #fde68a;
-  --pink-ink: #f0abfc;
-  --sky-ink: #a5f3fc;
+  --coral: #ff6b85;
+  --mint: #34d399;
+  --sun: #fbbf24;
+  --pink: #ff5c8a;
+  --sky: #38bdf8;
 
-  --tint-violet: #14112e;
-  --tint-mint: #0a1d1c;
-  --tint-sun: #1e1a0c;
-  --tint-coral: #22140b;
-  --tint-pink: #1f0f24;
-  --tint-sky: #0a1a22;
+  --coral-ink: #ff9aad;
+  --mint-ink: #6ee7b7;
+  --sun-ink: #fcd34d;
+  --pink-ink: #ff9ab8;
+  --sky-ink: #7dd3fc;
 
-  --brand-gradient: linear-gradient(110deg, #9d8cff 0%, #e879f9 55%, #ff9447 100%);
-  --button-gradient: linear-gradient(110deg, #b2a5ff 0%, #f0abfc 60%, #ffb27d 100%);
-  --ring: #b2a5ff;
-  --glass: rgb(18 18 34 / 0.72);
-  --glass-strong: rgb(18 18 34 / 0.96);
+  --tint-violet: #0c2442;
+  --tint-mint: #0a2219;
+  --tint-sun: #231a08;
+  --tint-coral: #2a0f18;
+  --tint-pink: #2a0d1a;
+  --tint-sky: #072433;
+
+  --brand-gradient: linear-gradient(110deg, #2588ff 0%, #37a7ff 50%, #8ccfff 100%);
+  --button-gradient: linear-gradient(110deg, #37a7ff 0%, #8ccfff 100%);
+  --ring: #5db8ff;
+  --glass: rgb(11 26 46 / 0.75);
+  --glass-strong: rgb(11 26 46 / 0.96);
 
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
   --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.5), 0 16px 32px -12px rgb(0 0 0 / 0.55);
   --shadow-lg: 0 12px 28px -8px rgb(0 0 0 / 0.55), 0 40px 80px -24px rgb(0 0 0 / 0.7);
-  --shadow-glow: 0 24px 70px -20px rgb(157 140 255 / 0.45);
+  --shadow-glow: 0 24px 70px -20px rgb(55 167 255 / 0.4);
 }
 
 @theme inline {
@@ -137,6 +153,12 @@
   --color-primary-hover: var(--primary-hover);
   --color-primary-fg: var(--primary-fg);
   --color-primary-soft: var(--primary-soft);
+  --color-highlight: var(--highlight);
+  --color-brand-deep: var(--brand-deep);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-unread: var(--unread);
   --color-deep: var(--deep);
   --color-deep-2: var(--deep-2);
   --color-on-deep: var(--on-deep);
@@ -291,15 +313,15 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     color-scheme: dark;
-    --bg: #07070f;
-    --bg-soft: #0c0c18;
-    --surface: #121222;
-    --surface-2: #1a1a2e;
-    --fg: #f5f4ff;
-    --fg-muted: #aeacc6;
-    --line: #232339;
-    --primary: #9d8cff;
-    --primary-fg: #07070f;
+    --bg: #051121;
+    --bg-soft: #081729;
+    --surface: #0b1a2e;
+    --surface-2: #112943;
+    --fg: #f3f7fd;
+    --fg-muted: #9eb0c6;
+    --line: #1c3551;
+    --primary: #37a7ff;
+    --primary-fg: #051121;
   }
 }
 
@@ -446,8 +468,8 @@
 @utility bg-aurora {
   background-image:
     radial-gradient(60% 50% at 15% 10%, color-mix(in srgb, var(--primary) 22%, transparent), transparent 70%),
-    radial-gradient(50% 45% at 85% 0%, color-mix(in srgb, var(--pink) 18%, transparent), transparent 70%),
-    radial-gradient(45% 40% at 70% 90%, color-mix(in srgb, var(--coral) 14%, transparent), transparent 70%);
+    radial-gradient(50% 45% at 85% 0%, color-mix(in srgb, var(--highlight) 18%, transparent), transparent 70%),
+    radial-gradient(45% 40% at 70% 90%, color-mix(in srgb, var(--sky) 12%, transparent), transparent 70%);
 }
 
 /* Film-grain overlay; add to any positioned element */
@@ -476,7 +498,7 @@
     border-radius: inherit;
     padding: 1.5px;
     pointer-events: none;
-    background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--pink) 85%, transparent), color-mix(in srgb, var(--primary) 60%, transparent) 35%, transparent 65%);
+    background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--highlight) 85%, transparent), color-mix(in srgb, var(--primary) 60%, transparent) 35%, transparent 65%);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;

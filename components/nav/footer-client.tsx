@@ -3,6 +3,7 @@
 import { Check, Globe } from "lucide-react";
 import { useId, useState } from "react";
 import { useUI } from "@/components/providers";
+import { submitForm } from "@/lib/submit-form";
 
 export function FooterActionButton({
   action,
@@ -22,7 +23,7 @@ export function FooterActionButton({
       {action === "privacy-choices" && (
         <svg viewBox="0 0 30 14" className="h-3 w-6" aria-hidden="true">
           <rect x="0.5" y="0.5" width="29" height="13" rx="6.5" fill="none" stroke="currentColor" />
-          <rect x="15" y="1.5" width="13.5" height="11" rx="5.5" fill="#5b3df5" />
+          <rect x="15" y="1.5" width="13.5" height="11" rx="5.5" fill="#1769f5" />
           <path d="M5 7.2l2 2 3.6-4" stroke="currentColor" strokeWidth="1.4" fill="none" />
           <path d="M19 4.5l4.6 5M23.6 4.5L19 9.5" stroke="#fff" strokeWidth="1.4" />
         </svg>
@@ -34,6 +35,8 @@ export function FooterActionButton({
 
 export function NewsletterForm() {
   const [done, setDone] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [failure, setFailure] = useState("");
   const id = useId();
   if (done) {
     return (
@@ -50,9 +53,19 @@ export function NewsletterForm() {
   }
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
-        setDone(true);
+        const email = String(new FormData(e.currentTarget).get("email") ?? "").trim();
+        setSending(true);
+        setFailure("");
+        try {
+          await submitForm("Newsletter", { email });
+          setDone(true);
+        } catch (err) {
+          setFailure(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+        } finally {
+          setSending(false);
+        }
       }}
       className="w-full"
     >
@@ -62,6 +75,7 @@ export function NewsletterForm() {
       <div className="flex flex-col gap-2 sm:flex-row">
         <input
           id={id}
+          name="email"
           type="email"
           required
           autoComplete="email"
@@ -70,12 +84,15 @@ export function NewsletterForm() {
         />
         <button
           type="submit"
-          className="h-12 rounded-full bg-white px-6 font-semibold text-deep transition-colors hover:bg-white/90"
+          disabled={sending}
+          className="h-12 rounded-full bg-white px-6 font-semibold text-deep transition-colors hover:bg-white/90 disabled:opacity-70"
         >
-          Subscribe
+          {sending ? "Subscribing…" : "Subscribe"}
         </button>
       </div>
-      <p className="mt-2 text-xs text-on-deep-muted/80">No spam. Unsubscribe any time.</p>
+      <p className="mt-2 text-xs text-on-deep-muted/80" role={failure ? "alert" : undefined}>
+        {failure || "No spam. Unsubscribe any time."}
+      </p>
     </form>
   );
 }

@@ -1,13 +1,11 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
-import { customerLogos } from "@/data/customers";
 import type { Story, Testimonial } from "@/data/stories";
 import type { Faq, Stat } from "@/data/types";
 import { ArrowLink, ButtonLink } from "@/components/ui/button";
 import { CustomerLogo } from "@/components/ui/customer-logo";
 import { Icon, type IconName } from "@/components/ui/icon";
-import { Marquee } from "@/components/ui/marquee";
 import { CountUp, Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
 import { Eyebrow, Section, SectionHeader, type SectionBg } from "@/components/ui/section";
 import { toneStyles, toneAt, type Tone } from "@/lib/tones";
@@ -25,31 +23,6 @@ const glow: Record<Tone, string> = {
 };
 
 /* ------------------------------------------------------------------ */
-export function LogoCloud({ title = "Trusted by teams at the world's most innovative companies", className }: { title?: string; className?: string }) {
-  const half = Math.ceil(customerLogos.length / 2);
-  const rows = [customerLogos.slice(0, half), customerLogos.slice(half)];
-  return (
-    <section aria-label="Customers" className={cn("bg-bg py-12", className)}>
-      <div className="container-page mb-8 flex items-center gap-4">
-        <span className="h-px flex-1 bg-gradient-to-r from-transparent to-line-strong" />
-        <p className="text-center text-sm font-semibold text-muted">{title}</p>
-        <span className="h-px flex-1 bg-gradient-to-l from-transparent to-line-strong" />
-      </div>
-      <div className="flex flex-col gap-6">
-        {rows.map((row, i) => (
-          <Marquee key={i} duration={38 + i * 8} reverse={i === 1}>
-            {row.map((l) => (
-              <span key={l.name} className="mx-3 inline-flex items-center rounded-full border border-line bg-surface px-6 py-3 shadow-soft">
-                <CustomerLogo logo={l} className="text-base text-fg/75" />
-              </span>
-            ))}
-          </Marquee>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 /* ------------------------------------------------------------------ */
 export function StatsBand({ stats, bg = "default", title }: { stats: Stat[]; bg?: SectionBg; title?: string }) {
   return (
@@ -188,7 +161,7 @@ export function IconCardGrid({ items, columns = 3, variant = "card" }: { items: 
 }
 
 /* ------------------------------------------------------------------ */
-export function QuoteBlock({ quote, name, role, tone = "violet" }: { quote: string; name: string; role: string; tone?: Tone }) {
+export function QuoteBlock({ quote, name, role, tone = "violet", rating }: { quote: string; name: string; role: string; tone?: Tone; rating?: number }) {
   return (
     <Reveal>
       <figure className="border-gradient relative mx-auto max-w-4xl overflow-hidden rounded-[2rem] p-8 text-center shadow-card md:p-14">
@@ -196,6 +169,7 @@ export function QuoteBlock({ quote, name, role, tone = "violet" }: { quote: stri
         <span aria-hidden="true" className="relative block font-display text-[6rem] leading-[0.6] font-extrabold text-gradient">
           &ldquo;
         </span>
+        {rating && <Stars rating={rating} className="relative mt-2 justify-center" />}
         <blockquote className="relative mt-4 font-display text-display-sm leading-snug font-semibold text-fg">{quote}</blockquote>
         <figcaption className="relative mt-8 inline-flex items-center gap-3 text-left">
           <span className={cn("inline-flex size-12 items-center justify-center rounded-full font-bold", toneStyles[tone].solid)}>
@@ -253,17 +227,23 @@ export function StoryCard({ story }: { story: Story }) {
 }
 
 /* ------------------------------------------------------------------ */
+export function Stars({ rating, className }: { rating: number; className?: string }) {
+  return (
+    <div className={cn("flex gap-0.5 text-sun", className)} role="img" aria-label={`${rating} out of 5 stars`}>
+      {Array.from({ length: 5 }, (_, i) => (
+        <svg key={i} viewBox="0 0 20 20" className={cn("size-4", i < rating ? "fill-current" : "fill-line-strong")} aria-hidden="true">
+          <path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z" />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
 export function TestimonialCard({ t }: { t: Testimonial }) {
   const s = toneStyles[t.tone];
   return (
     <figure className="glow-card flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-soft">
-      <div className="flex gap-0.5 text-sun" role="img" aria-label="5 out of 5 stars">
-        {Array.from({ length: 5 }, (_, i) => (
-          <svg key={i} viewBox="0 0 20 20" className="size-4 fill-current" aria-hidden="true">
-            <path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z" />
-          </svg>
-        ))}
-      </div>
+      <Stars rating={t.rating ?? 5} />
       <blockquote className="mt-4 flex-1 text-[1.05rem] leading-relaxed text-fg">“{t.quote}”</blockquote>
       <figcaption className="mt-6 flex items-center gap-3 border-t border-line pt-5">
         <span className={cn("inline-flex size-10 items-center justify-center rounded-full text-sm font-bold", s.solid)}>
@@ -274,9 +254,7 @@ export function TestimonialCard({ t }: { t: Testimonial }) {
         </span>
         <span>
           <span className="block text-sm font-semibold text-fg">{t.name}</span>
-          <span className="block text-sm text-muted">
-            {t.role}, {t.company}
-          </span>
+          <span className="block text-sm text-muted">{[t.role, t.company].filter(Boolean).join(", ")}</span>
         </span>
       </figcaption>
     </figure>

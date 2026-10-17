@@ -4,11 +4,11 @@ import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export const people = {
-  priya: { name: "Priya Raman", initials: "PR", color: "bg-[#7c5cff]" },
+  priya: { name: "Priya Raman", initials: "PR", color: "bg-[#1769f5]" },
   marcus: { name: "Marcus Lee", initials: "ML", color: "bg-[#ff7a4d]" },
   sofia: { name: "Sofia Alvarez", initials: "SA", color: "bg-[#10b981]" },
   jonah: { name: "Jonah Kim", initials: "JK", color: "bg-[#3b82f6]" },
-  amara: { name: "Amara Okafor", initials: "AO", color: "bg-[#d946ef]" },
+  amara: { name: "Amara Okafor", initials: "AO", color: "bg-[#e51b5b]" },
   leo: { name: "Leo Brandt", initials: "LB", color: "bg-[#f59e0b]" },
   hana: { name: "Hana Sato", initials: "HS", color: "bg-[#0ea5e9]" },
   diego: { name: "Diego Ruiz", initials: "DR", color: "bg-[#8b5cf6]" },
@@ -37,7 +37,7 @@ export function BotAvatar({ size = "md" }: { size?: "sm" | "md" }) {
   return (
     <span
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#5b3df5] to-[#d946ef] text-white",
+        "inline-flex shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[#0d55c7] to-[#2588ff] text-white",
         size === "sm" ? "size-7" : "size-9",
       )}
     >

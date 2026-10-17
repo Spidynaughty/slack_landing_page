@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Star } from "lucide-react";
 import type { App } from "@/data/integrations";
 import { LogoMark } from "@/components/ui/logo";
 import { Icon } from "@/components/ui/icon";
@@ -32,12 +31,7 @@ export function AppCard({ app, link = true }: { app: App; link?: boolean }) {
         </div>
       </div>
       <p className="mt-4 flex-1 text-sm text-muted">{app.description}</p>
-      <div className="mt-4 flex items-center justify-between border-t border-line pt-4 text-xs text-subtle">
-        <span className="inline-flex items-center gap-1">
-          <Star className="size-3.5 fill-sun text-sun" aria-hidden="true" />
-          <span className="font-semibold text-fg">{app.rating.toFixed(1)}</span>
-          <span className="sr-only">out of 5 stars</span>
-        </span>
+      <div className="mt-4 border-t border-line pt-4 text-xs text-subtle">
         <span>{app.installs} installs</span>
       </div>
     </>

@@ -5,7 +5,7 @@ import { apps, type App } from "@/data/integrations";
 import type { Solution } from "@/data/solutions";
 import { Mockup } from "@/components/mockups";
 import { AppCard } from "@/components/sections/apps";
-import { CTABand, FAQ, IconCardGrid, QuoteBlock, StatsBand } from "@/components/sections/common";
+import { CTABand, FAQ, IconCardGrid, StatsBand } from "@/components/sections/common";
 import { PageHero } from "@/components/sections/page-hero";
 import { FeatureCard } from "@/components/templates/feature-template";
 import { ArrowLink } from "@/components/ui/button";
@@ -17,6 +17,7 @@ import { toneStyles } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 import { B } from "@/lib/site";
 import { navCrumbs } from "@/lib/breadcrumbs";
+import { ReviewHighlight } from "@/components/sections/reviews";
 
 export function SolutionCard({ solution }: { solution: Solution }) {
   const t = toneStyles[solution.tone];
@@ -156,17 +157,15 @@ export function SolutionTemplate({ solution }: { solution: Solution }) {
         </div>
       </section>
 
-      <Section>
-        <QuoteBlock
-          quote={solution.quote.text}
-          name={solution.quote.name}
-          role={`${solution.quote.role}, ${solution.quote.company}`}
-          tone={solution.tone}
-        />
-        <div className="mt-10 text-center">
-          <ArrowLink href="/customer-stories">Read more customer stories</ArrowLink>
-        </div>
-      </Section>
+      <ReviewHighlight
+        index={8}
+        tone={solution.tone}
+        footer={
+          <div className="mt-10 text-center">
+            <ArrowLink href="/customer-stories">Read more customer stories</ArrowLink>
+          </div>
+        }
+      />
 
       {feats.length > 0 && (
         <Section bg="soft">

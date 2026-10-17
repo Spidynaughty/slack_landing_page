@@ -34,7 +34,6 @@ export type Solution = {
     steps: { icon: IconName; title: string; body: string }[];
     mockup: MockupKind;
   };
-  quote: { text: string; name: string; role: string; company: string };
   /** Feature slugs from data/features.ts */
   features: string[];
   /** App slugs from data/integrations.ts */
@@ -136,12 +135,6 @@ export const solutions: Solution[] = [
         },
       ],
       mockup: "huddle",
-    },
-    quote: {
-      text: "We used to lose the first twenty minutes of every incident just finding the right people. Now the channel is open, on-call is paged and the runbook is pinned before anyone asks.",
-      name: "Priya Raman",
-      role: "VP of Engineering",
-      company: "Kestrel Labs",
     },
     features: ["code-channels", "huddles", "ai", "workflow-automation"],
     integrations: ["gitnest", "shipyard-ci", "pagerline", "trackly", "pulsecheck"],
@@ -253,12 +246,6 @@ export const solutions: Solution[] = [
       ],
       mockup: "lists",
     },
-    quote: {
-      text: "Our agent now handles almost four in ten requests end to end. The team finally has time for the device refresh we postponed for two years.",
-      name: "Marcus Bell",
-      role: "Director of IT Operations",
-      company: "Orbital Freight",
-    },
     features: ["ai-agents", "task-list", "workflow-automation", "enterprise-search"],
     integrations: ["formcraft", "keystone-id", "vaultguard", "pagerline", "drivewise"],
     faqs: [
@@ -368,12 +355,6 @@ export const solutions: Solution[] = [
         },
       ],
       mockup: "workflow",
-    },
-    quote: {
-      text: "Our agents used to wait a full day for a billing answer. Now they swarm in a case channel and close most escalations before lunch.",
-      name: "Danielle Ortiz",
-      role: "Senior Manager, Customer Experience",
-      company: "Brightline",
     },
     features: ["channels", "ai", "crm", "workflow-automation"],
     integrations: ["supportly", "ledgerly", "surveyo", "pulsecheck", "trackly"],
@@ -485,12 +466,6 @@ export const solutions: Solution[] = [
       ],
       mockup: "crm-native",
     },
-    quote: {
-      text: "Deal channels changed how we sell. Legal, finance and our sales engineers are in the room from day one, so nothing stalls at the finish line.",
-      name: "Jordan Ellis",
-      role: "Regional Vice President, Sales",
-      company: "Copperleaf",
-    },
     features: ["crm", "native-crm", "connect", "ai"],
     integrations: ["dealdesk", "signflow", "calendo", "meetbox", "datalake-hub"],
     faqs: [
@@ -596,12 +571,6 @@ export const solutions: Solution[] = [
         },
       ],
       mockup: "canvas",
-    },
-    quote: {
-      text: "I used to spend Monday mornings assembling status decks. Now the updates assemble themselves, and I spend that time actually removing blockers.",
-      name: "Hannah Okafor",
-      role: "Senior Program Manager",
-      company: "Juniper Studios",
     },
     features: ["task-list", "canvas", "workflow-automation", "huddles"],
     integrations: ["trackly", "calendo", "notely", "drivewise", "paletta"],
@@ -713,12 +682,6 @@ export const solutions: Solution[] = [
       ],
       mockup: "workflow",
     },
-    quote: {
-      text: "We cut our launch cycle from six weeks to four. The biggest win was getting legal and our agency into the same channel as our designers.",
-      name: "Sofia Lindqvist",
-      role: "Head of Brand Marketing",
-      company: "Lumen & Co",
-    },
     features: ["canvas", "connect", "workflow-automation", "ai"],
     integrations: ["paletta", "mailwave", "surveyo", "pulsecheck", "drivewise"],
     faqs: [
@@ -828,12 +791,6 @@ export const solutions: Solution[] = [
         },
       ],
       mockup: "workflow",
-    },
-    quote: {
-      text: "New hires used to spend their first week waiting on access and answers. Now they ship something by day three, and our team fields a fraction of the questions.",
-      name: "Aisha Grant",
-      role: "VP of People",
-      company: "Northwind",
     },
     features: ["ai-agents", "workflow-automation", "channels", "canvas"],
     integrations: ["hireloop", "roster", "surveyo", "signflow", "expensio"],
@@ -945,12 +902,6 @@ export const solutions: Solution[] = [
       ],
       mockup: "workflow",
     },
-    quote: {
-      text: "We stopped copying alerts between tools. Triage, containment and documentation happen in one channel, and our response times dropped by almost half.",
-      name: "Ethan Brooks",
-      role: "Head of Security Operations",
-      company: "Fieldstone Credit Union",
-    },
     features: ["workflow-automation", "ai-agents", "channels", "enterprise-search"],
     integrations: ["vaultguard", "keystone-id", "pagerline", "datalake-hub", "trackly"],
     faqs: [
@@ -1060,12 +1011,6 @@ export const solutions: Solution[] = [
         },
       ],
       mockup: "lists",
-    },
-    quote: {
-      text: "Our technicians used to walk the floor looking for a supervisor. Now an alert reaches the right person in seconds, and unplanned downtime is down nearly a third.",
-      name: "Luis Navarro",
-      role: "Plant Operations Manager",
-      company: "Atlas Motors",
     },
     features: ["channels", "connect", "workflow-automation", "clips"],
     integrations: ["formcraft", "roster", "pulsecheck", "datalake-hub", "drivewise"],
@@ -1177,12 +1122,6 @@ export const solutions: Solution[] = [
       ],
       mockup: "chat-connect",
     },
-    quote: {
-      text: "We grew from 80 to 900 people in three years, and this is the one tool that scaled with us. Every new team plugs into the same channels, workflows and agents on day one.",
-      name: "Rachel Kim",
-      role: "Chief Operating Officer",
-      company: "Parallax Systems",
-    },
     features: ["code-channels", "connect", "ai-agents", "agentic-platform"],
     integrations: ["gitnest", "shipyard-ci", "trackly", "supportly", "keystone-id"],
     faqs: [
@@ -1289,12 +1228,6 @@ export const solutions: Solution[] = [
       ],
       mockup: "canvas",
     },
-    quote: {
-      text: "When a story breaks, every minute counts. Our desks, photo team and lawyers now work in the same channel, and we routinely publish verified stories ahead of competitors.",
-      name: "Nora Whitfield",
-      role: "Managing Editor",
-      company: "Tidewater Media",
-    },
     features: ["channels", "clips", "document-sharing", "workflow-automation"],
     integrations: ["drivewise", "paletta", "signflow", "meetbox", "mailwave"],
     faqs: [
@@ -1400,12 +1333,6 @@ export const solutions: Solution[] = [
         },
       ],
       mockup: "connect",
-    },
-    quote: {
-      text: "We were running a twelve-person studio on group texts and sticky notes. Now client work, approvals and invoices live in one place, and I got my evenings back.",
-      name: "Maya Castillo",
-      role: "Founder and Creative Director",
-      company: "Bramble Design Co.",
     },
     features: ["channels", "connect", "huddles", "ai"],
     integrations: ["calendo", "ledgerly", "signflow", "formcraft", "drivewise"],
@@ -1517,12 +1444,6 @@ export const solutions: Solution[] = [
       ],
       mockup: "workflow",
     },
-    quote: {
-      text: "Our examiners care about two things: that we can find every record and prove who approved what. We can now do both in minutes, and our lenders move faster too.",
-      name: "Gregory Shaw",
-      role: "Chief Compliance Officer",
-      company: "Vantage Bank",
-    },
     features: ["workflow-automation", "enterprise-search", "connect", "ai"],
     integrations: ["signflow", "ledgerly", "keystone-id", "vaultguard", "datalake-hub"],
     faqs: [
@@ -1628,12 +1549,6 @@ export const solutions: Solution[] = [
         },
       ],
       mockup: "lists",
-    },
-    quote: {
-      text: "We used to find out a store missed a promotion when the sales numbers came in. Now district managers see photo confirmations from every location before the doors open.",
-      name: "Tasha Greene",
-      role: "VP of Store Operations",
-      company: "Harlow & Finch",
     },
     features: ["channels", "task-list", "ai-agents", "workflow-automation"],
     integrations: ["roster", "formcraft", "pulsecheck", "drivewise", "surveyo"],
@@ -1745,12 +1660,6 @@ export const solutions: Solution[] = [
       ],
       mockup: "lists",
     },
-    quote: {
-      text: "During last winter's ice storm, every department and partner worked from the same channel. We cleared priority routes twelve hours faster than the year before.",
-      name: "Daniel Reyes",
-      role: "Director of Emergency Management",
-      company: "Harbor City Council",
-    },
     features: ["channels", "connect", "workflow-automation", "enterprise-search"],
     integrations: ["formcraft", "signflow", "keystone-id", "drivewise", "meetbox"],
     faqs: [
@@ -1861,12 +1770,6 @@ export const solutions: Solution[] = [
       ],
       mockup: "agent",
     },
-    quote: {
-      text: "Our students live on their phones, not in email. Moving advising and course communication into channels doubled the number of students who reach out before they fall behind.",
-      name: "Dr. Elena Vasquez",
-      role: "Associate Provost for Student Success",
-      company: "Pinecrest University",
-    },
     features: ["channels", "huddles", "ai-agents", "clips"],
     integrations: ["calendo", "formcraft", "surveyo", "drivewise", "meetbox"],
     faqs: [
@@ -1972,12 +1875,6 @@ export const solutions: Solution[] = [
         },
       ],
       mockup: "lists",
-    },
-    quote: {
-      text: "We took hours out of every discharge by putting transport, environmental services and nursing in the same channel. Our ED boarding times dropped within the first month.",
-      name: "Dr. Samuel Adeyemi",
-      role: "Chief Medical Operations Officer",
-      company: "Halcyon Health",
     },
     features: ["channels", "workflow-automation", "connect", "enterprise-search"],
     integrations: ["formcraft", "roster", "keystone-id", "pulsecheck", "signflow"],
@@ -2088,12 +1985,6 @@ export const solutions: Solution[] = [
         },
       ],
       mockup: "ai",
-    },
-    quote: {
-      text: "We stopped asking who was supposed to follow up. Every action item from our standups lands in a list with a name next to it, and on-time delivery has never been better.",
-      name: "Kevin Marsh",
-      role: "Operations Lead",
-      company: "Meridian Air",
     },
     features: ["task-list", "ai", "workflow-automation", "huddles"],
     integrations: ["trackly", "calendo", "formcraft", "notely", "drivewise"],

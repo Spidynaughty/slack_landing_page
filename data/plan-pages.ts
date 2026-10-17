@@ -89,7 +89,6 @@ export type PlanPage = {
   hero: { title: string; highlight: string; subtitle: string };
   bestFor: string[];
   highlights: PlanHighlight[];
-  quote: { quote: string; name: string; role: string };
   faqs: Faq[];
   /** Questions from `pricingFaqs` (data/pricing.ts) that are also shown on this page. */
   sharedFaqs: string[];
@@ -134,11 +133,6 @@ export const planPages: PlanPage[] = [
         cta: "Browse integrations",
       },
     ],
-    quote: {
-      quote: "We ran our whole volunteer festival on the Free plan. Channels replaced three group chats and a spreadsheet nobody could ever find.",
-      name: "Tamsin Okafor",
-      role: "Organizer, Riverside Makers Fair",
-    },
     faqs: [
       {
         q: "Is the Free plan really free forever?",
@@ -198,11 +192,6 @@ export const planPages: PlanPage[] = [
         cta: `Explore ${B} AI`,
       },
     ],
-    quote: {
-      quote: "Moving to Pro was the moment our chat history became our company memory. New hires scroll back instead of asking around.",
-      name: "Daniel Reyes-Hart",
-      role: "Co-founder, Brightloop Studio",
-    },
     faqs: [
       {
         q: "How much does Pro cost?",
@@ -264,11 +253,6 @@ export const planPages: PlanPage[] = [
         cta: "See security",
       },
     ],
-    quote: {
-      quote: "Business+ gave IT the controls it needed and gave everyone else AI answers they actually use. 'Where is that doc?' questions basically stopped.",
-      name: "Priya Lindqvist",
-      role: "Head of IT, Northfield Outfitters",
-    },
     faqs: [
       {
         q: "How much does Business+ cost?",
@@ -330,11 +314,6 @@ export const planPages: PlanPage[] = [
         cta: "Explore the platform",
       },
     ],
-    quote: {
-      quote: "With Enterprise we consolidated 40 workspaces into one governed organization. Security got audit logs and key management; teams kept the tool they love.",
-      name: "Marcus Ellery",
-      role: "CIO, Halvorsen Freight Group",
-    },
     faqs: [
       {
         q: "How is Enterprise priced?",

@@ -1,11 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Google_Sans, Google_Sans_Code } from "next/font/google";
 import { Providers } from "@/components/providers";
-import { Header } from "@/components/nav/header";
-import { Footer } from "@/components/nav/footer";
-import { SearchPalette } from "@/components/nav/search-palette";
-import { CookieConsent } from "@/components/nav/cookie-consent";
-import { buildSearchIndex } from "@/lib/search-index";
 import { themeScript } from "@/lib/theme";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -47,8 +42,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0c0a1d" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f7fb" },
+    { media: "(prefers-color-scheme: dark)", color: "#051121" },
   ],
 };
 
@@ -64,15 +59,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="flex min-h-dvh flex-col">
-        <Providers>
-          <Header />
-          <main id="main" tabIndex={-1} className="flex-1 pt-(--header-h) outline-none">
-            {children}
-          </main>
-          <Footer />
-          <SearchPalette entries={buildSearchIndex()} />
-          <CookieConsent />
-        </Providers>
+        {/* Public pages add the site header and footer in app/(site)/layout.tsx; the admin has its own chrome */}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

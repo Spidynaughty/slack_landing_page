@@ -1,14 +1,15 @@
-# Sluck marketing site
+# ktTeams marketing site
 
-A portfolio recreation of a modern team-collaboration product's marketing site: about 215 pages built with
-**Next.js 16 (App Router, Cache Components)**, **React 19**, **TypeScript**, **Tailwind CSS 4**, **Framer Motion** and
-**Lucide** icons. The brand, logo, palette, copy, people and customer companies are all original or fictional.
+The marketing site for ktTeams: about 215 public pages plus an admin panel, built with
+**Next.js 16 (App Router, Cache Components)**, **React 19**, **TypeScript**, **Tailwind CSS 4**, **Framer Motion**,
+**Lucide** icons and a **SQLite / libSQL** database.
 
 ## Getting started
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000
+cp .env.example .env.local   # then set ADMIN_EMAIL, ADMIN_PASSWORD and SESSION_SECRET
+npm run dev          # http://localhost:3000, admin at /admin
 npm run build        # production build
 npm run start        # serve the build
 npm run check:links  # after a build: verifies every required route, every internal link/anchor and per-page SEO
@@ -16,44 +17,82 @@ npm run lint
 npm run typecheck
 ```
 
+## Admin panel
+
+Sign in at `/admin` with the `ADMIN_EMAIL` and `ADMIN_PASSWORD` from your environment. Changes show on the live site as
+soon as you save.
+
+| Section | What it controls |
+| --- | --- |
+| Reviews | Write, edit, publish, feature and delete reviews. Published reviews fill the home page review wall, the customer stories carousel, the contact sales card and the hero's average rating; featured ones fill the large quotes on solution, pricing, careers, enterprise and other pages. Every review section stays hidden until at least one review is published. |
+| Home page | The announcement badge, hero headline, subtitle and buttons, the numbers band, the reviews heading and the closing call to action. Each section can be reset to its original text. |
+| Customer logos | The scrolling strip of company names and its heading. |
+| Pricing FAQs | The questions and answers on the pricing page. |
+| Inbox | Every form submission (demo requests, contact forms, sign-ups, newsletter, applications, article feedback), with filters, read/archive states, email replies and CSV export. |
+
+The session is a signed, httpOnly cookie that lasts 8 hours. Changing `ADMIN_PASSWORD` signs every session out, and five
+failed sign-ins lock an address out for 15 minutes.
+
+## Backend
+
+| Piece | Where |
+| --- | --- |
+| Database | `lib/db.ts`. Tables are created on first use. Defaults to the local file `.data/ktteams.db`. |
+| Cached content reads | `lib/content.ts`. Public pages read through `use cache` functions tagged per section, and admin saves call `updateTag()` so pages refresh straight away. |
+| Admin actions | `app/admin/actions.ts`. Server Actions; each one checks the session first. |
+| Auth | `lib/auth.ts`, plus `proxy.ts`, which sends signed-out visitors to the login page. |
+| `POST /api/submissions` | Stores a form entry: `{ form, page, fields, website }`. `website` is a honeypot. Cross-site posts are refused and password-like fields are never stored. |
+| `GET /api/reviews` | Published reviews as JSON. |
+| `GET /admin/inbox/export` | CSV of submissions (signed-in admins only). |
+
+### Deploying
+
+A local SQLite file works on any host with a persistent disk (a VPS, Docker, Railway, Render). Serverless hosts such
+as Vercel have no persistent disk, so point the site at [Turso](https://turso.tech) instead:
+
+```bash
+DATABASE_URL=libsql://<database>-<org>.turso.io
+DATABASE_AUTH_TOKEN=<token>
+```
+
+Set `ADMIN_EMAIL`, `ADMIN_PASSWORD` and a random `SESSION_SECRET` (32+ characters) in the host's environment.
+
 ## Renaming the brand
 
 The brand name comes from `site.name` in `lib/site.ts`, and every page, data file and component reads it from there.
-Change it once and the whole site updates. The logo mark is in `components/ui/logo.tsx`, and the colour tokens are at
-the top of `app/globals.css`.
+Change it once and the whole site updates. The logo mark is in `components/ui/logo.tsx` (source artwork in
+`public/brand/`), and the colour tokens are at the top of `app/globals.css`.
 
 ## How it's organised
 
 | Path | What lives there |
 | --- | --- |
+| `app/(site)/` | Every public page, wrapped in the site header and footer by `app/(site)/layout.tsx` |
+| `app/admin/` | The admin panel: `(auth)/login` and the signed-in `(panel)` pages |
+| `app/api/` | Public API routes |
 | `data/nav.ts` | The site architecture as typed config. The header mega menus, mobile menu, footer, search palette and sitemap all render from it. |
-| `data/*.ts` | Typed content: features (18), solutions (18), pricing, stories and testimonials, posts, help, events, jobs, templates, resources, integrations, releases, comparisons |
+| `data/*.ts` | Typed content: features (18), solutions (18), pricing, stories, posts, help, events, jobs, templates, resources, integrations, releases, comparisons |
 | `components/templates/` | **A** `feature-template`, **B** `solution-template`, **C** `listing` (search, filters, pagination, preview modal), **D** `article` (TOC scroll-spy, author, share, related) |
-| `components/mockups/` | Product UI built in HTML/CSS: the animated typing chat plus huddle, canvas, lists, AI, workflow, search, code, CRM, agent, clips, files, Atlas, security, platform. Pick one by name with `<Mockup kind="…" />`. |
-| `components/sections/` | Shared sections: hero, stats band with count-up, split feature, card grids, FAQ (with JSON-LD), CTA band, logo marquee, testimonial carousel, pricing, marketplace, demo player, product tour, and more |
-| `components/nav/` | Header (mega menus that open on hover, click or keyboard), mobile drawer, Ctrl/⌘ K search palette, footer, cookie banner with preference modals |
-| `lib/` | `seo.ts` (per-page metadata and OpenGraph), `routes.ts` (all routes, used by `app/sitemap.ts`), `theme.ts` (light/dark/system with no flash), `listing-items.ts` |
+| `components/mockups/` | Product UI built in HTML/CSS. Pick one by name with `<Mockup kind="…" />`. |
+| `components/sections/` | Shared sections, including `reviews.tsx` and `logo-cloud.tsx`, which read admin-managed content |
+| `components/admin/` | Admin UI: navigation, forms and building blocks |
+| `components/nav/` | Header, mobile drawer, Ctrl/⌘ K search palette, footer, cookie banner |
+| `lib/` | `db.ts`, `content.ts`, `auth.ts`, `submissions.ts`, `seo.ts`, `routes.ts`, `theme.ts`, `breadcrumbs.ts` |
 | `scripts/check-links.mjs` | Crawls the production build and fails on missing routes, broken links, missing anchors, duplicate titles or descriptions, or pages without exactly one `<h1>` |
 
 ## Design system
 
-- **Identity:** an electric violet → fuchsia → orange brand gradient (`--brand-gradient`) with teal, amber and cyan accents.
-  All colours are CSS variables in `app/globals.css`, redefined for dark mode under `[data-theme="dark"]`.
-- **Layout language:** a floating glass pill navigation with floating mega-menu panels, centred heroes with the product
-  shown in a tilted glowing frame, bento grids, panel-style feature rows, sticky scroll storytelling, and an inset
-  footer card with a giant gradient wordmark.
-- **Effects:** aurora backgrounds (`bg-aurora`), film grain (`grain`), gradient borders (`border-gradient`) and a
-  cursor-following glow on cards (`glow-card` + `components/ui/pointer-glow.tsx`).
-- **Type:** Bricolage Grotesque (display), Inter (text), JetBrains Mono (code), with a fluid scale (`text-display-*`, `text-lead`).
-- **Motion:** scroll reveals, staggered cards, hover lift, parallax hero chips, a typing AI prompt, marquees (horizontal and
-  vertical), count-ups and page transitions (`app/template.tsx`). Everything respects `prefers-reduced-motion`.
-- **Accessibility:** skip link, visible focus rings, focus-trapped dialogs, roving-tabindex tabs, labelled form fields, and
-  AA contrast for gradient buttons (darker gradient stops in light mode, dark labels in dark mode).
+- **Identity:** the "Electric Messenger" palette: bright blue accents (`#1769F5`, highlight `#2588FF`), navy text
+  (`#102039`) and pale blue backgrounds in light mode, deep navy surfaces (`#051121`) in dark mode. The brand gradient
+  uses the three blues of the logo. All colours are CSS variables in `app/globals.css`, redefined for dark mode under
+  `[data-theme="dark"]`, with status colours for success, warning, error and unread.
+- **Type:** Google Sans everywhere, with Google Sans Code for code, on a fluid scale (`text-display-*`, `text-lead`).
+- **Motion:** scroll reveals, staggered cards, hover lift, marquees, count-ups and page transitions. Everything respects
+  `prefers-reduced-motion`.
+- **Accessibility:** skip link, visible focus rings, focus-trapped dialogs, labelled form fields and AA contrast.
 
 ## Notes
 
-- There is no backend. Forms validate and show a success state, sign-in is a UI-only two-step flow, and downloads and checkout are simulated.
-- Dynamic routes prerender every known slug with `generateStaticParams`. Their content is wrapped in `<Suspense>` so
-  client navigations stay instant under Cache Components. Unknown slugs render the 404 page with `noindex`.
-- Some URLs keep the original architecture's slugs (for example `/compare/slack-vs-teams` and `/features/slackbot`),
-  because the brief defined them as the source of truth. All visible copy uses the placeholder brand.
+- Sign-in on the public site is a UI-only flow; downloads and checkout are simulated.
+- Dynamic routes prerender every known slug with `generateStaticParams`. Unknown slugs render the 404 page with `noindex`.
+- Some URLs keep the original architecture's slugs (for example `/compare/slack-vs-teams` and `/features/slackbot`).
