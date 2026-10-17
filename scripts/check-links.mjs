@@ -36,7 +36,27 @@ const REQUIRED = [
   "/about", "/media-kit", "/brand", "/careers", "/shop", "/engineering-blog", "/design-blog", "/certified",
   "/accessibility", "/legal/privacy", "/legal/terms",
   "/sitemap.xml", "/robots.txt",
+  // Second-level pages from the reference site
+  "/features/templates", "/ai-agents/demo", "/features/slackbot/demo", "/features/enterprise-search/demo", "/features/ai/demo",
+  "/resources/why-use-slack", "/resources/using-slack", "/resources/slack-101", "/resources/slack-for-admins",
+  "/resources/why-use-slack/what-is-slack-and-how-does-it-work", "/resources/why-use-slack/rethinking-email-ai-conversations-work",
+  "/resources/using-slack/ten-ways-to-replace-ineffective-meetings", "/resources/slack-101/collaborate-effectively-in-channels",
+  "/resources/slack-for-admins/unlocking-value-at-scale",
+  "/resources/collections/sales-teams", "/resources/collections/service-teams", "/resources/collections/productivity-platform",
+  "/help/requests/new", "/help/search", "/help/categories/getting-started",
+  "/trust/compliance", "/trust/data-management", "/trust/data-requests", "/trust/privacy", "/trust/ai-principles", "/trust/privacy-request",
+  "/legal", "/cookie-policy",
 ];
+
+// Alternate URLs that must redirect somewhere real.
+const REDIRECTS = {
+  "/get": "/downloads",
+  "/templates": "/templates/gallery",
+  "/security": "/trust/security",
+  "/solutions/distance-learning": "/solutions/education",
+  "/trust/privacy/privacy-policy": "/legal/privacy",
+  "/resources/why-use-slack/what-is-slack": "/resources/why-use-slack/what-is-slack-and-how-does-it-work",
+};
 
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "-p", String(PORT)], {
   stdio: ["ignore", "pipe", "pipe"],
@@ -85,6 +105,17 @@ try {
     if (status !== 200) missing.push(`${r} -> ${status}`);
   }
   console.log(`Required routes: ${REQUIRED.length - missing.length}/${REQUIRED.length} OK`);
+  const badRedirects = [];
+  for (const [from, to] of Object.entries(REDIRECTS)) {
+    const res = await fetch(BASE + from, { redirect: "manual" });
+    const loc = res.headers.get("location") ?? "";
+    if (res.status < 300 || res.status >= 400 || !loc.endsWith(to)) badRedirects.push(`${from} -> ${res.status} ${loc}`);
+  }
+  console.log(`Redirects: ${Object.keys(REDIRECTS).length - badRedirects.length}/${Object.keys(REDIRECTS).length} OK`);
+  if (badRedirects.length) {
+    failed = true;
+    console.log("  Bad redirects:\n   " + badRedirects.join("\n   "));
+  }
   if (missing.length) {
     failed = true;
     console.log("  Missing:\n   " + missing.join("\n   "));

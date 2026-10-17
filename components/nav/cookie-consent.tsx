@@ -284,6 +284,10 @@ export function CookieConsent() {
                 work, and optional cookies to understand usage and improve your experience. Read our{" "}
                 <Link href="/legal/privacy" className="font-semibold text-primary underline underline-offset-2">
                   privacy policy
+                </Link>{" "}
+                and{" "}
+                <Link href="/cookie-policy" className="font-semibold text-primary underline underline-offset-2">
+                  cookie policy
                 </Link>
                 .
               </p>

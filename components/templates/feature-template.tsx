@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getDemo } from "@/data/demos";
 import { getFeature, type Feature } from "@/data/features";
 import { Mockup } from "@/components/mockups";
 import { CTABand, FAQ, IconCardGrid, SplitFeature, StatsBand } from "@/components/sections/common";
@@ -35,6 +36,7 @@ export function FeatureCard({ feature }: { feature: Feature }) {
 /** Template A: hero + mockup, alternating sections, use cases, related features, FAQ, CTA. */
 export function FeatureTemplate({ feature, crumbs }: { feature: Feature; crumbs?: Crumb[] }) {
   const related = feature.related.map((s) => getFeature(s)).filter((f): f is Feature => Boolean(f));
+  const demo = getDemo(feature.slug);
   return (
     <>
       <PageHero
@@ -44,7 +46,7 @@ export function FeatureTemplate({ feature, crumbs }: { feature: Feature; crumbs?
         title={<Highlight text={feature.hero.title} highlight={feature.hero.highlight} />}
         subtitle={feature.hero.subtitle}
         primary={{ label: "Get started", href: "/get-started" }}
-        secondary={{ label: "Watch demo", href: "/demo" }}
+        secondary={{ label: "Watch demo", href: demo?.path ?? "/demo" }}
         visual={<Mockup kind={feature.hero.mockup} />}
       />
 

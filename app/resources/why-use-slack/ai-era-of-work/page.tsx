@@ -78,7 +78,7 @@ export default function AiEraReportPage() {
     <>
       <PageHero
         deep
-        crumbs={[{ label: "Resources", href: "/resources" }, { label: `Why ${B}` }, { label: "AI era of work" }]}
+        crumbs={[{ label: "Resources", href: "/resources" }, { label: `Why ${B}`, href: "/resources/why-use-slack" }, { label: "AI era of work" }]}
         eyebrow="2026 research report"
         title={
           <>

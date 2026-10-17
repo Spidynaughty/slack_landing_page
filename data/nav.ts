@@ -125,6 +125,7 @@ export const mainNav: MainNavItem[] = [
           { label: "Meetings & video", href: "/features/huddles", icon: "headphones", description: "Huddle with audio, video and screen share" },
           { label: "Canvas", href: "/features/canvas", icon: "file", description: "Docs that live beside the conversation" },
           { label: "Lists", href: "/features/task-list", icon: "listChecks", description: "Track projects and requests in chat" },
+          { label: "Templates", href: "/features/templates", icon: "template", description: "Start any task in seconds" },
         ],
       },
       {
@@ -253,6 +254,7 @@ export const mainNav: MainNavItem[] = [
           { label: "Resources library", href: "/resources", icon: "library", description: "Guides, reports and webinars" },
           { label: "Customer stories", href: "/customer-stories", icon: "quote", description: "How teams transform their work" },
           { label: "Events", href: "/events", icon: "calendarDays", description: "Live and on-demand sessions" },
+          { label: `What is ${B}?`, href: "/resources/why-use-slack/what-is-slack-and-how-does-it-work", icon: "help", description: "How it all works, explained" },
         ],
       },
       {
@@ -261,6 +263,7 @@ export const mainNav: MainNavItem[] = [
           { label: "Blog", href: "/blog", icon: "pen", description: "Ideas on the future of work" },
           { label: "Product tour", href: "/product-tour", icon: "compass", description: "A guided, interactive walkthrough" },
           { label: "Help Centre", href: "/help", icon: "lifebuoy", description: "Answers, tutorials and support" },
+          { label: "Customer support", href: "/help/requests/new", icon: "headset", description: "Submit a request to our team" },
           { label: `${B} vs Teams`, href: "/compare/slack-vs-teams", icon: "scale", description: "See how we compare" },
         ],
       },
@@ -329,6 +332,7 @@ export const footerColumns: FooterColumn[] = [
       { label: "Huddles", href: "/features/huddles" },
       { label: "Canvas", href: "/features/canvas" },
       { label: "Lists", href: "/features/task-list" },
+      { label: "Templates", href: "/features/templates" },
       { label: "Clips", href: "/features/clips" },
       { label: "Apps & integrations", href: "/integrations" },
       { label: "File sharing", href: "/features/document-sharing" },
@@ -353,6 +357,8 @@ export const footerColumns: FooterColumn[] = [
     title: "Resources",
     links: [
       { label: "Help Centre", href: "/help" },
+      { label: "Customer support", href: "/help/requests/new" },
+      { label: `What is ${B}?`, href: "/resources/why-use-slack/what-is-slack-and-how-does-it-work" },
       { label: "What's new", href: "/whats-new" },
       { label: "Resources library", href: "/resources" },
       { label: "Blog", href: "/blog" },
@@ -377,6 +383,7 @@ export const footerColumns: FooterColumn[] = [
       { label: `${B} Shop`, href: "/shop" },
       { label: "Engineering blog", href: "/engineering-blog" },
       { label: "Design blog", href: "/design-blog" },
+      { label: "Legal", href: "/legal" },
       { label: "Contact us", href: "/contact" },
     ],
   },
@@ -385,6 +392,7 @@ export const footerColumns: FooterColumn[] = [
 export const legalItems: LegalItem[] = [
   { kind: "link", label: "Privacy", href: "/legal/privacy" },
   { kind: "link", label: "Terms", href: "/legal/terms" },
+  { kind: "link", label: "Cookie policy", href: "/cookie-policy" },
   { kind: "action", label: "Cookie preferences", action: "cookie-preferences" },
   { kind: "action", label: "Your privacy choices", action: "privacy-choices" },
 ];

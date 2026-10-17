@@ -9,7 +9,7 @@ import { ArticleTemplate } from "@/components/templates/article";
 import { ButtonLink } from "@/components/ui/button";
 import { PageSkeleton } from "@/components/ui/page-skeleton";
 import { buildMetadata } from "@/lib/seo";
-import { formatDate } from "@/lib/utils";
+import { formatDate, slugify } from "@/lib/utils";
 
 export function generateStaticParams() {
   return helpArticles.map((a) => ({ slug: a.slug }));
@@ -43,7 +43,7 @@ async function HelpArticleContent({ params }: { params: Promise<{ slug: string }
 
   return (
     <ArticleTemplate
-      crumbs={[{ label: "Help Centre", href: "/help" }, { label: article.category }, { label: article.title }]}
+      crumbs={[{ label: "Help Centre", href: "/help" }, { label: article.category, href: `/help/categories/${slugify(article.category)}` }, { label: article.title }]}
       eyebrow={article.category}
       tone={cat?.tone ?? "violet"}
       title={article.title}
@@ -73,7 +73,7 @@ async function HelpArticleContent({ params }: { params: Promise<{ slug: string }
             <LifeBuoy className="size-6 text-primary" aria-hidden="true" />
             <p className="mt-3 font-display text-lg font-bold text-fg">Still need help?</p>
             <p className="mt-1 text-sm text-muted">Our support team is available around the clock.</p>
-            <ButtonLink href="/contact" size="sm" className="mt-4">
+            <ButtonLink href="/help/requests/new" size="sm" className="mt-4">
               Contact support
             </ButtonLink>
           </div>

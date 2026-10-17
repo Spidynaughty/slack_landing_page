@@ -8,7 +8,7 @@ import { Section } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { toneStyles } from "@/lib/tones";
-import { cn } from "@/lib/utils";
+import { cn, slugify } from "@/lib/utils";
 import { helpItems } from "@/lib/listing-items";
 
 export const metadata = buildMetadata({
@@ -38,12 +38,11 @@ export default function HelpPage() {
         <div className="container-page">
           <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {helpCategories.map((c) => {
-              const first = helpArticles.find((a) => a.category === c.name);
               const count = helpArticles.filter((a) => a.category === c.name).length;
               return (
                 <StaggerItem key={c.name} lift className="h-full">
                   <Link
-                    href={first ? `/help/${first.slug}` : "/help"}
+                    href={`/help/categories/${slugify(c.name)}`}
                     className="group flex h-full items-start gap-4 rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-soft transition-shadow hover:shadow-card"
                   >
                     <span className={cn("inline-flex size-11 shrink-0 items-center justify-center rounded-xl", toneStyles[c.tone].soft)}>
@@ -70,7 +69,7 @@ export default function HelpPage() {
         <Section bg="soft">
           <div className="grid gap-5 md:grid-cols-3">
             {[
-              { icon: Headset, title: "Contact support", body: "Our team answers around the clock on paid plans.", href: "/contact", cta: "Get in touch" },
+              { icon: Headset, title: "Contact support", body: "Our team answers around the clock on paid plans.", href: "/help/requests/new", cta: "Submit a request" },
               { icon: MessagesSquare, title: "Ask the community", body: `Thousands of admins and power users share ${B} tips.`, href: "/community", cta: "Visit the community" },
               { icon: Activity, title: "System status", body: "Check real-time status and past incidents.", href: "/status", cta: "View status" },
             ].map((c) => (
