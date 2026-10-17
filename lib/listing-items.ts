@@ -98,6 +98,7 @@ export function templateItems(): ListingItem[] {
     id: t.slug,
     title: t.name,
     excerpt: t.description,
+    href: `/templates/${t.slug}`,
     tone: t.tone,
     icon: t.icon,
     badge: t.category,

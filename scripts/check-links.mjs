@@ -46,6 +46,11 @@ const REQUIRED = [
   "/help/requests/new", "/help/search", "/help/categories/getting-started",
   "/trust/compliance", "/trust/data-management", "/trust/data-requests", "/trust/privacy", "/trust/ai-principles", "/trust/privacy-request",
   "/legal", "/cookie-policy",
+  // Detail pages
+  "/marketplace/drivewise", "/marketplace/expensio", "/templates/project-kickoff", "/templates/vendor-management",
+  "/careers/staff-software-engineer-real-time-infrastructure", "/blog/topic/product", "/blog/topic/ai", "/blog/topic/productivity",
+  "/blog/authors/priya-raman", "/pricing/free", "/pricing/pro", "/pricing/business-plus", "/pricing/enterprise",
+  "/pricing/nonprofits", "/pricing/education",
 ];
 
 // Alternate URLs that must redirect somewhere real.

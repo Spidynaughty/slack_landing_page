@@ -137,6 +137,69 @@ export const posts: Post[] = [
     ],
   },
   {
+    slug: "list-automations",
+    title: "Lists that run themselves: automations arrive in every list",
+    excerpt: `Lists in ${B} can now update fields, assign owners, post to channels and nudge people when work stalls, using simple rules anyone on the team can write in plain language.`,
+    category: "Product",
+    author: { name: "Priya Raman", role: "Chief Product Officer", initials: "PR" },
+    tone: "sun",
+    publishedAt: "2026-09-24",
+    readMinutes: 6,
+    tags: ["Lists", "Workflows", "Launch"],
+    sections: [
+      {
+        id: "the-busywork-around-the-work",
+        heading: "The busywork around the work",
+        paragraphs: [
+          `Since we introduced lists last year, teams have created more than 1.3 million of them in ${B}, tracking everything from product launches and hiring pipelines to equipment requests and customer escalations. Lists worked because they lived next to the conversation: you could turn a message into an item, discuss it in a thread and see its status without leaving the channel. But as lists grew, so did the chores that kept them accurate.`,
+          "When we sat with list owners, we kept seeing the same pattern. Someone would spend the first hour of their Monday moving items between statuses, reminding owners about due dates and copying updates into a channel so leadership could follow along. In our research panel, the average owner of an active list spent close to three hours a week on that upkeep, and most of them described it as the least favorite part of their job.",
+          "Automations are our answer. They take the repetitive, predictable parts of keeping a list current and hand them to the list itself, so the people on the team can spend their time on the work the list is tracking rather than on the list.",
+        ],
+      },
+      {
+        id: "when-this-happens",
+        heading: "When this happens, do that",
+        paragraphs: [
+          "Every automation follows the same shape: a trigger, optional conditions and one or more actions. You build them from a panel inside the list, and as you go, a plain-language preview reads the rule back to you, such as when priority changes to urgent and no owner is set, assign the on-call lead and post in the incidents channel. If the sentence reads correctly, the automation will behave correctly.",
+          "You can also describe what you want in your own words and let the builder draft the rule for you. The draft is always shown as a normal, editable automation before it is saved, so nothing runs that you have not read. In testing, about two thirds of new automations started from a written description, and most needed only a small tweak before they were ready.",
+        ],
+        bullets: [
+          "Triggers: an item is added, a field changes, a due date approaches or passes, or a scheduled time arrives",
+          "Conditions: filter on any field, including people, status, priority and custom fields",
+          "Actions: update fields, assign people, create a linked item, post to a channel or send a reminder",
+          "Workflow handoff: start any existing workflow, including steps in connected apps",
+        ],
+      },
+      {
+        id: "guardrails",
+        heading: "Guardrails that keep automations predictable",
+        paragraphs: [
+          "An automation that surprises people is worse than no automation at all, so predictability shaped most of the design. Every change an automation makes is labeled in the item history with the rule that made it and a link back to that rule. If a teammate wonders why an item moved, the answer is one click away, along with the name of the person who created the automation.",
+          "We also built in protections against the classic failure modes. The builder detects rules that would trigger each other in a loop and refuses to save them, and every list has a run history that shows what fired, when and what changed. Automations act with the permissions of the list rather than the person who wrote them, so a rule can never post to a channel or touch an item that the list itself cannot reach.",
+        ],
+        quote:
+          "We used to have one person whose whole Monday was keeping the tracker honest. Now the tracker keeps itself honest, and she runs the planning meeting instead.",
+      },
+      {
+        id: "what-teams-built",
+        heading: "What early teams built",
+        paragraphs: [
+          "More than 2,000 teams used automations during a six-week preview, and the most popular rules were refreshingly ordinary. Reminders before due dates topped the chart, followed closely by assigning owners based on a category field and posting a daily digest of overdue items into a team channel. Teams that set up at least three automations reported saving an average of 2.4 hours per list owner each week.",
+          "Some teams went further. The dispatch team at Orbital Freight built a list that routes delayed shipments to the right regional lead and opens a thread with the driver's latest update, cutting their response time to late loads by more than half. A procurement group at Halcyon Health uses a pair of automations to request approval for any order above a spending threshold and to close the item automatically once a manager signs off.",
+          "Across the preview, lists with automations had 31 percent fewer stale items, meaning items nobody had touched in two weeks. That number mattered more to us than time saved, because a list people can trust is a list people actually use.",
+        ],
+      },
+      {
+        id: "availability",
+        heading: "Availability and what comes next",
+        paragraphs: [
+          `Automations are rolling out today to every paid ${B} plan, with higher monthly run limits on Business+ and Enterprise. Admins can see every automation in their workspace from a single page, pause any rule and restrict who can create automations that post outside a list's home channel. List templates in the gallery now include starter automations you can switch on with one click.`,
+          "Next, we are connecting automations to agents, so a rule can ask an agent to draft a status summary, categorize incoming requests or suggest an owner, with a person approving anything that matters. We are also working on automations that span several lists at once, a top request from operations teams who run related trackers side by side. As always, tell us what you build, because the best ideas in this release came from customers.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "inside-our-design-system",
     title: "Prism 3: rebuilding our design system around tokens, not components",
     excerpt:
@@ -185,6 +248,68 @@ export const posts: Post[] = [
         paragraphs: [
           "A design system only matters if teams use it. We migrated in small slices, starting with the message composer because it appears on every platform and touches nearly every token category. Each migration shipped behind a flag, and we compared screenshots across hundreds of states automatically to catch unintended changes before customers did.",
           "Eighteen months in, 94 percent of color and spacing values in our product code come from Prism tokens, up from roughly a third. The remaining six percent are documented exceptions with owners and expiry dates. We are now opening up the token pipeline to our app developer platform, so apps that build on top of us can match our themes without guessing.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "designing-agent-approvals",
+    title: "Ask first: designing approvals that make agents worth trusting",
+    excerpt:
+      "Agents are only useful if people let them act. Here is how we designed approval moments that are quick enough to keep work moving and clear enough that nobody signs off on something they do not understand.",
+    category: "AI",
+    author: { name: "Hana Mori", role: "Group Product Manager, AI", initials: "HM" },
+    tone: "violet",
+    publishedAt: "2026-09-10",
+    readMinutes: 7,
+    tags: ["AI", "Agents", "Product design"],
+    sections: [
+      {
+        id: "two-ways-to-get-it-wrong",
+        heading: "Two ways to get approvals wrong",
+        paragraphs: [
+          "Early in the agents beta, we tried both extremes. Our first prototype asked for permission before nearly every step, including looking up a customer record or opening a document. Within a week, testers were approving requests in under two seconds without reading them, which meant the approvals were protecting nobody. They had become a speed bump that trained people to click through.",
+          "The opposite extreme failed faster. A version that acted freely and reported afterward was efficient right up until it updated a shared forecast with numbers from the wrong quarter. Nothing was lost, since every change could be undone, but the team stopped using the agent for a month. Trust that takes weeks to build can disappear in a single afternoon.",
+          "The lesson was that approvals are not a safety feature you bolt on at the end. They are the main interface between a person and an agent, and they deserve the same design attention as anything else in the product.",
+        ],
+      },
+      {
+        id: "matching-the-ask-to-the-stakes",
+        heading: "Matching the ask to the stakes",
+        paragraphs: [
+          "We now sort every action an agent can take into three tiers based on two questions: can it be undone, and does it reach anyone outside the conversation? Reading and drafting sit in the lowest tier and happen without interruption. Changes that are reversible and internal happen right away, with a short note in the thread and an undo button. Anything irreversible, or anything that reaches customers, partners or a system of record, waits for a person.",
+          "Builders choose the tier for each action when they connect an app, and admins can raise the tier for any action across the workspace. Nobody can lower it below the default for actions we classify as irreversible, such as sending an external email or issuing a refund. That floor gave security teams the confidence to approve agents for much broader pilots.",
+        ],
+        bullets: [
+          "Act freely: search, read, summarize and draft, with citations for every source",
+          "Act, then tell: reversible internal changes, posted with a one-click undo for 24 hours",
+          "Ask first: irreversible or external actions, which wait for an explicit approval",
+          "Admin policies can raise any tier, but never lower the floor for irreversible actions",
+        ],
+      },
+      {
+        id: "anatomy-of-an-approval",
+        heading: "Anatomy of a good approval request",
+        paragraphs: [
+          "Every approval request answers four questions in the same order: what the agent wants to do, why it thinks this is the right step, exactly what will change and who will be affected. The change is shown as a preview rather than a description, so a record update appears as a before and after view and a message to a customer appears in full, exactly as it will be sent. If a person would have to open another tab to understand the request, we consider the request unfinished.",
+          "People can approve, decline or edit, and editing turned out to be the most important option. When testers could adjust a drafted reply or change one field before approving, they declined far less often and kept using the agent for harder tasks. Each edit also becomes feedback the agent's owner can review, which helps narrow the agent's job over time.",
+        ],
+        quote: "An approval should take five seconds to read and leave you feeling more in control, not less.",
+      },
+      {
+        id: "measuring-trust",
+        heading: "Measuring whether approvals actually work",
+        paragraphs: [
+          "Approval rate alone tells you very little. A 99 percent approval rate could mean the agent is excellent or that people have stopped reading. So we track a small set of signals together: how long people spend on high-stakes requests, how often they edit before approving and how often an approved action is later reversed. A pattern of very fast approvals on irreversible actions triggers a gentle prompt to review the agent's settings.",
+          "We also test attention directly in our research studies. Participants receive a mix of genuine requests and deliberately flawed ones, such as a refund for the wrong amount or an email addressed to the wrong customer. With our first design, participants caught 61 percent of the flawed requests. After moving to previews, consistent layouts and tiered asks, they caught 89 percent, while spending less total time on approvals.",
+        ],
+      },
+      {
+        id: "whats-next",
+        heading: "What comes next",
+        paragraphs: [
+          "When agents reach general availability later this fall, every agent will use this approval model by default. We are also working on delegated approvals, so a team can name a reviewer for a category of actions, and on batch approvals for agents that prepare many similar changes at once, like updating renewal dates across a set of accounts.",
+          "The broader goal is simple. People should always know what an agent did, why it did it and how to undo it, and they should only be interrupted when their judgment genuinely matters. If you are in the beta, we would love to hear where approvals still feel like a speed bump, because that feedback is how we got this far.",
         ],
       },
     ],
@@ -295,6 +420,67 @@ export const posts: Post[] = [
     ],
   },
   {
+    slug: "shared-channels-at-scale",
+    title: "Shared channels at scale: new tools for organizations with hundreds of partners",
+    excerpt: `The average enterprise on ${B} now works with more than 140 outside organizations in shared channels. A new connections hub, verified organizations and per-partner policies make that scale manageable.`,
+    category: "Product",
+    author: { name: "Rachel Kim", role: "SVP, Partnerships", initials: "RK" },
+    tone: "mint",
+    publishedAt: "2026-08-12",
+    readMinutes: 6,
+    tags: ["Shared channels", "Enterprise", "Partnerships"],
+    sections: [
+      {
+        id: "from-one-partner-to-hundreds",
+        heading: "From one partner to hundreds",
+        paragraphs: [
+          `Shared channels began with a modest goal: let two companies work in the same channel instead of trading long email chains. Customers took that idea much further than we expected. Today more than 60,000 organizations are connected through ${B}, and the average enterprise customer works with over 140 outside organizations in shared channels, from agencies and suppliers to law firms and joint venture partners.`,
+          "That growth brought a new kind of problem. Admins told us they could no longer answer basic questions, like which partners had access to which channels or which connections had gone quiet months ago. Members, meanwhile, sometimes could not tell at a glance whether the person replying to them worked at their own company or somewhere else. Tools that felt fine at ten connections broke down at a few hundred.",
+        ],
+      },
+      {
+        id: "connections-hub",
+        heading: "One place to manage every connection",
+        paragraphs: [
+          "The new connections hub gives admins a single view of every external organization their workspace works with. Each connection has its own page listing the shared channels, the people involved on both sides, recent activity and the policies that apply. Connections that have been inactive for 90 days are flagged for review, and admins can disconnect a partner from every channel at once when a project ends.",
+          "Connection requests also got smarter. Admins can preapprove trusted partners so that new shared channels with them are created instantly, while requests from unfamiliar organizations route to a review queue with context about who is asking and why. During the pilot, enterprise admins cleared their connection backlogs in days instead of weeks.",
+        ],
+        bullets: [
+          "A directory of every connected organization, with channels, members and recent activity",
+          "Preapproved partners for instant channel creation, plus a review queue for new requests",
+          "Per-connection policies for file sharing, huddles, apps and agents",
+          "Inactive connection alerts and one-click disconnection across every shared channel",
+        ],
+      },
+      {
+        id: "trust-across-boundaries",
+        heading: "Trust across company boundaries",
+        paragraphs: [
+          `Members now see a verified badge for organizations that have confirmed their domain with ${B}, and external participants carry a clear label on every message, profile and mention. Before you share a file in a shared channel, you see which organizations will be able to open it. These details are small, but in our research they were the biggest factor in whether people felt comfortable working in the open with partners.`,
+          "Each organization's own policies still apply to its own data. Retention, legal holds and data residency follow the settings of the organization that created the content, including for customers in sovereign regions. Agents and apps in shared channels can only use information that both sides allow, and an organization can block external agents from its shared channels entirely.",
+        ],
+        quote:
+          "We work with 300 clients in shared channels. For the first time, I can see all of them on one screen and know exactly who has access to what.",
+      },
+      {
+        id: "what-customers-taught-us",
+        heading: "What our customers taught us",
+        paragraphs: [
+          "Some of the most creative uses came from organizations that treat shared channels as their main way of working with clients. Alder & Finch, a consulting firm, runs a shared channel for every client engagement and uses channel templates so each one starts with the same canvas, lists and workflows. Their onboarding time for a new client dropped from two weeks to three days.",
+          "Supply chains have embraced shared channels too. Corvid Logistics connects warehouses, carriers and retail customers in shared channels organized by region, so a delay at one dock reaches every affected party in minutes. Customers like them pushed us to support larger multi-organization channels, which can now include up to 250 organizations, and to make it obvious which company each participant belongs to.",
+        ],
+      },
+      {
+        id: "availability",
+        heading: "Availability",
+        paragraphs: [
+          `The connections hub and verified organizations are available today for all ${B} Business+ and Enterprise customers, and external labels and file sharing previews are rolling out to every plan. Per-connection policies for agents will arrive alongside the general availability of agents later this year.`,
+          "If your organization works with dozens of partners in shared channels, your account team can walk you through a connection review and help you set up preapproved partners. We will keep investing here, because the work that matters most rarely stays inside one company.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "rebuilding-search-indexing",
     title: "Rebuilding search: from nightly batches to sub-second indexing",
     excerpt:
@@ -395,6 +581,69 @@ export const posts: Post[] = [
         paragraphs: [
           `Enterprise customers can join the early access program today through their account team. Pricing will match standard ${B} Enterprise plans, with sovereign region hosting available as an add-on. More regions, including Tokyo and Zurich, are planned for 2027.`,
           "We will host a live session with Meridian's solutions architects later this year for teams evaluating the offering. Watch our events page for dates, or reach out to your account team to schedule a private briefing. Existing Enterprise customers can also request a migration assessment at no cost.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "protecting-focus-time",
+    title: "The two-hour block: what 1,400 people taught us about protecting focus",
+    excerpt:
+      "Our latest Future of Work Lab study found that the people having their best workdays were not the ones with the emptiest calendars, but the ones whose focus time came in long, predictable blocks.",
+    category: "Productivity",
+    author: { name: "Jordan Blake", role: "Principal Researcher, Future of Work Lab", initials: "JB" },
+    tone: "sky",
+    publishedAt: "2026-06-24",
+    readMinutes: 7,
+    tags: ["Async work", "Research", "Focus time"],
+    sections: [
+      {
+        id: "the-study",
+        heading: "How we ran the study",
+        paragraphs: [
+          "After our spring study on recurring meetings, the most common question we heard was what people actually do with the time they get back. To find out, our Future of Work Lab recruited 1,400 volunteers across 31 organizations for an eight-week study of how focus time is created, protected and lost. Participants included engineers, designers, account managers, analysts, recruiters and operations staff.",
+          "With participants' consent, we combined anonymized calendar data with aggregated, opt-in signals about when people were actively messaging. We never looked at message content. Every afternoon, participants answered two quick questions: how good was today, and did you make progress on the work that matters most to you? Pairing those answers with the shape of each person's day let us see which patterns actually mattered.",
+        ],
+      },
+      {
+        id: "fragmentation",
+        heading: "Fragmentation, not volume, is the problem",
+        paragraphs: [
+          "The average participant had about 11 hours of unscheduled time each week, which sounds healthy until you look at how it was distributed. Only 3.2 of those hours came in blocks of 90 minutes or longer. The rest arrived in slivers between meetings: twenty minutes here, forty minutes there, rarely enough to get properly started on anything difficult.",
+          "Block length turned out to be a stronger predictor of a good day than total meeting hours. Participants who had at least one uninterrupted two-hour block were 2.3 times as likely to report meaningful progress that day, even when their total meeting load was the same as everyone else's. Moving a single meeting so that two small gaps became one large block often mattered more than canceling a meeting outright.",
+          "Interruptions told a similar story. Participants checked messages an average of 52 times a day, but most of those checks were driven by worry about missing something rather than by a specific notification. When people trusted that urgent issues would reach them, they checked far less often.",
+        ],
+        quote: "I did not need fewer meetings. I needed my meetings to stop landing in the middle of my mornings.",
+      },
+      {
+        id: "focus-is-a-team-sport",
+        heading: "Focus is a team sport",
+        paragraphs: [
+          "One of the clearest findings was that individual tactics only go so far. Participants who silenced notifications on their own often felt more anxious, not less, because they worried that teammates were waiting on them. When a whole team agreed on shared focus hours, that anxiety faded and the time was genuinely protected. Teams that adopted shared norms gained an average of 3.6 hours of long-block focus time each week.",
+          "The most effective teams relied on a handful of simple, explicit agreements. They were written down, usually in a pinned canvas, and revisited after a few weeks. Teams that agreed on norms out loud but never wrote them down drifted back to old habits within about a month.",
+        ],
+        bullets: [
+          "Shared focus windows, such as weekday mornings until 11, with no meetings scheduled",
+          "A clear path for urgent issues, like a dedicated channel or an on-call rotation, so everything else can wait",
+          "Notification digests during focus hours instead of real-time alerts",
+          "Status messages that say when you will be back, not just that you are busy",
+          "A written daily check-in that replaces the quick sync meeting",
+        ],
+      },
+      {
+        id: "what-tools-can-do",
+        heading: "What tools can and cannot do",
+        paragraphs: [
+          `Software can make good habits easier. Scheduled notifications, focus statuses and recaps of what happened while you were heads down all helped participants step away with less worry. Several teams in the study also used ${B} workflows to post a reminder when focus hours began and a short digest when they ended, which made the norm visible without anyone having to enforce it.`,
+          "But tools did not create focus on their own. Participants with every focus feature turned on but no team agreement saw almost no improvement. The gains came when a team decided together what deserved an interruption and what could wait, and then used the product to make that decision easy to follow.",
+        ],
+      },
+      {
+        id: "try-it",
+        heading: "Run a two-week focus pilot",
+        paragraphs: [
+          "If you want to try this with your team, start small. Pick one shared focus window, ideally in the morning when most participants reported doing their best work, and agree to keep it meeting-free for two weeks. Decide how urgent issues will reach people, and write both agreements in a canvas pinned to your team channel.",
+          "At the end of each week, ask everyone the same two questions we asked our participants and compare the answers with a typical week before the pilot. Most teams in our study saw a difference within the first week, and the ones that kept going reported that focus hours quickly stopped feeling like a rule and started feeling like the way the team works.",
         ],
       },
     ],

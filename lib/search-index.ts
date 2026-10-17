@@ -1,6 +1,11 @@
 import "server-only";
 import { navSearchEntries } from "@/data/nav";
+import { authors } from "@/data/authors";
 import { featureDemos } from "@/data/demos";
+import { apps } from "@/data/integrations";
+import { jobs } from "@/data/jobs";
+import { templates } from "@/data/templates";
+import { blogTopics } from "./blog-topics";
 import { events } from "@/data/events";
 import { features } from "@/data/features";
 import { collections, guides, resourceCategories } from "@/data/guides";
@@ -31,6 +36,17 @@ export function buildSearchIndex(): SearchEntry[] {
     ...resourceCategories.map((c) => ({ label: c.name, href: `/resources/${c.slug}`, group: "Resources", description: c.description })),
     ...guides.map((g) => ({ label: g.title, href: `/resources/${g.category}/${g.slug}`, group: "Guides", description: g.excerpt })),
     ...collections.map((c) => ({ label: c.title, href: `/resources/collections/${c.slug}`, group: "Collections", description: c.description })),
+    ...apps.map((a) => ({ label: a.name, href: `/marketplace/${a.slug}`, group: `Marketplace · ${a.category}`, description: a.description })),
+    ...templates.map((t) => ({ label: `${t.name} template`, href: `/templates/${t.slug}`, group: "Templates", description: t.description })),
+    ...jobs.map((j) => ({ label: j.title, href: `/careers/${j.slug}`, group: "Careers", description: `${j.team} · ${j.location}` })),
+    ...blogTopics.map((t) => ({ label: `${t.category} articles`, href: `/blog/topic/${t.slug}`, group: "Blog", description: t.subtitle })),
+    ...authors.map((a) => ({ label: a.name, href: `/blog/authors/${a.slug}`, group: "Authors", description: a.role })),
+    { label: "Free plan", href: "/pricing/free", group: "Pricing" },
+    { label: "Pro plan", href: "/pricing/pro", group: "Pricing" },
+    { label: "Business+ plan", href: "/pricing/business-plus", group: "Pricing" },
+    { label: "Enterprise plan", href: "/pricing/enterprise", group: "Pricing" },
+    { label: "Nonprofit discount", href: "/pricing/nonprofits", group: "Pricing" },
+    { label: "Education discount", href: "/pricing/education", group: "Pricing" },
   ];
   const seen = new Set<string>();
   return entries.filter((e) => (seen.has(e.href) ? false : (seen.add(e.href), true)));

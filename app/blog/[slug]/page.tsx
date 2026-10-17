@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
+import { authorSlug, getAuthor } from "@/data/authors";
 import { getPost, posts } from "@/data/posts";
 import { ArticleTemplate } from "@/components/templates/article";
 import { ButtonLink } from "@/components/ui/button";
@@ -8,6 +9,7 @@ import { PageSkeleton } from "@/components/ui/page-skeleton";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
+import { categoryHref } from "@/lib/blog-topics";
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -46,8 +48,8 @@ async function BlogPostContent({ params }: { params: Promise<{ slug: string }> }
     .slice(0, 3)
     .map((p) => ({ title: p.title, href: `/blog/${p.slug}`, eyebrow: p.category, excerpt: p.excerpt, tone: p.tone }));
 
-  const listing = post.category === "Engineering" ? "/engineering-blog" : post.category === "Design" ? "/design-blog" : post.category === "News" ? "/blog/news" : "/blog";
-  const listingLabel = post.category === "Engineering" ? "Engineering blog" : post.category === "Design" ? "Design blog" : post.category === "News" ? "News" : "Blog";
+  const listing = categoryHref[post.category];
+  const listingLabel = post.category === "Engineering" ? "Engineering blog" : post.category === "Design" ? "Design blog" : post.category;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -64,14 +66,14 @@ async function BlogPostContent({ params }: { params: Promise<{ slug: string }> }
       <ArticleTemplate
         crumbs={[
           { label: "Blog", href: "/blog" },
-          ...(listing !== "/blog" ? [{ label: listingLabel, href: listing }] : []),
+          { label: listingLabel, href: listing },
           { label: post.title },
         ]}
         eyebrow={post.category}
         tone={post.tone}
         title={post.title}
         excerpt={post.excerpt}
-        author={post.author}
+        author={{ ...post.author, href: getAuthor(authorSlug(post.author.name)) ? `/blog/authors/${authorSlug(post.author.name)}` : undefined }}
         date={formatDate(post.publishedAt, "long")}
         readMinutes={post.readMinutes}
         sections={post.sections}

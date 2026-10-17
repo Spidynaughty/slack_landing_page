@@ -1,85 +1,18 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, Search, Star, X } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
-import { appCategories, apps, type App } from "@/data/integrations";
-import { Button } from "@/components/ui/button";
-import { useDialog } from "@/components/ui/use-dialog";
+import { Search } from "lucide-react";
+import { useMemo, useState } from "react";
+import { appCategories, apps } from "@/data/integrations";
 import { cn } from "@/lib/utils";
-import { AppCard, AppIcon } from "./apps";
+import { AppCard } from "./apps";
 
-function AppModal({ app, onClose }: { app: App | null; onClose: () => void }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [added, setAdded] = useState(false);
-  useDialog(Boolean(app), () => {
-    setAdded(false);
-    onClose();
-  }, ref);
-  return (
-    <AnimatePresence>
-      {app && (
-        <motion.div className="fixed inset-0 z-[85] flex items-end justify-center p-3 sm:items-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-          <div className="absolute inset-0 bg-deep/55 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
-          <motion.div
-            ref={ref}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="app-title"
-            initial={{ y: 24, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 16, opacity: 0 }}
-            className="relative w-full max-w-lg rounded-3xl border border-line bg-surface p-7 shadow-float"
-          >
-            <button type="button" onClick={onClose} className="absolute top-4 right-4 inline-flex size-9 items-center justify-center rounded-full hover:bg-surface-2" aria-label="Close">
-              <X className="size-4" aria-hidden="true" />
-            </button>
-            <div className="flex items-center gap-4">
-              <AppIcon app={app} size="lg" />
-              <div>
-                <h2 id="app-title" className="font-display text-2xl font-bold text-fg">
-                  {app.name}
-                </h2>
-                <p className="text-sm text-muted">
-                  {app.category} · <Star className="inline size-3.5 fill-sun text-sun" aria-hidden="true" /> {app.rating.toFixed(1)} · {app.installs} installs
-                </p>
-              </div>
-            </div>
-            <p className="mt-5 text-muted">{app.description}</p>
-            <ul className="mt-5 flex flex-col gap-2.5">
-              {app.bullets.map((b) => (
-                <li key={b} className="flex items-center gap-2.5 text-fg">
-                  <Check className="size-4 text-mint-ink" aria-hidden="true" />
-                  {b}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-7 flex items-center justify-between gap-3">
-              <p className="text-xs text-subtle">Demo directory: installing is simulated.</p>
-              <Button onClick={() => setAdded(true)} variant={added ? "secondary" : "primary"} aria-live="polite">
-                {added ? (
-                  <>
-                    <Check className="size-4" aria-hidden="true" /> Added to workspace
-                  </>
-                ) : (
-                  "Add to workspace"
-                )}
-              </Button>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
-/** Filterable app directory with category sidebar, agent toggle and detail modal. */
+/** Filterable app directory with category sidebar and agent toggle; cards open each app's page. */
 export function Marketplace() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("All");
   const [agentsOnly, setAgentsOnly] = useState(false);
   const [sort, setSort] = useState<"popular" | "rating" | "name">("popular");
-  const [open, setOpen] = useState<App | null>(null);
 
   const list = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -159,16 +92,13 @@ export function Marketplace() {
             <AnimatePresence mode="popLayout">
               {list.map((a) => (
                 <motion.li key={a.slug} layout initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }} className="h-full">
-                  <button type="button" onClick={() => setOpen(a)} className="block h-full w-full text-left transition-transform hover:-translate-y-1" aria-haspopup="dialog">
-                    <AppCard app={a} />
-                  </button>
+                  <AppCard app={a} />
                 </motion.li>
               ))}
             </AnimatePresence>
           </ul>
         )}
       </div>
-      <AppModal app={open} onClose={() => setOpen(null)} />
     </div>
   );
 }

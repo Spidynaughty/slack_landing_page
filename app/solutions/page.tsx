@@ -81,7 +81,7 @@ export default function SolutionsPage() {
               .map((t) => (
                 <StaggerItem key={t.slug}>
                   <Link
-                    href="/templates/gallery"
+                    href={`/templates/${t.slug}`}
                     className="flex items-center gap-3 rounded-2xl border border-line bg-surface p-4 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-card"
                   >
                     <span className={cn("inline-flex size-10 items-center justify-center rounded-xl", toneStyles[t.tone].solid)}>

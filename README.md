@@ -1,6 +1,6 @@
 # Sluck marketing site
 
-A portfolio recreation of a modern team-collaboration product's marketing site: about 150 pages built with
+A portfolio recreation of a modern team-collaboration product's marketing site: about 215 pages built with
 **Next.js 16 (App Router, Cache Components)**, **React 19**, **TypeScript**, **Tailwind CSS 4**, **Framer Motion** and
 **Lucide** icons. The brand, logo, palette, copy, people and customer companies are all original or fictional.
 

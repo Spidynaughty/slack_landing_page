@@ -36,6 +36,9 @@ export default function BlogPage() {
             <LinkChips
               className="mt-8 justify-center"
               links={[
+                { label: "Product", href: "/blog/topic/product", icon: "rocket" },
+                { label: "AI", href: "/blog/topic/ai", icon: "sparkles" },
+                { label: "Productivity", href: "/blog/topic/productivity", icon: "zap" },
                 { label: "News", href: "/blog/news", icon: "news" },
                 { label: "Engineering blog", href: "/engineering-blog", icon: "code" },
                 { label: "Design blog", href: "/design-blog", icon: "palette" },

@@ -1,4 +1,9 @@
 import { navHrefs } from "@/data/nav";
+import { authors } from "@/data/authors";
+import { apps } from "@/data/integrations";
+import { jobs } from "@/data/jobs";
+import { templates } from "@/data/templates";
+import { blogTopics } from "./blog-topics";
 import { comparisons } from "@/data/compare";
 import { featureDemos } from "@/data/demos";
 import { events } from "@/data/events";
@@ -19,6 +24,12 @@ const extraStatic = [
   "/resources/why-use-slack/rethinking-email-ai-conversations-work",
   "/legal",
   "/cookie-policy",
+  "/pricing/free",
+  "/pricing/pro",
+  "/pricing/business-plus",
+  "/pricing/enterprise",
+  "/pricing/nonprofits",
+  "/pricing/education",
 ];
 
 /** Every public route on the site, derived from navigation plus content data. */
@@ -37,5 +48,10 @@ export function allRoutes(): string[] {
   resourceCategories.forEach((c) => set.add(`/resources/${c.slug}`));
   guides.forEach((g) => set.add(`/resources/${g.category}/${g.slug}`));
   collections.forEach((c) => set.add(`/resources/collections/${c.slug}`));
+  apps.forEach((a) => set.add(`/marketplace/${a.slug}`));
+  templates.forEach((t) => set.add(`/templates/${t.slug}`));
+  jobs.forEach((j) => set.add(`/careers/${j.slug}`));
+  blogTopics.forEach((t) => set.add(`/blog/topic/${t.slug}`));
+  authors.forEach((a) => set.add(`/blog/authors/${a.slug}`));
   return [...set].sort((a, b) => (a === "/" ? -1 : b === "/" ? 1 : a.localeCompare(b)));
 }

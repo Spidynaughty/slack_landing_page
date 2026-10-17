@@ -175,8 +175,8 @@ function PreviewModal({ item, onClose }: { item: ListingItem | null; onClose: ()
                 ))}
               </ul>
               <div className="mt-6 flex flex-wrap justify-end gap-2">
-                <ButtonLink href="/product-tour" variant="secondary">
-                  Take the product tour
+                <ButtonLink href={item.href ?? "/product-tour"} variant="secondary">
+                  {item.href ? "View full template" : "Take the product tour"}
                 </ButtonLink>
                 <ButtonLink href="/get-started" arrow>
                   Use this template

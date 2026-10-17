@@ -92,6 +92,12 @@ export function PricingPlans() {
               >
                 {p.cta.label}
               </Link>
+              <Link
+                href={`/pricing/${p.id === "business" ? "business-plus" : p.id}`}
+                className="mt-3 text-center text-sm font-semibold text-primary underline-offset-4 hover:underline"
+              >
+                See {p.name} details
+              </Link>
               {p.includesFrom && <p className="mt-7 text-sm font-semibold text-fg">{p.includesFrom}</p>}
               <ul className={cn("flex flex-col gap-3 text-sm", p.includesFrom ? "mt-3" : "mt-7")}>
                 {p.features.map((f) => (

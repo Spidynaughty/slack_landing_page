@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { Briefcase, ChevronDown, MapPin, Wallet } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import type { Job } from "@/data/jobs";
 import { LeadForm } from "@/components/forms/lead-form";
@@ -118,13 +119,21 @@ export function JobBoard({ jobs }: { jobs: Job[] }) {
                           />
                         </div>
                       ) : (
-                        <button
-                          type="button"
-                          onClick={() => setApplying(j.slug)}
-                          className="mt-8 inline-flex h-11 items-center rounded-full bg-primary px-6 font-semibold text-primary-fg hover:bg-primary-hover"
-                        >
-                          Apply for this role
-                        </button>
+                        <div className="mt-8 flex flex-wrap gap-3">
+                          <button
+                            type="button"
+                            onClick={() => setApplying(j.slug)}
+                            className="inline-flex h-11 items-center rounded-full bg-primary px-6 font-semibold text-primary-fg hover:bg-primary-hover"
+                          >
+                            Apply for this role
+                          </button>
+                          <Link
+                            href={`/careers/${j.slug}`}
+                            className="inline-flex h-11 items-center rounded-full border border-line-strong px-6 font-semibold text-fg hover:bg-surface-2"
+                          >
+                            View full posting
+                          </Link>
+                        </div>
                       )}
                     </div>
                   </motion.div>

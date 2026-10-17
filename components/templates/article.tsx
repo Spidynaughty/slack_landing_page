@@ -64,7 +64,7 @@ export function ArticleTemplate({
   tone?: Tone;
   title: string;
   excerpt?: string;
-  author?: { name: string; role: string; initials: string };
+  author?: { name: string; role: string; initials: string; href?: string };
   date?: string;
   readMinutes?: number;
   sections: ArticleSection[];
@@ -94,7 +94,13 @@ export function ArticleTemplate({
                 <div className="flex items-center gap-3">
                   <span className={cn("inline-flex size-11 items-center justify-center rounded-full font-bold", t.solid)}>{author.initials}</span>
                   <span>
-                    <span className="block font-semibold text-fg">{author.name}</span>
+                    {author.href ? (
+                      <Link href={author.href} className="block font-semibold text-fg underline-offset-4 hover:text-primary hover:underline">
+                        {author.name}
+                      </Link>
+                    ) : (
+                      <span className="block font-semibold text-fg">{author.name}</span>
+                    )}
                     <span className="block text-sm text-muted">{author.role}</span>
                   </span>
                 </div>
@@ -142,7 +148,14 @@ export function ArticleTemplate({
             <ShareButtons title={title} />
             {author && (
               <p className="text-sm text-muted">
-                Written by <span className="font-semibold text-fg">{author.name}</span>
+                Written by{" "}
+                {author.href ? (
+                  <Link href={author.href} className="font-semibold text-fg hover:text-primary hover:underline">
+                    {author.name}
+                  </Link>
+                ) : (
+                  <span className="font-semibold text-fg">{author.name}</span>
+                )}
               </p>
             )}
           </div>

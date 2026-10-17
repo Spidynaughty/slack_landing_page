@@ -47,16 +47,16 @@ export default function PricingPage() {
       <Section bg="soft">
         <div className="grid gap-5 md:grid-cols-3">
           {[
-            { icon: HeartHandshake, title: "Nonprofits", body: "Pro is free for qualified nonprofits with up to 250 members.", tone: "text-pink-ink" },
-            { icon: GraduationCap, title: "Education", body: "85% off Pro and Business+ for schools and universities.", tone: "text-mint-ink" },
-            { icon: Building2, title: "Enterprise volume", body: "Custom pricing for 1,000+ seats and multi-year agreements.", tone: "text-sky-ink" },
+            { icon: HeartHandshake, title: "Nonprofits", body: "Pro is free for qualified nonprofits with up to 250 members.", tone: "text-pink-ink", href: "/pricing/nonprofits", cta: "See the nonprofit programme" },
+            { icon: GraduationCap, title: "Education", body: "85% off Pro and Business+ for schools and universities.", tone: "text-mint-ink", href: "/pricing/education", cta: "See the education discount" },
+            { icon: Building2, title: "Enterprise volume", body: "Custom pricing for 1,000+ seats and multi-year agreements.", tone: "text-sky-ink", href: "/pricing/enterprise", cta: "Explore Enterprise" },
           ].map((c) => (
             <Reveal key={c.title} className="rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-soft">
               <c.icon className={`size-7 ${c.tone}`} aria-hidden="true" />
               <h2 className="mt-4 font-display text-xl font-bold text-fg">{c.title}</h2>
               <p className="mt-1 text-muted">{c.body}</p>
-              <ArrowLink href="/contact-sales" className="mt-4 text-sm">
-                Contact sales
+              <ArrowLink href={c.href} className="mt-4 text-sm">
+                {c.cta}
               </ArrowLink>
             </Reveal>
           ))}

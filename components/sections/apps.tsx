@@ -15,9 +15,12 @@ export function AppIcon({ app, size = "md", className }: { app: App; size?: "sm"
   );
 }
 
-export function AppCard({ app }: { app: App }) {
-  return (
-    <div className="flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-soft transition-shadow hover:shadow-card">
+/** App summary card. Links to the app's Marketplace page unless `link` is false. */
+export function AppCard({ app, link = true }: { app: App; link?: boolean }) {
+  const cls =
+    "flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-soft transition-all hover:-translate-y-1 hover:shadow-card";
+  const body = (
+    <>
       <div className="flex items-start gap-4">
         <AppIcon app={app} />
         <div className="min-w-0">
@@ -37,7 +40,14 @@ export function AppCard({ app }: { app: App }) {
         </span>
         <span>{app.installs} installs</span>
       </div>
-    </div>
+    </>
+  );
+  return link ? (
+    <Link href={`/marketplace/${app.slug}`} className={cls}>
+      {body}
+    </Link>
+  ) : (
+    <div className={cls}>{body}</div>
   );
 }
 
@@ -93,7 +103,7 @@ export function AppOrbit({ apps }: { apps: App[] }) {
 export function AppLinkCard({ app }: { app: App }) {
   return (
     <Link
-      href="/marketplace"
+      href={`/marketplace/${app.slug}`}
       className="group flex items-center gap-3 rounded-2xl border border-line bg-surface p-3 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-card"
     >
       <AppIcon app={app} size="sm" />
