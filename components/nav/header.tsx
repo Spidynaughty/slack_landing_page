@@ -187,14 +187,11 @@ export function Header() {
                     close();
                     openSearch();
                   }}
-                  className="group inline-flex h-10 items-center gap-2 rounded-full px-2.5 text-fg transition-colors hover:bg-surface-2"
-                  aria-label="Search (Ctrl+K)"
+                  className="inline-flex size-10 items-center justify-center rounded-full text-fg transition-colors hover:bg-surface-2"
+                  aria-label="Search"
                   aria-keyshortcuts="Control+K Meta+K"
                 >
                   <Search className="size-[1.15rem]" aria-hidden="true" />
-                  <kbd className="hidden rounded-md border border-line px-1.5 py-0.5 font-sans text-[0.7rem] font-semibold text-subtle 2xl:inline">
-                    Ctrl K
-                  </kbd>
                 </button>
               );
             }
