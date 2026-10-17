@@ -10,6 +10,7 @@ import { B } from "@/lib/site";
 import { toneStyles } from "@/lib/tones";
 import { cn, slugify } from "@/lib/utils";
 import { helpItems } from "@/lib/listing-items";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Help Centre",
@@ -20,7 +21,7 @@ export const metadata = buildMetadata({
 export default function HelpPage() {
   return (
     <ListingPage
-      crumbs={[{ label: "Help Centre" }]}
+      crumbs={navCrumbs("/help", { section: "resources", label: "Help Centre" })}
       eyebrow="Help Centre"
       tone="violet"
       title={

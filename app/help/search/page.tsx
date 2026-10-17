@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/components/sections/page-hero";
 import { HelpSearchBox, HelpSearchResults } from "@/components/sections/help-search";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Search the Help Centre",
@@ -26,7 +27,7 @@ export default function HelpSearchPage() {
   return (
     <section className="bg-bg-soft pt-10 pb-24 sm:pt-14">
       <div className="container-page max-w-4xl">
-        <Breadcrumbs items={[{ label: "Help Centre", href: "/help" }, { label: "Search" }]} />
+        <Breadcrumbs items={navCrumbs("/help", { section: "resources", label: "Help Centre" }, [{ label: "Search" }])} />
         <h1 className="mb-8 text-center text-display-md font-extrabold text-fg">Search the Help Centre</h1>
         <Suspense fallback={<HelpSearchBox className="mx-auto max-w-2xl" />}>
           <HelpSearchResults items={items} />

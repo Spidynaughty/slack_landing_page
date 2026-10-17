@@ -5,6 +5,7 @@ import { ListingPage } from "@/components/templates/listing-page";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { postItems } from "@/lib/listing-items";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Blog: ideas on the future of work",
@@ -16,7 +17,7 @@ export default function BlogPage() {
   const featured = posts.find((p) => p.featured) ?? posts[0];
   return (
     <ListingPage
-      crumbs={[{ label: "Blog" }]}
+      crumbs={navCrumbs("/blog", { section: "resources", label: "Blog" })}
       eyebrow="The blog"
       title={
         <>

@@ -10,6 +10,7 @@ import { PageSkeleton } from "@/components/ui/page-skeleton";
 import { buildMetadata } from "@/lib/seo";
 import { toneStyles } from "@/lib/tones";
 import { cn, formatDate } from "@/lib/utils";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export function generateStaticParams() {
   return stories.map((s) => ({ slug: s.slug }));
@@ -44,7 +45,7 @@ async function StoryContent({ params }: { params: Promise<{ slug: string }> }) {
 
   return (
     <ArticleTemplate
-      crumbs={[{ label: "Customer stories", href: "/customer-stories" }, { label: story.company }]}
+      crumbs={navCrumbs("/customer-stories", { section: "resources", label: "Customer stories" }, [{ label: story.company }])}
       eyebrow={story.industry}
       tone={story.tone}
       title={story.headline}

@@ -10,6 +10,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { PageSkeleton } from "@/components/ui/page-skeleton";
 import { buildMetadata } from "@/lib/seo";
 import { formatDate, slugify } from "@/lib/utils";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export function generateStaticParams() {
   return helpArticles.map((a) => ({ slug: a.slug }));
@@ -43,7 +44,7 @@ async function HelpArticleContent({ params }: { params: Promise<{ slug: string }
 
   return (
     <ArticleTemplate
-      crumbs={[{ label: "Help Centre", href: "/help" }, { label: article.category, href: `/help/categories/${slugify(article.category)}` }, { label: article.title }]}
+      crumbs={navCrumbs("/help", { section: "resources", label: "Help Centre" }, [{ label: article.category, href: `/help/categories/${slugify(article.category)}` }, { label: article.title }])}
       eyebrow={article.category}
       tone={cat?.tone ?? "violet"}
       title={article.title}

@@ -15,6 +15,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { toneStyles } from "@/lib/tones";
 import { cn } from "@/lib/utils";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export function generateStaticParams() {
   return authors.map((a) => ({ slug: a.slug }));
@@ -60,7 +61,7 @@ async function AuthorContent({ params }: { params: Promise<{ slug: string }> }) 
       <section className={cn("relative overflow-hidden pt-10 pb-14 sm:pt-14 md:pb-16", t.tint)}>
         <GradientBlobs className="opacity-50" />
         <div className="container-page relative">
-          <Breadcrumbs items={[{ label: "Blog", href: "/blog" }, { label: "Authors" }, { label: a.name }]} />
+          <Breadcrumbs items={navCrumbs("/blog", { section: "resources", label: "Blog" }, [{ label: "Authors" }, { label: a.name }])} />
           <div className="flex flex-col gap-8 md:flex-row md:items-center">
             <span className={cn("inline-flex size-28 shrink-0 animate-fade-up items-center justify-center rounded-[2rem] font-display text-4xl font-extrabold shadow-float", t.solid)}>
               {a.initials}

@@ -12,6 +12,7 @@ import { Section, SectionHeader } from "@/components/ui/section";
 import { PageSkeleton } from "@/components/ui/page-skeleton";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export function generateStaticParams() {
   return comparisons.map((c) => ({ slug: c.slug }));
@@ -46,7 +47,7 @@ async function CompareContent({ params }: { params: Promise<{ slug: string }> })
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Resources", href: "/resources" }, { label: c.name }]}
+        crumbs={navCrumbs(`/compare/${c.slug}`, { section: "resources", label: c.name })}
         eyebrow={c.hero.eyebrow}
         title={<Highlight text={c.hero.title} highlight={c.hero.highlight} />}
         subtitle={c.hero.subtitle}

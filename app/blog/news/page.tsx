@@ -3,6 +3,7 @@ import { ListingPage } from "@/components/templates/listing-page";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { postItems } from "@/lib/listing-items";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Newsroom",
@@ -13,7 +14,7 @@ export const metadata = buildMetadata({
 export default function NewsPage() {
   return (
     <ListingPage
-      crumbs={[{ label: "Blog", href: "/blog" }, { label: "News" }]}
+      crumbs={navCrumbs("/blog", { section: "resources", label: "Blog" }, [{ label: "News" }])}
       eyebrow="Newsroom"
       tone="coral"
       title="Company news and announcements"

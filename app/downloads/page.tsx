@@ -4,6 +4,7 @@ import { PageHero } from "@/components/sections/page-hero";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Download the apps",
@@ -15,7 +16,7 @@ export default function DownloadsPage() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Product", href: "/features" }, { label: "Download" }]}
+        crumbs={navCrumbs("/downloads", { section: "product", label: "Download" })}
         layout="center"
         eyebrow="Downloads"
         title={

@@ -5,6 +5,7 @@ import { ArticleTemplate } from "@/components/templates/article";
 import { ButtonLink } from "@/components/ui/button";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Terms of Service",
@@ -119,7 +120,7 @@ function SampleCallout() {
 export default function TermsPage() {
   return (
     <ArticleTemplate
-      crumbs={[{ label: "Trust Center", href: "/trust" }, { label: "Terms of Service" }]}
+      crumbs={navCrumbs("/trust", { section: "product", label: "Trust & security" }, [{ label: "Terms of Service" }])}
       eyebrow="Legal"
       tone="sky"
       title="Terms of Service"

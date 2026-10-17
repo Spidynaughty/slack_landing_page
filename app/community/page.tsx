@@ -12,6 +12,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { toneAt, toneStyles, type Tone } from "@/lib/tones";
 import { cn, monthDay } from "@/lib/utils";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Community: chapters, meetups and champions",
@@ -229,7 +230,7 @@ export default function CommunityPage() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Community" }]}
+        crumbs={navCrumbs("/community", { section: "resources", label: "Community" })}
         eyebrow="Community"
         tone="mint"
         title={

@@ -12,6 +12,7 @@ import { Stagger, StaggerItem } from "@/components/ui/motion";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { toneStyles } from "@/lib/tones";
 import { cn } from "@/lib/utils";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export function FeatureCard({ feature }: { feature: Feature }) {
   const t = toneStyles[feature.tone];
@@ -41,7 +42,7 @@ export function FeatureTemplate({ feature, crumbs }: { feature: Feature; crumbs?
   return (
     <>
       <PageHero
-        crumbs={crumbs ?? [{ label: "Features", href: "/features" }, { label: feature.name }]}
+        crumbs={crumbs ?? navCrumbs(feature.href, { section: "product", label: feature.name })}
         eyebrow={feature.hero.eyebrow}
         tone={feature.tone}
         title={<Highlight text={feature.hero.title} highlight={feature.hero.highlight} />}

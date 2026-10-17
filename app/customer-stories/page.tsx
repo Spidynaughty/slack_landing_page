@@ -6,6 +6,7 @@ import { Section, SectionHeader } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { storyItems } from "@/lib/listing-items";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Customer stories",
@@ -18,7 +19,7 @@ export default function CustomerStoriesPage() {
   const regions = [...new Set(stories.map((s) => s.region))];
   return (
     <ListingPage
-      crumbs={[{ label: "Customer stories" }]}
+      crumbs={navCrumbs("/customer-stories", { section: "resources", label: "Customer stories" })}
       eyebrow="Customer stories"
       tone="coral"
       title={

@@ -5,6 +5,7 @@ import { ArticleTemplate } from "@/components/templates/article";
 import { ButtonLink } from "@/components/ui/button";
 import { buildMetadata } from "@/lib/seo";
 import { B, site } from "@/lib/site";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Privacy Policy",
@@ -131,7 +132,7 @@ function SampleCallout() {
 export default function PrivacyPolicyPage() {
   return (
     <ArticleTemplate
-      crumbs={[{ label: "Trust Center", href: "/trust" }, { label: "Privacy Policy" }]}
+      crumbs={navCrumbs("/trust", { section: "product", label: "Trust & security" }, [{ label: "Privacy Policy" }])}
       eyebrow="Legal"
       tone="violet"
       title="Privacy Policy"

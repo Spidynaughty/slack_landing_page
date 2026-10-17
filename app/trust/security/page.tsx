@@ -11,6 +11,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B, site } from "@/lib/site";
 import { toneStyles, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Security overview: how we protect your data",
@@ -258,7 +259,7 @@ export default function SecurityPage() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Trust Center", href: "/trust" }, { label: "Security" }]}
+        crumbs={navCrumbs("/trust", { section: "product", label: "Trust & security" }, [{ label: "Security" }])}
         layout="center"
         eyebrow="Security"
         tone="sky"

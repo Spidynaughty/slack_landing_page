@@ -8,6 +8,7 @@ import { Stagger, StaggerItem } from "@/components/ui/motion";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Apps and integrations",
@@ -19,7 +20,7 @@ export default function IntegrationsPage() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Product", href: "/features" }, { label: "Apps & integrations" }]}
+        crumbs={navCrumbs("/integrations", { section: "product", label: "Apps & integrations" })}
         eyebrow="Apps & integrations"
         tone="mint"
         title={

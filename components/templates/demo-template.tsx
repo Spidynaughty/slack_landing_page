@@ -7,13 +7,14 @@ import { PageHero } from "@/components/sections/page-hero";
 import { Highlight } from "@/components/ui/highlight";
 import { Reveal } from "@/components/ui/motion";
 import { Section, SectionHeader } from "@/components/ui/section";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 /** Feature-specific demo page: simulated video, highlights and a live-demo form. */
 export function DemoTemplate({ demo }: { demo: FeatureDemo }) {
   return (
     <>
       <PageHero
-        crumbs={[{ label: demo.featureName, href: demo.featureHref }, { label: "Demo" }]}
+        crumbs={navCrumbs(demo.featureHref, { section: "product", label: demo.featureName }, [{ label: "Demo" }])}
         layout="center"
         eyebrow={`${demo.featureName} demo`}
         tone={demo.tone}

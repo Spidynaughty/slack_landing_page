@@ -10,6 +10,7 @@ import { blogTopics, categoryHref, getBlogTopic } from "@/lib/blog-topics";
 import { postItems } from "@/lib/listing-items";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export function generateStaticParams() {
   return blogTopics.map((t) => ({ topic: t.slug }));
@@ -36,7 +37,7 @@ async function BlogTopicContent({ params }: { params: Promise<{ topic: string }>
   if (!t) notFound();
   return (
     <ListingPage
-      crumbs={[{ label: "Blog", href: "/blog" }, { label: t.category }]}
+      crumbs={navCrumbs("/blog", { section: "resources", label: "Blog" }, [{ label: t.category }])}
       eyebrow={`${t.category} · ${B} blog`}
       tone={t.tone}
       title={<Highlight text={t.title} highlight={t.highlight} />}

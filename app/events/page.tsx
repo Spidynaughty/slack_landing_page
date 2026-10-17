@@ -2,6 +2,7 @@ import { ListingPage } from "@/components/templates/listing-page";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { eventItems } from "@/lib/listing-items";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Events and webinars",
@@ -12,7 +13,7 @@ export const metadata = buildMetadata({
 export default function EventsPage() {
   return (
     <ListingPage
-      crumbs={[{ label: "Events" }]}
+      crumbs={navCrumbs("/events", { section: "resources", label: "Events" })}
       eyebrow="Events"
       tone="sun"
       title={

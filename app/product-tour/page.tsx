@@ -5,6 +5,7 @@ import { ProductTour } from "@/components/sections/product-tour";
 import { Section } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Interactive product tour",
@@ -16,7 +17,7 @@ export default function ProductTourPage() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Resources", href: "/resources" }, { label: "Product tour" }]}
+        crumbs={navCrumbs("/product-tour", { section: "resources", label: "Product tour" })}
         layout="center"
         eyebrow="Product tour"
         tone="sky"

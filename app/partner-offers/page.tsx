@@ -11,6 +11,7 @@ import { B } from "@/lib/site";
 import { toneAt, toneStyles } from "@/lib/tones";
 import { cn, formatDate } from "@/lib/utils";
 import { OffersGrid, type Offer, type OfferType } from "./_components/offers-grid";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Partner offers and exclusive app deals",
@@ -168,7 +169,7 @@ export default function PartnerOffersPage() {
     <>
       <PageHero
         layout="center"
-        crumbs={[{ label: "Partners", href: "/partners" }, { label: "Partner offers" }]}
+        crumbs={navCrumbs("/partner-offers", { section: "resources", label: "Partner offers" })}
         eyebrow="Partner offers"
         tone="coral"
         title={

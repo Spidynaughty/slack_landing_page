@@ -3,6 +3,7 @@ import { ListingPage } from "@/components/templates/listing-page";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { postItems } from "@/lib/listing-items";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Engineering blog",
@@ -13,7 +14,7 @@ export const metadata = buildMetadata({
 export default function EngineeringBlogPage() {
   return (
     <ListingPage
-      crumbs={[{ label: "Blog", href: "/blog" }, { label: "Engineering blog" }]}
+      crumbs={navCrumbs("/blog", { section: "resources", label: "Blog" }, [{ label: "Engineering blog" }])}
       eyebrow="Engineering"
       tone="sky"
       title={

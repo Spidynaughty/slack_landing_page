@@ -16,6 +16,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { toneStyles } from "@/lib/tones";
 import { cn, formatDate, slugify } from "@/lib/utils";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 const findCategory = (slug: string) => helpCategories.find((c) => slugify(c.name) === slug);
 
@@ -52,7 +53,7 @@ async function HelpCategoryContent({ params }: { params: Promise<{ slug: string 
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Help Centre", href: "/help" }, { label: cat.name }]}
+        crumbs={navCrumbs("/help", { section: "resources", label: "Help Centre" }, [{ label: cat.name }])}
         layout="center"
         eyebrow="Help Centre"
         tone={cat.tone}

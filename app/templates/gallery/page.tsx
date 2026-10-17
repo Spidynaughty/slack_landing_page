@@ -3,6 +3,7 @@ import { ListingPage } from "@/components/templates/listing-page";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { templateItems } from "@/lib/listing-items";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Template gallery",
@@ -13,7 +14,7 @@ export const metadata = buildMetadata({
 export default function TemplateGalleryPage() {
   return (
     <ListingPage
-      crumbs={[{ label: "Solutions", href: "/solutions" }, { label: "Template gallery" }]}
+      crumbs={navCrumbs("/templates/gallery", { section: "solutions", label: "Template gallery" })}
       eyebrow="Template gallery"
       tone="sun"
       title={

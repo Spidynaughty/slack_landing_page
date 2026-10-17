@@ -18,6 +18,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { toneStyles } from "@/lib/tones";
 import { cn, formatDate } from "@/lib/utils";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export function generateStaticParams() {
   return apps.map((a) => ({ app: a.slug }));
@@ -56,7 +57,7 @@ async function AppContent({ params }: { params: Promise<{ app: string }> }) {
       <section className={cn("relative overflow-hidden pt-10 pb-14 sm:pt-14 md:pb-20", t.tint)}>
         <GradientBlobs className="opacity-50" />
         <div className="container-page relative">
-          <Breadcrumbs items={[{ label: "Marketplace", href: "/marketplace" }, { label: app.category }, { label: app.name }]} />
+          <Breadcrumbs items={navCrumbs("/marketplace", { section: "product", label: "Marketplace" }, [{ label: app.category }, { label: app.name }])} />
           <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr]">
             <div className="flex flex-col items-start gap-5">
               <div className="flex animate-fade-up items-center gap-4">

@@ -7,6 +7,7 @@ import { Reveal } from "@/components/ui/motion";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Watch the demo",
@@ -18,7 +19,7 @@ export default function DemoPage() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Product", href: "/features" }, { label: "Watch demo" }]}
+        crumbs={navCrumbs("/demo", { section: "product", label: "Watch demo" })}
         layout="center"
         eyebrow="Product demo"
         title={

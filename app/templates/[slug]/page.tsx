@@ -18,6 +18,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { toneStyles } from "@/lib/tones";
 import { cn } from "@/lib/utils";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 const parts: Record<TemplatePart, { icon: IconName; href: string; feature: string }> = {
   Channel: { icon: "hash", href: "/features/channels", feature: "Channels" },
@@ -89,7 +90,7 @@ async function TemplateContent({ params }: { params: Promise<{ slug: string }> }
       <section className={cn("relative overflow-hidden pt-10 pb-14 sm:pt-14 md:pb-20", t.tint)}>
         <GradientBlobs className="opacity-50" />
         <div className="container-page relative">
-          <Breadcrumbs items={[{ label: "Template gallery", href: "/templates/gallery" }, { label: tpl.category }, { label: tpl.name }]} />
+          <Breadcrumbs items={navCrumbs("/templates/gallery", { section: "solutions", label: "Template gallery" }, [{ label: tpl.category }, { label: tpl.name }])} />
           <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr]">
             <div className="flex flex-col items-start gap-5">
               <span className={cn("inline-flex size-14 animate-fade-up items-center justify-center rounded-2xl", t.solid)}>

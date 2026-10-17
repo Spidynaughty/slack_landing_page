@@ -6,6 +6,7 @@ import { PageHero } from "@/components/sections/page-hero";
 import { Section } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Marketplace: 2,600+ apps and agents",
@@ -17,7 +18,7 @@ export default function MarketplacePage() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Product", href: "/features" }, { label: "Marketplace" }]}
+        crumbs={navCrumbs("/marketplace", { section: "product", label: "Marketplace" })}
         layout="center"
         eyebrow="Marketplace"
         tone="mint"

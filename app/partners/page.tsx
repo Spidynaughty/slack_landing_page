@@ -14,6 +14,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { toneStyles, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Partner program for consultancies and builders",
@@ -158,7 +159,7 @@ export default function PartnersPage() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Partners" }]}
+        crumbs={navCrumbs("/partners", { section: "resources", label: "Partner programme" })}
         eyebrow="Partner program"
         tone="violet"
         title={

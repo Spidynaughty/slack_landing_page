@@ -16,6 +16,7 @@ import { Section, SectionHeader } from "@/components/ui/section";
 import { toneStyles } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 import { B } from "@/lib/site";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export function SolutionCard({ solution }: { solution: Solution }) {
   const t = toneStyles[solution.tone];
@@ -56,7 +57,7 @@ export function SolutionTemplate({ solution }: { solution: Solution }) {
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Solutions", href: "/solutions" }, { label: solution.name }]}
+        crumbs={navCrumbs(`/solutions/${solution.slug}`, { section: "solutions", label: solution.name })}
         eyebrow={solution.hero.eyebrow}
         tone={solution.tone}
         title={<Highlight text={solution.hero.title} highlight={solution.hero.highlight} />}

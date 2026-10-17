@@ -11,6 +11,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { toneStyles, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Enterprise Key Management (EKM)",
@@ -159,10 +160,7 @@ export default function EnterpriseKeyManagementPage() {
   return (
     <>
       <PageHero
-        crumbs={[
-          { label: "Trust Center", href: "/trust" },
-          { label: "Enterprise Key Management" },
-        ]}
+        crumbs={navCrumbs("/trust", { section: "product", label: "Trust & security" }, [{ label: "Enterprise Key Management" }])}
         eyebrow="Enterprise Key Management"
         tone="violet"
         title={

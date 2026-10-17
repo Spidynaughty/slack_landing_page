@@ -9,6 +9,7 @@ import { PageSkeleton } from "@/components/ui/page-skeleton";
 import { buildMetadata } from "@/lib/seo";
 import { toneStyles } from "@/lib/tones";
 import { cn, formatDate } from "@/lib/utils";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export function generateStaticParams() {
   return events.map((e) => ({ slug: e.slug }));
@@ -38,7 +39,7 @@ async function EventContent({ params }: { params: Promise<{ slug: string }> }) {
 
   return (
     <ArticleTemplate
-      crumbs={[{ label: "Events", href: "/events" }, { label: event.title }]}
+      crumbs={navCrumbs("/events", { section: "resources", label: "Events" }, [{ label: event.title }])}
       eyebrow={`${event.category} · ${event.format}`}
       tone={event.tone}
       title={event.title}

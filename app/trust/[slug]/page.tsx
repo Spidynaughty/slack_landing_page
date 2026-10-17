@@ -17,6 +17,7 @@ import { Section, SectionHeader } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { toneStyles, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 const FORM_ID = "submit-request";
 
@@ -122,7 +123,7 @@ function TrustTemplate({ page }: { page: TrustPage }) {
   return (
     <>
       <PageHero
-        crumbs={[{ label: "Trust Center", href: "/trust" }, { label: page.navLabel }]}
+        crumbs={navCrumbs("/trust", { section: "product", label: "Trust & security" }, [{ label: page.navLabel }])}
         eyebrow={page.eyebrow}
         tone={page.tone}
         title={<Highlight text={page.heroTitle} highlight={page.highlight} />}

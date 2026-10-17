@@ -10,6 +10,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 import { categoryHref } from "@/lib/blog-topics";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -64,11 +65,7 @@ async function BlogPostContent({ params }: { params: Promise<{ slug: string }> }
   return (
     <>
       <ArticleTemplate
-        crumbs={[
-          { label: "Blog", href: "/blog" },
-          { label: listingLabel, href: listing },
-          { label: post.title },
-        ]}
+        crumbs={navCrumbs("/blog", { section: "resources", label: "Blog" }, [{ label: listingLabel, href: listing }, { label: post.title }])}
         eyebrow={post.category}
         tone={post.tone}
         title={post.title}

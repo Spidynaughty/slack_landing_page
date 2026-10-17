@@ -11,5 +11,5 @@ export const metadata = feature
 
 export default function ConnectPage() {
   if (!feature) notFound();
-  return <FeatureTemplate feature={feature} crumbs={[{ label: "Product", href: "/features" }, { label: feature.name }]} />;
+  return <FeatureTemplate feature={feature} />;
 }

@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/sections/page-hero";
 import { Reveal } from "@/components/ui/motion";
 import { buildMetadata } from "@/lib/seo";
 import { B, site } from "@/lib/site";
+import { navCrumbs } from "@/lib/breadcrumbs";
 
 export const metadata = buildMetadata({
   title: "Contact customer support",
@@ -18,7 +19,7 @@ export default function SupportRequestPage() {
   return (
     <section className="bg-bg-soft pt-10 pb-24 sm:pt-14">
       <div className="container-page">
-        <Breadcrumbs items={[{ label: "Help Centre", href: "/help" }, { label: "Submit a request" }]} />
+        <Breadcrumbs items={navCrumbs("/help/requests/new", { section: "resources", label: "Customer support" })} />
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
           <div>
             <h1 className="animate-fade-up text-display-md font-extrabold text-fg">How can we help?</h1>
