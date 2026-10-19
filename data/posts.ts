@@ -762,3 +762,8 @@ export const postCategories: PostCategory[] = ["Product", "News", "AI", "Product
 export function getPost(slug: string) {
   return posts.find((p) => p.slug === slug);
 }
+
+/** The post's cover illustration. A new post needs a scene in scripts/blog-covers.mjs, then `npm run covers`. */
+export function postCover(post: Pick<Post, "slug">) {
+  return `/blog/covers/${post.slug}.svg`;
+}

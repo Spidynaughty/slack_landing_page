@@ -2,7 +2,7 @@ import type { ListingItem } from "@/components/templates/listing";
 import type { IconName } from "@/components/ui/icon";
 import { events } from "@/data/events";
 import { helpArticles, helpCategories } from "@/data/help";
-import { posts, type Post } from "@/data/posts";
+import { postCover, posts, type Post } from "@/data/posts";
 import { resources, type ResourceType } from "@/data/resources";
 import { stories } from "@/data/stories";
 import { templates } from "@/data/templates";
@@ -17,6 +17,7 @@ export function postItems(list: Post[] = posts): ListingItem[] {
     excerpt: p.excerpt,
     href: `/blog/${p.slug}`,
     tone: p.tone,
+    image: postCover(p),
     badge: p.category,
     meta: [formatDate(p.publishedAt), `${p.readMinutes} min read`],
     facets: { category: p.category },

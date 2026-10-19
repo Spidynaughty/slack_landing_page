@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight, Clock, MapPin, Search, SlidersHorizontal, X } from "lucide-react";
@@ -21,6 +22,8 @@ export type ListingItem = {
   href?: string;
   tone: Tone;
   icon?: IconName;
+  /** Cover picture for post cards */
+  image?: string;
   badge?: string;
   meta: string[];
   facets: Record<string, string>;
@@ -43,13 +46,25 @@ function Card({ item, style, onPreview }: { item: ListingItem; style: ListingCar
   const t = toneStyles[item.tone];
   const body = (
     <>
-      {style === "post" && (
-        <div className={cn("relative flex h-40 items-end overflow-hidden p-5", t.tint)}>
-          <div aria-hidden="true" className="absolute inset-0 bg-dots opacity-40" />
-          <div aria-hidden="true" className={cn("absolute -top-10 -right-10 size-40 rounded-full opacity-60 blur-2xl", t.solid)} />
-          <span className={cn("relative rounded-full px-3 py-1 text-xs font-bold", t.solid)}>{item.badge}</span>
-        </div>
-      )}
+      {style === "post" &&
+        (item.image ? (
+          <div className="relative flex aspect-[2/1] items-end overflow-hidden p-5">
+            <Image
+              src={item.image}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+              className="object-cover transition-transform duration-500 group-hover/card:scale-105"
+            />
+            <span className="relative rounded-full bg-[#fff] px-3 py-1 text-xs font-bold text-[#0b1a2e] shadow-soft">{item.badge}</span>
+          </div>
+        ) : (
+          <div className={cn("relative flex h-40 items-end overflow-hidden p-5", t.tint)}>
+            <div aria-hidden="true" className="absolute inset-0 bg-dots opacity-40" />
+            <div aria-hidden="true" className={cn("absolute -top-10 -right-10 size-40 rounded-full opacity-60 blur-2xl", t.solid)} />
+            <span className={cn("relative rounded-full px-3 py-1 text-xs font-bold", t.solid)}>{item.badge}</span>
+          </div>
+        ))}
       {style === "story" && item.logo && (
         <div className={cn("flex h-36 items-center justify-center", t.tint)}>
           <CustomerLogo logo={item.logo} className={cn("text-2xl", t.ink)} />

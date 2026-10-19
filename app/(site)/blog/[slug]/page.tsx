@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { authorSlug, getAuthor } from "@/data/authors";
-import { getPost, posts } from "@/data/posts";
+import { getPost, postCover, posts } from "@/data/posts";
 import { ArticleTemplate } from "@/components/templates/article";
 import { ButtonLink } from "@/components/ui/button";
 import { PageSkeleton } from "@/components/ui/page-skeleton";
@@ -47,7 +47,7 @@ async function BlogPostContent({ params }: { params: Promise<{ slug: string }> }
     .filter((p) => p.slug !== post.slug)
     .sort((a, b) => Number(b.category === post.category) - Number(a.category === post.category))
     .slice(0, 3)
-    .map((p) => ({ title: p.title, href: `/blog/${p.slug}`, eyebrow: p.category, excerpt: p.excerpt, tone: p.tone }));
+    .map((p) => ({ title: p.title, href: `/blog/${p.slug}`, eyebrow: p.category, excerpt: p.excerpt, tone: p.tone, image: postCover(p) }));
 
   const listing = categoryHref[post.category];
   const listingLabel = post.category === "Engineering" ? "Engineering blog" : post.category === "Design" ? "Design blog" : post.category;
@@ -74,6 +74,7 @@ async function BlogPostContent({ params }: { params: Promise<{ slug: string }> }
         date={formatDate(post.publishedAt, "long")}
         readMinutes={post.readMinutes}
         sections={post.sections}
+        cover={postCover(post)}
         related={related}
         aside={
           <div className="rounded-3xl border border-line bg-surface p-6 shadow-soft">

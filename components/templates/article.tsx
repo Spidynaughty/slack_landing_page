@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight, CalendarDays, Clock } from "lucide-react";
@@ -10,7 +11,7 @@ import { toneStyles, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 import { ShareButtons, TableOfContents } from "./article-client";
 
-export type RelatedItem = { title: string; href: string; eyebrow: string; excerpt?: string; tone: Tone };
+export type RelatedItem = { title: string; href: string; eyebrow: string; excerpt?: string; tone: Tone; image?: string };
 
 export function ArticleBody({ sections }: { sections: ArticleSection[] }) {
   return (
@@ -57,6 +58,7 @@ export function ArticleTemplate({
   relatedTitle = "Keep reading",
   aside,
   header,
+  cover,
   children,
 }: {
   crumbs: Crumb[];
@@ -74,6 +76,8 @@ export function ArticleTemplate({
   aside?: ReactNode;
   /** Extra content under the title (e.g. stats). */
   header?: ReactNode;
+  /** Cover picture shown above the article text */
+  cover?: string;
   children?: ReactNode;
 }) {
   const t = toneStyles[tone];
@@ -130,6 +134,17 @@ export function ArticleTemplate({
           </div>
         </aside>
         <article className="min-w-0 max-w-3xl">
+          {cover && (
+            <Image
+              src={cover}
+              alt=""
+              width={1200}
+              height={675}
+              priority
+              sizes="(min-width: 768px) 768px, 100vw"
+              className="mb-10 h-auto w-full rounded-[var(--radius-card)] border border-line shadow-card"
+            />
+          )}
           <details className="mb-8 rounded-2xl border border-line p-4 lg:hidden">
             <summary className="font-semibold text-fg">On this page</summary>
             <ol className="mt-3 flex flex-col gap-2 text-sm">
@@ -180,8 +195,13 @@ export function ArticleTemplate({
               <StaggerItem key={r.href} lift className="h-full">
                 <Link
                   href={r.href}
-                  className="group/rel flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-soft transition-shadow hover:shadow-card"
+                  className="group/rel flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-soft transition-shadow hover:shadow-card"
                 >
+                  {r.image && (
+                    <span className="relative -mx-6 -mt-6 mb-5 block aspect-[2/1] overflow-hidden">
+                      <Image src={r.image} alt="" fill sizes="(min-width: 768px) 400px, 100vw" className="object-cover transition-transform duration-500 group-hover/rel:scale-105" />
+                    </span>
+                  )}
                   <span className={cn("w-fit rounded-full px-2.5 py-1 text-xs font-bold", toneStyles[r.tone].soft)}>{r.eyebrow}</span>
                   <span className="mt-4 font-display text-lg leading-snug font-bold text-fg">{r.title}</span>
                   {r.excerpt && <span className="mt-2 line-clamp-2 flex-1 text-sm text-muted">{r.excerpt}</span>}

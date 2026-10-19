@@ -1,7 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { whatsNew } from "@/data/releases";
-import { posts } from "@/data/posts";
+import { postCover, posts } from "@/data/posts";
 import { Mockup } from "@/components/mockups";
 import { CTABand, SplitFeature } from "@/components/sections/common";
 import { PageHero } from "@/components/sections/page-hero";
@@ -85,7 +86,10 @@ export default function WhatsNewPage() {
         <Stagger className="grid gap-5 md:grid-cols-3">
           {news.map((p) => (
             <StaggerItem key={p.slug} lift className="h-full">
-              <Link href={`/blog/${p.slug}`} className="flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-soft hover:shadow-card">
+              <Link href={`/blog/${p.slug}`} className="group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-soft hover:shadow-card">
+                <span className="relative -mx-6 -mt-6 mb-5 block aspect-[2/1] overflow-hidden">
+                  <Image src={postCover(p)} alt="" fill sizes="(min-width: 768px) 400px, 100vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                </span>
                 <span className={cn("w-fit rounded-full px-2.5 py-1 text-xs font-bold", toneStyles[p.tone].soft)}>{p.category}</span>
                 <h3 className="mt-4 font-display text-lg leading-snug font-bold text-fg">{p.title}</h3>
                 <p className="mt-2 line-clamp-2 flex-1 text-sm text-muted">{p.excerpt}</p>

@@ -9,6 +9,7 @@
     "lint": "eslint",
     "check:links": "node scripts/check-links.mjs",
     "typecheck": "tsc --noEmit -p .",
+    "covers": "node scripts/blog-covers.mjs",
     "admin:reset-login": "node --env-file-if-exists=.env.local scripts/reset-admin-login.mjs"
   },
   "dependencies": {
