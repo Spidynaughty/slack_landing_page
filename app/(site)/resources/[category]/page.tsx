@@ -81,6 +81,9 @@ const featuredReports: { title: string; excerpt: string; href: string; eyebrow: 
   },
 ];
 
+// Unknown slugs wait for the full render, so notFound() sends a real 404 instead of a 200 loading shell
+export const ensureStatic = "navigation";
+
 export function generateStaticParams() {
   return resourceCategories.map((c) => ({ category: c.slug }));
 }

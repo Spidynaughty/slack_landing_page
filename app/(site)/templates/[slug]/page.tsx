@@ -52,6 +52,9 @@ const categorySolution: Record<TemplateCategory, string> = {
 
 const getTemplate = (slug: string) => templates.find((t) => t.slug === slug);
 
+// Unknown slugs wait for the full render, so notFound() sends a real 404 instead of a 200 loading shell
+export const ensureStatic = "navigation";
+
 export function generateStaticParams() {
   return templates.map((t) => ({ slug: t.slug }));
 }

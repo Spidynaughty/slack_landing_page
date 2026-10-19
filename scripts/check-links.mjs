@@ -5,10 +5,13 @@
  *
  * 1. Starts `next start` on a free port.
  * 2. Verifies every route required by the site architecture returns 200.
- * 3. Crawls every page from /sitemap.xml and checks every internal link and #anchor it finds.
+ * 3. Checks every redirect in next.config.ts lands on a real page.
+ * 4. Checks that wrong URLs return a real 404 (not a 200 page that says "not found").
+ * 5. Crawls every page from /sitemap.xml, plus pages left out of it, and checks every internal link and #anchor.
  * Exits non-zero if anything is missing or broken.
  */
 import { spawn } from "node:child_process";
+import { readFileSync } from "node:fs";
 import { setTimeout as wait } from "node:timers/promises";
 
 const PORT = Number(process.env.PORT ?? 4310);
@@ -53,15 +56,21 @@ const REQUIRED = [
   "/pricing/nonprofits", "/pricing/education",
 ];
 
-// Alternate URLs that must redirect somewhere real.
-const REDIRECTS = {
-  "/get": "/downloads",
-  "/templates": "/templates/gallery",
-  "/security": "/trust/security",
-  "/solutions/distance-learning": "/solutions/education",
-  "/trust/privacy/privacy-policy": "/legal/privacy",
-  "/resources/why-use-slack/what-is-slack": "/resources/why-use-slack/what-is-slack-and-how-does-it-work",
-};
+// Alternate URLs that must redirect somewhere real: every redirect in next.config.ts.
+const REDIRECTS = Object.fromEntries(
+  [...readFileSync("next.config.ts", "utf8").matchAll(/source:\s*"([^"]+)",\s*destination:\s*"([^"]+)"/g)].map((m) => [m[1], m[2]]),
+);
+
+// Pages that are deliberately not in the sitemap but still have links worth checking.
+const UNLISTED = ["/signin", "/get-started", "/help/search"];
+
+// Wrong URLs, one per kind of dynamic page. Each must answer with a real 404.
+const NOT_FOUND = [
+  "/no-such-page", "/blog/no-such-post", "/blog/authors/nobody", "/blog/topic/nothing", "/careers/no-such-job",
+  "/compare/nothing", "/customer-stories/nobody", "/events/nothing", "/features/nothing", "/features/nothing/demo",
+  "/help/nothing", "/help/categories/nothing", "/marketplace/nothing", "/pricing/nothing", "/resources/nothing",
+  "/resources/nothing/nothing", "/resources/collections/nothing", "/solutions/nothing", "/templates/nothing", "/trust/nothing",
+];
 
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "-p", String(PORT)], {
   stdio: ["ignore", "pipe", "pipe"],
@@ -125,9 +134,20 @@ try {
     failed = true;
     console.log("  Missing:\n   " + missing.join("\n   "));
   }
+  const soft404 = [];
+  for (const p of NOT_FOUND) {
+    const { status } = await get(p);
+    if (status !== 404) soft404.push(`${p} -> ${status}`);
+  }
+  console.log(`Wrong URLs answering 404: ${NOT_FOUND.length - soft404.length}/${NOT_FOUND.length}`);
+  if (soft404.length) {
+    failed = true;
+    console.log("  Should be 404:\n   " + soft404.join("\n   "));
+  }
 
   const sitemap = (await get("/sitemap.xml")).body;
-  const pages = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
+  const listed = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
+  const pages = [...new Set([...listed, ...UNLISTED])];
   const broken = [];
   const badAnchors = [];
   const external = new Set();
@@ -138,7 +158,7 @@ try {
   for (const page of pages) {
     const { status, body } = await get(page);
     if (status !== 200) {
-      broken.push(`${page} (in sitemap) -> ${status}`);
+      broken.push(`${page} (${listed.includes(page) ? "in sitemap" : "unlisted page"}) -> ${status}`);
       continue;
     }
     const title = body.match(/<title>([^<]*)<\/title>/)?.[1];
@@ -168,7 +188,7 @@ try {
       else if (hash && !extract(target.body).ids.has(hash)) badAnchors.push(`${page} -> ${href}`);
     }
   }
-  console.log(`Crawled ${pages.length} sitemap pages, checked ${checked} internal links.`);
+  console.log(`Crawled ${listed.length} sitemap pages and ${pages.length - listed.length} unlisted pages, checked ${checked} internal links.`);
   if (broken.length) {
     failed = true;
     console.log("Broken links:\n  " + [...new Set(broken)].join("\n  "));

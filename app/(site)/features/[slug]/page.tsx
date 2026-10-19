@@ -6,6 +6,9 @@ import { FeatureTemplate } from "@/components/templates/feature-template";
 import { PageSkeleton } from "@/components/ui/page-skeleton";
 import { buildMetadata } from "@/lib/seo";
 
+// Unknown slugs wait for the full render, so notFound() sends a real 404 instead of a 200 loading shell
+export const ensureStatic = "navigation";
+
 export function generateStaticParams() {
   return featureSlugPages().map((f) => ({ slug: f.slug }));
 }

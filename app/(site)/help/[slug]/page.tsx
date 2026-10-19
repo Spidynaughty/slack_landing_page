@@ -12,6 +12,9 @@ import { buildMetadata } from "@/lib/seo";
 import { formatDate, slugify } from "@/lib/utils";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
+// Unknown slugs wait for the full render, so notFound() sends a real 404 instead of a 200 loading shell
+export const ensureStatic = "navigation";
+
 export function generateStaticParams() {
   return helpArticles.map((a) => ({ slug: a.slug }));
 }

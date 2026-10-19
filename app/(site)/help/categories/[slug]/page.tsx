@@ -20,6 +20,9 @@ import { navCrumbs } from "@/lib/breadcrumbs";
 
 const findCategory = (slug: string) => helpCategories.find((c) => slugify(c.name) === slug);
 
+// Unknown slugs wait for the full render, so notFound() sends a real 404 instead of a 200 loading shell
+export const ensureStatic = "navigation";
+
 export function generateStaticParams() {
   return helpCategories.map((c) => ({ slug: slugify(c.name) }));
 }

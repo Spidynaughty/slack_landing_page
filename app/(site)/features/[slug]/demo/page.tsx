@@ -8,6 +8,9 @@ import { buildMetadata } from "@/lib/seo";
 
 const featureLevel = () => featureDemos.filter((d) => d.path.startsWith("/features/"));
 
+// Unknown slugs wait for the full render, so notFound() sends a real 404 instead of a 200 loading shell
+export const ensureStatic = "navigation";
+
 export function generateStaticParams() {
   return featureLevel().map((d) => ({ slug: d.slug }));
 }

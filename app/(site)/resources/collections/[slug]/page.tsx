@@ -32,6 +32,9 @@ const typeIcon: Record<string, IconName> = {
   Event: "calendar",
 };
 
+// Unknown slugs wait for the full render, so notFound() sends a real 404 instead of a 200 loading shell
+export const ensureStatic = "navigation";
+
 export function generateStaticParams() {
   return collections.map((c) => ({ slug: c.slug }));
 }

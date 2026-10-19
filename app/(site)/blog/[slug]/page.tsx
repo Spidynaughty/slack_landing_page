@@ -12,6 +12,9 @@ import { formatDate } from "@/lib/utils";
 import { categoryHref } from "@/lib/blog-topics";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
+// Unknown slugs wait for the full render, so notFound() sends a real 404 instead of a 200 loading shell
+export const ensureStatic = "navigation";
+
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
 }

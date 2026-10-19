@@ -34,6 +34,9 @@ const process = [
   { title: "Offer", body: "We aim to share a decision within a week of your final interview." },
 ];
 
+// Unknown slugs wait for the full render, so notFound() sends a real 404 instead of a 200 loading shell
+export const ensureStatic = "navigation";
+
 export function generateStaticParams() {
   return jobs.map((j) => ({ slug: j.slug }));
 }

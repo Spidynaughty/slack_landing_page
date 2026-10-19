@@ -12,6 +12,9 @@ import { B } from "@/lib/site";
 import { toneStyles } from "@/lib/tones";
 import { cn, formatDate } from "@/lib/utils";
 
+// Unknown slugs wait for the full render, so notFound() sends a real 404 instead of a 200 loading shell
+export const ensureStatic = "navigation";
+
 export function generateStaticParams() {
   return guides.map((g) => ({ category: g.category, slug: g.slug }));
 }
