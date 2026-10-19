@@ -41,8 +41,9 @@ export const settingDefaults = {
     subtitle: `${B} is the one place for conversations, meetings, docs, projects and AI agents, so your team spends less time chasing updates and more time shipping.`,
     primaryLabel: "Start free",
     primaryHref: "/get-started",
-    secondaryLabel: "Watch the 2-min demo",
-    secondaryHref: "/demo",
+    // App store buttons beside the main button. Point them at the real store listings once the apps are live.
+    appStoreHref: "/downloads#ios",
+    playStoreHref: "/downloads#android",
   },
   stats: [
     { value: 750, decimals: 0, prefix: "", suffix: "K+", label: `organizations work in ${B}` },

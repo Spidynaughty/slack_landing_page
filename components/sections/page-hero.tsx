@@ -2,7 +2,9 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ChevronRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
+import { JsonLd } from "@/components/ui/json-ld";
 import { Eyebrow } from "@/components/ui/section";
+import { site } from "@/lib/site";
 import type { Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 
@@ -11,8 +13,21 @@ export type Cta = { label: string; href: string };
 export type Crumb = { label: string; href?: string };
 
 export function Breadcrumbs({ items, onDark }: { items: Crumb[]; onDark?: boolean }) {
+  // The same trail for search engines, which can show it instead of the URL in results
+  const trail = [{ label: "Home", href: "/" }, ...items];
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: trail.map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.label,
+      ...(c.href ? { item: c.href === "/" ? site.url : `${site.url}${c.href}` } : {}),
+    })),
+  };
   return (
     <nav aria-label="Breadcrumb" className="mb-6">
+      <JsonLd data={jsonLd} />
       <ol className={cn("flex flex-wrap items-center gap-1 text-sm", onDark ? "text-on-deep-muted" : "text-muted")}>
         <li>
           <Link href="/" className="hover:underline">

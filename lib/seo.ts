@@ -16,6 +16,12 @@ type SeoInput = {
 };
 
 /**
+ * The share picture from app/opengraph-image.tsx. Pages set their own openGraph
+ * and twitter fields, which replace the root layout's, so it is added here.
+ */
+const SHARE_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: `${site.name}: where teams and AI get things done` };
+
+/**
  * Builds per-page metadata: unique title, description, canonical URL and
  * OpenGraph/Twitter cards. A title or description changed under Admin > SEO
  * replaces the one passed in here.
@@ -46,13 +52,16 @@ export async function buildMetadata({
       siteName: site.name,
       type,
       locale: "en_US",
+      images: [SHARE_IMAGE],
       ...(type === "article" && publishedTime ? { publishedTime, authors } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
+      site: site.twitter,
       creator: site.twitter,
+      images: [SHARE_IMAGE],
     },
     ...(noIndex ? { robots: { index: false, follow: true } } : {}),
   };

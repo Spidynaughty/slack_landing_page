@@ -11,6 +11,7 @@ import { Eyebrow, Section, SectionHeader, type SectionBg } from "@/components/ui
 import { toneStyles, toneAt, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 import type { Cta } from "./page-hero";
+import { JsonLd } from "@/components/ui/json-ld";
 
 /** Solid background per tone, for decorative glows. */
 const glow: Record<Tone, string> = {
@@ -323,7 +324,7 @@ export function FAQ({ items, title = "Frequently asked questions", subtitle, bg 
           </details>
         ))}
       </div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
     </Section>
   );
 }

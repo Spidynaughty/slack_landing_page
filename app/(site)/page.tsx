@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Check, Lock, PlayCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, Check, Lock, ShieldCheck } from "lucide-react";
 import { apps } from "@/data/integrations";
 import { plans } from "@/data/pricing";
 import { stories } from "@/data/stories";
@@ -12,7 +12,9 @@ import { StickySteps } from "@/components/sections/home/sticky-steps";
 import { AppWall } from "@/components/sections/home/walls";
 import { LogoCloud } from "@/components/sections/logo-cloud";
 import { RatingSummary, ReviewWall } from "@/components/sections/reviews";
-import { ArrowLink, ButtonLink, buttonClasses } from "@/components/ui/button";
+import { ArrowLink, ButtonLink } from "@/components/ui/button";
+import { JsonLd } from "@/components/ui/json-ld";
+import { StoreButtons } from "@/components/ui/store-buttons";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/motion";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { getSetting } from "@/lib/content";
@@ -37,8 +39,44 @@ export default async function Home() {
     getSetting("cta"),
   ]);
 
+  // Who we are, the site search and the app (with its store links), for search engines
+  const absolute = (href: string) => (/^https?:\/\//.test(href) ? href : `${site.url}${href}`);
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: site.name,
+      url: site.url,
+      logo: `${site.url}/icon.png`,
+      description: site.description,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: site.name,
+      url: site.url,
+      potentialAction: {
+        "@type": "SearchAction",
+        target: { "@type": "EntryPoint", urlTemplate: `${site.url}/help/search?q={search_term_string}` },
+        "query-input": "required name=search_term_string",
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: site.name,
+      url: site.url,
+      description: site.description,
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web, Windows, macOS, Linux, iOS, Android",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      downloadUrl: [hero.appStoreHref, hero.playStoreHref].filter(Boolean).map(absolute),
+    },
+  ];
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       {/* Hero */}
       <section className="under-header relative overflow-hidden pb-24 [--hero-pt:3rem] sm:[--hero-pt:4rem] md:pb-32">
         <div aria-hidden="true" className="absolute inset-0 bg-aurora" />
@@ -74,11 +112,7 @@ export default async function Home() {
                   {hero.primaryLabel}
                 </ButtonLink>
               )}
-              {hero.secondaryLabel && (
-                <Link href={hero.secondaryHref || "/demo"} className={buttonClasses("secondary", "lg")}>
-                  <PlayCircle className="size-5" aria-hidden="true" /> {hero.secondaryLabel}
-                </Link>
-              )}
+              <StoreButtons appStoreHref={hero.appStoreHref} playStoreHref={hero.playStoreHref} className="contents" />
             </div>
             {/* Only shown once real reviews are published in the admin */}
             <RatingSummary className="mt-8 animate-fade-up text-sm text-muted [animation-delay:160ms]" />

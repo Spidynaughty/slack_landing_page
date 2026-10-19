@@ -187,8 +187,8 @@ function readSettingForm<K extends SettingKey>(key: K, fd: FormData): { value?: 
         subtitle: text(fd, "subtitle", 400),
         primaryLabel: text(fd, "primaryLabel", 40),
         primaryHref: href("primaryHref"),
-        secondaryLabel: text(fd, "secondaryLabel", 40),
-        secondaryHref: href("secondaryHref"),
+        appStoreHref: href("appStoreHref"),
+        playStoreHref: href("playStoreHref"),
       };
       if (!text(fd, "headline")) errors.headline = "The headline can't be empty";
       break;

@@ -66,8 +66,10 @@ export function Downloads() {
         {platforms.map((p) => (
           <li
             key={p.id}
+            // Anchors for the home page's App Store and Google Play buttons (/downloads#ios, #android)
+            id={p.id}
             className={cn(
-              "flex flex-col rounded-[var(--radius-card)] border bg-surface p-6 shadow-soft transition-shadow hover:shadow-card",
+              "flex scroll-mt-28 flex-col rounded-[var(--radius-card)] border bg-surface p-6 shadow-soft transition-shadow hover:shadow-card",
               p.id === detected ? "border-primary ring-1 ring-primary" : "border-line",
             )}
           >

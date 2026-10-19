@@ -14,6 +14,7 @@ import { PageSkeleton } from "@/components/ui/page-skeleton";
 import { Section } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
+import { JsonLd } from "@/components/ui/json-ld";
 
 const getJob = (slug: string) => jobs.find((j) => j.slug === slug);
 
@@ -230,7 +231,7 @@ async function JobContent({ params }: { params: Promise<{ slug: string }> }) {
           ))}
         </ul>
       </Section>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
     </>
   );
 }

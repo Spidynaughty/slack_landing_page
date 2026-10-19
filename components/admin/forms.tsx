@@ -153,8 +153,20 @@ export function HeroForm({ value }: { value: Settings["hero"] }) {
           <div className="grid gap-4 sm:grid-cols-2">
             <TextField name="primaryLabel" label="Main button text" value={value.primaryLabel} />
             <TextField name="primaryHref" label="Main button link" value={value.primaryHref} error={errors.primaryHref} />
-            <TextField name="secondaryLabel" label="Second button text" value={value.secondaryLabel} />
-            <TextField name="secondaryHref" label="Second button link" value={value.secondaryHref} error={errors.secondaryHref} />
+            <TextField
+              name="appStoreHref"
+              label="App Store link (iPhone & iPad)"
+              value={value.appStoreHref}
+              error={errors.appStoreHref}
+              hint="Paste your App Store listing. Leave empty to hide the button."
+            />
+            <TextField
+              name="playStoreHref"
+              label="Google Play link (Android)"
+              value={value.playStoreHref}
+              error={errors.playStoreHref}
+              hint="Paste your Google Play listing. Leave empty to hide the button."
+            />
           </div>
         </>
       )}

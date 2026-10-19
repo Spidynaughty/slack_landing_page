@@ -16,6 +16,7 @@ import { B } from "@/lib/site";
 import { toneStyles } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 import { navCrumbs } from "@/lib/breadcrumbs";
+import { JsonLd } from "@/components/ui/json-ld";
 
 // Unknown slugs wait for the full render, so notFound() sends a real 404 instead of a 200 loading shell
 export const ensureStatic = "navigation";
@@ -112,7 +113,7 @@ async function AuthorContent({ params }: { params: Promise<{ slug: string }> }) 
           ))}
         </ul>
       </Section>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
     </>
   );
 }

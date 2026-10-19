@@ -11,6 +11,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { toneStyles } from "@/lib/tones";
 import { cn, formatDate } from "@/lib/utils";
+import { JsonLd } from "@/components/ui/json-ld";
 
 // Unknown slugs wait for the full render, so notFound() sends a real 404 instead of a 200 loading shell
 export const ensureStatic = "navigation";
@@ -120,7 +121,7 @@ async function GuideContent({ params }: { params: Promise<{ category: string; sl
           </div>
         )}
       </ArticleTemplate>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={jsonLd} />
     </>
   );
 }
