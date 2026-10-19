@@ -18,17 +18,9 @@ export default function LoginPage({ searchParams }: PageProps<"/admin/login">) {
         <div className="rounded-3xl border border-line bg-surface p-7 shadow-card sm:p-8">
           <h1 className="text-xl font-bold text-fg">Sign in to the admin</h1>
           <p className="mt-1 mb-6 text-sm text-muted">Manage reviews, home page content, FAQs and form submissions.</p>
-          {adminConfigured() ? (
-            <Suspense fallback={<LoginForm next="/admin" />}>
-              <LoginWithRedirect searchParams={searchParams} />
-            </Suspense>
-          ) : (
-            <p role="alert" className="rounded-xl bg-tint-sun p-4 text-sm text-sun-ink">
-              Admin login isn&apos;t set up yet. Add <code className="font-mono">ADMIN_EMAIL</code>, <code className="font-mono">ADMIN_PASSWORD</code>{" "}
-              and <code className="font-mono">SESSION_SECRET</code> to your environment (see <code className="font-mono">.env.example</code>), then restart the
-              server.
-            </p>
-          )}
+          <Suspense fallback={<LoginForm next="/admin" />}>
+            <LoginWithRedirect searchParams={searchParams} />
+          </Suspense>
         </div>
         <p className="mt-6 text-center text-sm text-muted">
           <Link href="/" className="font-semibold text-primary hover:underline">
@@ -41,6 +33,14 @@ export default function LoginPage({ searchParams }: PageProps<"/admin/login">) {
 }
 
 async function LoginWithRedirect({ searchParams }: { searchParams: PageProps<"/admin/login">["searchParams"] }) {
-  const { next } = await searchParams;
+  const [{ next }, configured] = await Promise.all([searchParams, adminConfigured()]);
+  if (!configured) {
+    return (
+      <p role="alert" className="rounded-xl bg-tint-sun p-4 text-sm text-sun-ink">
+        Admin login isn&apos;t set up yet. Add <code className="font-mono">ADMIN_EMAIL</code>, <code className="font-mono">ADMIN_PASSWORD</code> and{" "}
+        <code className="font-mono">SESSION_SECRET</code> to your environment (see <code className="font-mono">.env.example</code>), then restart the server.
+      </p>
+    );
+  }
   return <LoginForm next={typeof next === "string" ? next : "/admin"} />;
 }

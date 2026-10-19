@@ -1,6 +1,6 @@
 "use client";
 
-import { ExternalLink, Home, Inbox, LayoutDashboard, LogOut, Menu, MessageSquareQuote, CircleHelp, Building2, Type, X } from "lucide-react";
+import { ExternalLink, Home, Inbox, LayoutDashboard, LogOut, Menu, MessageSquareQuote, CircleHelp, Building2, KeyRound, Type, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -16,6 +16,7 @@ const items = [
   { href: "/admin/logos", label: "Customer logos", icon: Building2 },
   { href: "/admin/faqs", label: "Pricing FAQs", icon: CircleHelp },
   { href: "/admin/inbox", label: "Inbox", icon: Inbox },
+  { href: "/admin/account", label: "Login & password", icon: KeyRound },
 ];
 
 export function AdminNav({ email, newCount }: { email: string; newCount: number }) {

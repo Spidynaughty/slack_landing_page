@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "check:links": "node scripts/check-links.mjs",
-    "typecheck": "tsc --noEmit -p ."
+    "typecheck": "tsc --noEmit -p .",
+    "admin:reset-login": "node --env-file-if-exists=.env.local scripts/reset-admin-login.mjs"
   },
   "dependencies": {
     "@libsql/client": "^0.15.15",

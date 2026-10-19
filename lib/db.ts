@@ -62,6 +62,13 @@ const schema = [
     UNIQUE (original, mode)
   )`,
   `CREATE TABLE IF NOT EXISTS counters (key TEXT PRIMARY KEY, value INTEGER NOT NULL DEFAULT 0)`,
+  // The admin login once it has been changed in the admin (one row); see lib/auth.ts
+  `CREATE TABLE IF NOT EXISTS admin_credentials (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    email TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  )`,
   `INSERT OR IGNORE INTO counters (key, value) VALUES ('text', 0)`,
 ];
 

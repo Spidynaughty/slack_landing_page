@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import {
   adminConfigured,
+  changeLogin,
   checkCredentials,
   clearLoginFailures,
   endSession,
@@ -36,15 +37,19 @@ function validHref(href: string) {
 /* Sign in and out                                                     */
 /* ------------------------------------------------------------------ */
 
+async function clientIp() {
+  return (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+}
+
 export async function login(_: FormState, fd: FormData): Promise<FormState> {
-  if (!adminConfigured()) {
+  if (!(await adminConfigured())) {
     return { message: "Admin login isn't set up yet. Add ADMIN_EMAIL, ADMIN_PASSWORD and SESSION_SECRET to your environment." };
   }
-  const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+  const ip = await clientIp();
   if (loginLocked(ip)) return { message: "Too many attempts. Try again in 15 minutes." };
 
   const email = text(fd, "email", 200);
-  if (!checkCredentials(email, String(fd.get("password") ?? ""))) {
+  if (!(await checkCredentials(email, String(fd.get("password") ?? "")))) {
     recordLoginFailure(ip);
     return { message: "That email and password don't match." };
   }
@@ -57,6 +62,25 @@ export async function login(_: FormState, fd: FormData): Promise<FormState> {
 export async function logout() {
   await endSession();
   redirect("/admin/login");
+}
+
+/** Changes the admin email and/or password. Other sessions are signed out; this one stays signed in. */
+export async function updateLogin(_: FormState, fd: FormData): Promise<FormState> {
+  const admin = await requireAdmin();
+  const result = await changeLogin(
+    admin.email,
+    {
+      current: String(fd.get("current") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      password: String(fd.get("password") ?? ""),
+      confirm: String(fd.get("confirm") ?? ""),
+    },
+    await clientIp(),
+  );
+  if (!result.ok) return result;
+  await startSession(text(fd, "email", 200));
+  refresh();
+  return { ok: true, message: "Saved. Use your new login next time you sign in. Any other signed-in devices were signed out." };
 }
 
 /* ------------------------------------------------------------------ */

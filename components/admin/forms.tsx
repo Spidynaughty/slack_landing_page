@@ -1,7 +1,7 @@
 "use client";
 
-import { useActionState, useId } from "react";
-import { login, saveFaq, saveReview, saveSetting, saveTextRule, type FormState } from "@/app/admin/actions";
+import { useActionState, useId, useState } from "react";
+import { login, saveFaq, saveReview, saveSetting, saveTextRule, updateLogin, type FormState } from "@/app/admin/actions";
 import type { FaqRow, Review, Settings } from "@/lib/content";
 import type { TextOverride } from "@/lib/text-overrides";
 import { ActionForm, FormNotice, SubmitButton } from "./form-kit";
@@ -305,6 +305,44 @@ export function TextRuleForm({ rule }: { rule?: TextOverride }) {
               <option value="contains">Everywhere, including inside longer text</option>
             </select>
           </Field>
+        </>
+      )}
+    </ActionForm>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Login & password                                                    */
+/* ------------------------------------------------------------------ */
+
+export function LoginDetailsForm({ email, minPassword }: { email: string; minPassword: number }) {
+  const id = useId();
+  const [show, setShow] = useState(false);
+  const type = show ? "text" : "password";
+  return (
+    <ActionForm action={updateLogin} submitLabel="Save login details" resetOnSuccess>
+      {(errors) => (
+        <>
+          <Field label="Email (your username)" htmlFor={`${id}-email`} error={errors.email}>
+            <input id={`${id}-email`} name="email" type="email" autoComplete="username" defaultValue={email} aria-invalid={Boolean(errors.email)} className={adminInput} />
+          </Field>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="New password" htmlFor={`${id}-new`} error={errors.password} hint={`Leave blank to keep your current password. At least ${minPassword} characters.`}>
+              <input id={`${id}-new`} name="password" type={type} autoComplete="new-password" aria-invalid={Boolean(errors.password)} className={adminInput} />
+            </Field>
+            <Field label="Confirm new password" htmlFor={`${id}-confirm`} error={errors.confirm}>
+              <input id={`${id}-confirm`} name="confirm" type={type} autoComplete="new-password" aria-invalid={Boolean(errors.confirm)} className={adminInput} />
+            </Field>
+          </div>
+          <div className="rounded-xl border border-line bg-bg-soft p-4">
+            <Field label="Current password" htmlFor={`${id}-current`} error={errors.current} hint="Needed to save any change.">
+              <input id={`${id}-current`} name="current" type={type} autoComplete="current-password" aria-invalid={Boolean(errors.current)} className={adminInput} />
+            </Field>
+          </div>
+          <label className="flex w-fit items-center gap-2.5 text-sm font-medium text-fg">
+            <input type="checkbox" checked={show} onChange={(e) => setShow(e.target.checked)} className="size-4 accent-[var(--primary)]" />
+            Show passwords
+          </label>
         </>
       )}
     </ActionForm>

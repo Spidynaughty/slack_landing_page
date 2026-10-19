@@ -29,6 +29,7 @@ soon as you save.
 | Home page | The announcement badge, hero headline, subtitle and buttons, the numbers band, the reviews heading and the closing call to action. Each section can be reset to its original text. |
 | Customer logos | The scrolling strip of company names and its heading. |
 | Pricing FAQs | The questions and answers on the pricing page. |
+| Login & password | Change the admin email and password. The current password is required, the new one is stored as a scrypt hash in the database, and every other session is signed out. Forgot it? Run `npm run admin:reset-login` to fall back to `ADMIN_EMAIL` / `ADMIN_PASSWORD`. |
 | Inbox | Every form submission (demo requests, contact forms, sign-ups, newsletter, applications, article feedback), with filters, read/archive states, email replies and CSV export. |
 
 The session is a signed, httpOnly cookie that lasts 8 hours. Changing `ADMIN_PASSWORD` signs every session out, and five
