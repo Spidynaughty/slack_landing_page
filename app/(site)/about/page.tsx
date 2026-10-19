@@ -141,7 +141,7 @@ function AboutVisual() {
         <p className="font-display text-4xl font-extrabold text-sun-ink">150+</p>
         <p className="mt-1 text-sm font-medium text-muted">countries and territories</p>
       </div>
-      <div className="col-span-2 flex flex-wrap items-center justify-between gap-4 rounded-[var(--radius-panel)] bg-deep p-6 text-on-deep">
+      <div className="deep-adaptive col-span-2 flex flex-wrap items-center justify-between gap-4 rounded-[var(--radius-panel)] border border-line bg-deep p-6 text-on-deep dark:border-transparent">
         <div>
           <p className="font-display text-2xl font-bold text-white">3,800 people, 11 offices</p>
           <p className="text-sm text-on-deep-muted">One team, working in the open</p>

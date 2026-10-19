@@ -161,7 +161,7 @@ export function RoiCalculator() {
         />
       </form>
 
-      <div className="relative overflow-hidden bg-deep p-6 text-on-deep sm:p-10">
+      <div className="deep-adaptive relative overflow-hidden bg-deep p-6 text-on-deep sm:p-10">
         <div aria-hidden="true" className="absolute inset-0 bg-dots opacity-15" />
         <div aria-hidden="true" className="absolute -top-24 -right-24 size-72 rounded-full bg-primary/40 blur-3xl" />
         <div className="relative">

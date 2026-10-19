@@ -106,6 +106,7 @@ export function JobBoard({ jobs }: { jobs: Job[] }) {
                         <div className="mt-8 rounded-2xl bg-bg-soft p-5 sm:p-6">
                           <h3 className="mb-4 font-display text-lg font-bold text-fg">Apply for {j.title}</h3>
                           <LeadForm
+                            formName="Job application"
                             submitLabel="Submit application"
                             successTitle="Application received"
                             successBody="Thanks for applying! Our recruiting team reviews every application and will be in touch within two weeks."

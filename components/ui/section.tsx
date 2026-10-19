@@ -27,7 +27,7 @@ export function Section({
       : bg === "soft"
         ? "bg-bg-soft"
         : bg === "deep"
-          ? "bg-deep text-on-deep"
+          ? "deep-adaptive bg-deep text-on-deep"
           : toneStyles[bg].tint;
   return (
     <section id={id} aria-labelledby={labelledBy} className={cn("relative overflow-x-clip section-y", bgClass, className)}>

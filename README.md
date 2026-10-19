@@ -24,6 +24,7 @@ soon as you save.
 
 | Section | What it controls |
 | --- | --- |
+| Site text | Change any words on the public site. Click **Edit on the site** to open it in editing mode and click any text (headings, paragraphs, buttons, menus, footer, prices) to change it, or add changes by hand, including replace-everywhere rules. Every change can be undone. |
 | Reviews | Write, edit, publish, feature and delete reviews. Published reviews fill the home page review wall, the customer stories carousel, the contact sales card and the hero's average rating; featured ones fill the large quotes on solution, pricing, careers, enterprise and other pages. Every review section stays hidden until at least one review is published. |
 | Home page | The announcement badge, hero headline, subtitle and buttons, the numbers band, the reviews heading and the closing call to action. Each section can be reset to its original text. |
 | Customer logos | The scrolling strip of company names and its heading. |
@@ -41,9 +42,14 @@ failed sign-ins lock an address out for 15 minutes.
 | Cached content reads | `lib/content.ts`. Public pages read through `use cache` functions tagged per section, and admin saves call `updateTag()` so pages refresh straight away. |
 | Admin actions | `app/admin/actions.ts`. Server Actions; each one checks the session first. |
 | Auth | `lib/auth.ts`, plus `proxy.ts`, which sends signed-out visitors to the login page. |
+| Site text | `tsconfig.json` points `jsxImportSource` at `lib/jsx/`, so every element passes through `lib/jsx/transform.ts`, which swaps in the admin's wording. `lib/text-overrides.ts` keeps the rules in step with the database. The on-page editor is `components/text-edit/`, backed by `/admin/api/text`. Page titles and meta descriptions are not covered. |
 | `POST /api/submissions` | Stores a form entry: `{ form, page, fields, website }`. `website` is a honeypot. Cross-site posts are refused and password-like fields are never stored. |
 | `GET /api/reviews` | Published reviews as JSON. |
 | `GET /admin/inbox/export` | CSV of submissions (signed-in admins only). |
+
+### Testing on a phone
+
+Run `npx next start -H 0.0.0.0 -p 4320` after a build, then open `http://<your-computer's-IP>:4320` on a phone on the same Wi-Fi. Windows may ask to allow Node.js through the firewall; allow it on private networks.
 
 ### Deploying
 

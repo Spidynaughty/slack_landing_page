@@ -71,6 +71,7 @@ export default function ContactPage() {
           </Reveal>
           <Reveal delay={0.1} className="rounded-[var(--radius-panel)] border border-line bg-surface p-6 shadow-card sm:p-8">
             <LeadForm
+              formName="Contact message"
               submitLabel="Send message"
               successTitle="Message sent"
               successBody="Thanks for reaching out. We'll reply to your email within one business day."

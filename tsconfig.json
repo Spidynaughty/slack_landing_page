@@ -12,6 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "@kt/jsx",
     "incremental": true,
     "plugins": [
       {
@@ -19,7 +20,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@kt/jsx/*": ["./lib/jsx/*"]
     }
   },
   "include": [

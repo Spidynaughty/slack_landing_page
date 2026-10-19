@@ -210,7 +210,7 @@ export default function TrustPage() {
       </Section>
 
       {/* Uptime */}
-      <section aria-labelledby="uptime-heading" className="relative overflow-hidden bg-deep py-20 text-on-deep md:py-28">
+      <section aria-labelledby="uptime-heading" className="deep-adaptive relative overflow-hidden bg-deep py-20 text-on-deep md:py-28">
         <GradientBlobs variant="deep" />
         <div className="container-page relative grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <Reveal className="flex flex-col items-start gap-5">

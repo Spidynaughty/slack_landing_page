@@ -76,7 +76,7 @@ export function PageHero({
     <section
       className={cn(
         "under-header relative overflow-hidden pb-16 md:pb-24",
-        deep ? "grain bg-deep text-on-deep" : "bg-bg",
+        deep ? "deep-adaptive grain bg-deep text-on-deep" : "bg-bg",
         className,
       )}
     >

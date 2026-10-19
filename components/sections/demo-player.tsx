@@ -139,7 +139,7 @@ export function DemoPlayer({ chapters }: { chapters: DemoChapter[] }) {
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate font-semibold text-fg">{c.title}</span>
-                  <span className="block text-xs text-muted">{fmt(starts[i])}</span>
+                  <span className="block text-xs text-fg/75">{fmt(starts[i])}</span>
                 </span>
               </button>
             </li>

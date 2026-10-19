@@ -1,8 +1,9 @@
 "use client";
 
 import { useActionState, useId } from "react";
-import { login, saveFaq, saveReview, saveSetting, type FormState } from "@/app/admin/actions";
+import { login, saveFaq, saveReview, saveSetting, saveTextRule, type FormState } from "@/app/admin/actions";
 import type { FaqRow, Review, Settings } from "@/lib/content";
+import type { TextOverride } from "@/lib/text-overrides";
 import { ActionForm, FormNotice, SubmitButton } from "./form-kit";
 import { adminInput, adminTextarea, Field } from "./ui";
 
@@ -273,6 +274,37 @@ export function FaqForm({ faq }: { faq?: FaqRow }) {
               Published
             </label>
           </div>
+        </>
+      )}
+    </ActionForm>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Site text                                                           */
+/* ------------------------------------------------------------------ */
+
+export function TextRuleForm({ rule }: { rule?: TextOverride }) {
+  const id = useId();
+  return (
+    <ActionForm action={saveTextRule} submitLabel={rule ? "Save" : "Add change"} resetOnSuccess={!rule}>
+      {(errors) => (
+        <>
+          {rule && <input type="hidden" name="id" value={rule.id} />}
+          <div className="grid gap-4 md:grid-cols-2">
+            <Field label="Text on the site now" htmlFor={`${id}-o`} error={errors.original} hint="Copy it exactly, including capital letters and punctuation.">
+              <textarea id={`${id}-o`} name="original" rows={3} defaultValue={rule?.original} aria-invalid={Boolean(errors.original)} className={adminTextarea} />
+            </Field>
+            <Field label="Change it to" htmlFor={`${id}-r`} error={errors.replacement}>
+              <textarea id={`${id}-r`} name="replacement" rows={3} defaultValue={rule?.replacement} aria-invalid={Boolean(errors.replacement)} className={adminTextarea} />
+            </Field>
+          </div>
+          <Field label="Where" htmlFor={`${id}-m`} className="max-w-md">
+            <select id={`${id}-m`} name="mode" defaultValue={rule?.mode ?? "exact"} className={adminInput}>
+              <option value="exact">Wherever this exact text appears on its own</option>
+              <option value="contains">Everywhere, including inside longer text</option>
+            </select>
+          </Field>
         </>
       )}
     </ActionForm>

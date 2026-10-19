@@ -169,6 +169,7 @@ export default function EnterprisePage() {
           </Reveal>
           <Reveal delay={0.1} className="rounded-[var(--radius-panel)] border border-line bg-surface p-6 shadow-card sm:p-8">
             <LeadForm
+              formName="Enterprise enquiry"
               submitLabel="Contact sales"
               successTitle="Thanks, we'll be in touch"
               successBody="An enterprise specialist will reach out within one business day to schedule your session."

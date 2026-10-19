@@ -189,6 +189,7 @@ export default function RethinkingEmailReportPage() {
           </Reveal>
           <Reveal delay={0.1} className="rounded-[var(--radius-panel)] border border-line bg-surface p-6 shadow-card sm:p-8">
             <LeadForm
+              formName="Report download: Rethinking email"
               submitLabel="Send me the report"
               successTitle="It's on its way"
               successBody="We've emailed you a link to the full report. (This is a demo, so no email is actually sent.)"

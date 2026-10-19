@@ -19,12 +19,13 @@
   --surface-3: #e2eaf5;
   --fg: #102039;
   --fg-muted: #5e718d;
-  --fg-subtle: #5f7290;
+  --fg-subtle: #5a6d89;
   --line: #e2e8f2;
   --line-strong: #cdd7e5;
 
-  --primary: #1769f5;
-  --primary-hover: #0f58d6;
+  /* A hair deeper than the brand #1769F5 (kept in the logo and gradients) so blue text passes AA on every pale background */
+  --primary: #1462e6;
+  --primary-hover: #0f50c2;
   --primary-fg: #ffffff;
   --primary-soft: #e2efff;
   --highlight: #2588ff;
@@ -41,26 +42,27 @@
   --unread: #ff4968;
 
   /* Accents for categories and illustrations */
-  --coral: #ff4968;
-  --mint: #16a34a;
+  /* Fills dark enough for white labels at AA contrast (status colours above stay as specified) */
+  --coral: #e11d48;
+  --mint: #15803d;
   --sun: #f59e0b;
   --pink: #e51b5b;
-  --sky: #0ea5e9;
+  --sky: #0277bd;
 
   /* Accent text variants that keep AA contrast on light surfaces */
-  --coral-ink: #c81e45;
+  --coral-ink: #b3173f;
   --mint-ink: #166534;
-  --sun-ink: #b45309;
+  --sun-ink: #9a4507;
   --pink-ink: #be123c;
   --sky-ink: #0369a1;
 
   /* Soft tinted section backgrounds */
-  --tint-violet: #e2efff;
-  --tint-mint: #e6f6ec;
-  --tint-sun: #fef3e2;
-  --tint-coral: #ffebef;
-  --tint-pink: #fde8ef;
-  --tint-sky: #e0f2fe;
+  --tint-violet: #edf5ff;
+  --tint-mint: #eef8f1;
+  --tint-sun: #fff6e9;
+  --tint-coral: #fff1f4;
+  --tint-pink: #fff0f6;
+  --tint-sky: #ecf7fe;
 
   /* The three blues of the logo */
   --brand-gradient: linear-gradient(110deg, #0d55c7 0%, #1769f5 45%, #2588ff 100%);
@@ -484,6 +486,41 @@
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
+}
+
+/*
+ * Showcase panels that are deep navy in dark mode turn light in light mode.
+ * Inside a .deep-adaptive panel the "deep" colours map to light surfaces and
+ * white text maps to navy, so existing classes (bg-deep, text-white,
+ * bg-white/5, border-white/10 ...) follow the theme. Coloured badges, icons
+ * and gradient buttons keep real white text.
+ */
+:root:not([data-theme="dark"]) .deep-adaptive {
+  --deep: var(--surface);
+  --deep-2: var(--surface-2);
+  --on-deep: var(--fg);
+  --on-deep-muted: var(--fg-muted);
+  --color-white: var(--fg);
+}
+:root:not([data-theme="dark"]) .deep-adaptive:is(.grain)::after,
+:root:not([data-theme="dark"]) .deep-adaptive .grain::after {
+  display: none;
+}
+:root:not([data-theme="dark"]) .deep-adaptive :is(
+    .bg-primary,
+    .bg-button-gradient,
+    .bg-brand-gradient,
+    .bg-mint,
+    .bg-coral,
+    .bg-pink,
+    .bg-sky,
+    .bg-sun,
+    .bg-unread,
+    [class*="bg-[#"],
+    [class*="from-["]
+  ) {
+  --color-white: #fff;
+  --deep: #051121;
 }
 
 /* Cursor-following glow border. Pointer position comes from <PointerGlow />. */

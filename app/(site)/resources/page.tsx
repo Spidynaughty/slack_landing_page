@@ -42,7 +42,7 @@ export default function ResourcesPage() {
           <Reveal>
             <Link
               href="/resources/why-use-slack/ai-era-of-work"
-              className="group relative flex flex-col gap-6 overflow-hidden rounded-[var(--radius-panel)] bg-deep p-8 text-on-deep md:flex-row md:items-center md:justify-between md:p-12"
+              className="deep-adaptive group relative flex flex-col gap-6 overflow-hidden rounded-[var(--radius-panel)] border border-line bg-deep p-8 text-on-deep shadow-card md:flex-row md:items-center md:justify-between md:p-12 dark:border-transparent"
             >
               <div aria-hidden="true" className="absolute -top-20 -right-10 size-80 rounded-full bg-pink/40 blur-3xl" />
               <div className="relative max-w-2xl">

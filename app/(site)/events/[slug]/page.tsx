@@ -71,6 +71,7 @@ async function EventContent({ params }: { params: Promise<{ slug: string }> }) {
           <p className="font-display text-xl font-bold text-fg">{onDemand ? "Watch now" : "Save your seat"}</p>
           <p className="mt-1 mb-5 text-sm text-muted">{onDemand ? "Get instant access to the recording." : "Registration is free. We'll send a calendar invite."}</p>
           <LeadForm
+            formName={onDemand ? "Event recording request" : "Event registration"}
             consent={false}
             submitLabel={onDemand ? "Get the recording" : "Register"}
             successTitle={onDemand ? "Enjoy the session" : "You're registered"}

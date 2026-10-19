@@ -1,3 +1,4 @@
+import { isSameOrigin } from "@/lib/same-origin";
 import { saveSubmission, SubmissionError } from "@/lib/submissions";
 
 const MAX_BYTES = 64 * 1024;
@@ -9,8 +10,7 @@ const MAX_BYTES = 64 * 1024;
  */
 export async function POST(request: Request) {
   // Only accept posts from this site's own pages
-  const origin = request.headers.get("origin");
-  if (origin && new URL(origin).host !== new URL(request.url).host) {
+  if (!isSameOrigin(request)) {
     return Response.json({ ok: false, error: "Cross-site submissions are not allowed" }, { status: 403 });
   }
   if (Number(request.headers.get("content-length") ?? 0) > MAX_BYTES) {

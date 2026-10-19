@@ -172,7 +172,7 @@ async function ResourceCategoryContent({ params }: { params: Promise<{ category:
                     href={r.href}
                     className={cn(
                       "group/feat relative flex h-full flex-col overflow-hidden rounded-[var(--radius-panel)] p-7 transition-shadow hover:shadow-card md:p-8",
-                      i === 0 ? "bg-deep text-on-deep" : t.tint,
+                      i === 0 ? "deep-adaptive bg-deep text-on-deep" : t.tint,
                     )}
                   >
                     {i === 0 && <div aria-hidden="true" className="absolute -top-16 -right-12 size-56 rounded-full bg-pink/40 blur-3xl" />}

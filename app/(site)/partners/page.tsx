@@ -329,6 +329,7 @@ export default function PartnersPage() {
           <Reveal delay={0.1} className="rounded-[var(--radius-panel)] border border-line bg-surface p-6 shadow-card sm:p-8">
             <h3 className="mb-6 font-display text-2xl font-bold text-fg">Partner application</h3>
             <LeadForm
+              formName="Partner application"
               fields={[
                 { name: "firstName", label: "First name", required: true, autoComplete: "given-name", half: true },
                 { name: "lastName", label: "Last name", required: true, autoComplete: "family-name", half: true },

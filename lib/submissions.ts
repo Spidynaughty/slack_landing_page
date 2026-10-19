@@ -35,7 +35,10 @@ function pickName(fields: Record<string, FieldValue>) {
   const text = (k: string) => (typeof fields[k] === "string" ? (fields[k] as string) : "");
   const full = text("name") || text("fullName") || text("full_name");
   if (full) return full.slice(0, 120);
-  return [text("firstName") || text("first_name"), text("lastName") || text("last_name")].filter(Boolean).join(" ").slice(0, 120);
+  return [text("firstName") || text("first_name") || text("first"), text("lastName") || text("last_name") || text("last")]
+    .filter(Boolean)
+    .join(" ")
+    .slice(0, 120);
 }
 
 export async function saveSubmission(input: { form?: unknown; page?: unknown; fields?: unknown }) {

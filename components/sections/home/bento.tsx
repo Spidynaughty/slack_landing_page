@@ -28,7 +28,7 @@ function Tile({
         href={href}
         className={cn(
           "glow-card group/tile relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border p-6 shadow-soft transition-shadow hover:shadow-card sm:p-7",
-          dark ? "grain border-white/10 bg-deep text-on-deep" : "border-line bg-surface",
+          dark ? "deep-adaptive grain border-white/10 bg-deep text-on-deep" : "border-line bg-surface",
         )}
       >
         <div className="relative mb-6 flex-1">{visual}</div>

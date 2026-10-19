@@ -130,7 +130,7 @@ export default async function Home() {
       </Section>
 
       {/* AI */}
-      <section className="grain relative overflow-hidden bg-deep py-24 text-on-deep md:py-32" aria-labelledby="ai-heading">
+      <section className="deep-adaptive grain relative overflow-hidden bg-deep py-24 text-on-deep md:py-32" aria-labelledby="ai-heading">
         <div aria-hidden="true" className="absolute inset-0 bg-aurora opacity-80" />
         <div aria-hidden="true" className="absolute inset-0 bg-dots opacity-[0.12] invert" />
         <div className="container-page relative">
@@ -161,7 +161,7 @@ export default async function Home() {
 
       {/* Integrations */}
       <section className="px-3 sm:px-4" aria-labelledby="apps-heading">
-        <div className="grain relative mx-auto max-w-[80rem] overflow-hidden rounded-[2rem] bg-deep py-16 text-on-deep sm:rounded-[2.5rem] md:py-20">
+        <div className="deep-adaptive grain relative mx-auto max-w-[80rem] overflow-hidden rounded-[2rem] border border-line bg-deep py-16 text-on-deep shadow-card sm:rounded-[2.5rem] md:py-20 dark:border-transparent">
           <div aria-hidden="true" className="absolute -bottom-40 left-1/2 h-80 w-[50rem] -translate-x-1/2 rounded-full bg-brand-gradient opacity-30 blur-3xl" />
           <div className="relative mb-12 flex flex-col items-center gap-4 px-6 text-center">
             <h2 id="apps-heading" className="max-w-2xl text-display-md font-extrabold tracking-tight text-white">

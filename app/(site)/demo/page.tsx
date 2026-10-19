@@ -61,6 +61,7 @@ export default function DemoPage() {
           </Reveal>
           <Reveal delay={0.1} className="rounded-[var(--radius-panel)] border border-line bg-surface p-6 shadow-card sm:p-8">
             <LeadForm
+              formName="Live demo booking"
               submitLabel="Book a live demo"
               successTitle="Your demo request is in"
               successBody="A product specialist will email you within one business day with available times."

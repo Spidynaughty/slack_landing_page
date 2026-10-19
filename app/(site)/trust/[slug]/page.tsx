@@ -364,6 +364,7 @@ function PrivacyRequestCard({ tone }: { tone: Tone }) {
         </p>
       </div>
       <LeadForm
+        formName="Trust Center request"
         fields={privacyRequestFields}
         submitLabel="Submit request"
         successTitle="Request received"

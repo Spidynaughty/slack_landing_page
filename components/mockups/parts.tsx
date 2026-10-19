@@ -5,13 +5,13 @@ import { cn } from "@/lib/utils";
 
 export const people = {
   priya: { name: "Priya Raman", initials: "PR", color: "bg-[#1769f5]" },
-  marcus: { name: "Marcus Lee", initials: "ML", color: "bg-[#ff7a4d]" },
-  sofia: { name: "Sofia Alvarez", initials: "SA", color: "bg-[#10b981]" },
-  jonah: { name: "Jonah Kim", initials: "JK", color: "bg-[#3b82f6]" },
+  marcus: { name: "Marcus Lee", initials: "ML", color: "bg-[#c2410c]" },
+  sofia: { name: "Sofia Alvarez", initials: "SA", color: "bg-[#047857]" },
+  jonah: { name: "Jonah Kim", initials: "JK", color: "bg-[#1d4ed8]" },
   amara: { name: "Amara Okafor", initials: "AO", color: "bg-[#e51b5b]" },
-  leo: { name: "Leo Brandt", initials: "LB", color: "bg-[#f59e0b]" },
-  hana: { name: "Hana Sato", initials: "HS", color: "bg-[#0ea5e9]" },
-  diego: { name: "Diego Ruiz", initials: "DR", color: "bg-[#8b5cf6]" },
+  leo: { name: "Leo Brandt", initials: "LB", color: "bg-[#b45309]" },
+  hana: { name: "Hana Sato", initials: "HS", color: "bg-[#0369a1]" },
+  diego: { name: "Diego Ruiz", initials: "DR", color: "bg-[#7c3aed]" },
 } as const;
 
 export type PersonKey = keyof typeof people;

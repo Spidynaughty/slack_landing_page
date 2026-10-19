@@ -189,7 +189,7 @@ function CommunityVisual() {
 
 function ChampionCard() {
   return (
-    <div className="relative mx-auto max-w-md rounded-[var(--radius-panel)] bg-deep p-7 text-on-deep shadow-float sm:p-8">
+    <div className="deep-adaptive relative mx-auto max-w-md rounded-[var(--radius-panel)] border border-line bg-deep p-7 text-on-deep shadow-float sm:p-8 dark:border-transparent">
       <div aria-hidden="true" className="absolute inset-0 rounded-[var(--radius-panel)] bg-dots opacity-10" />
       <div className="relative flex items-center gap-4">
         <span className="inline-flex size-16 items-center justify-center rounded-2xl bg-sun text-deep">

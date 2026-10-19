@@ -345,6 +345,7 @@ export default function AccessibilityPage() {
           <Reveal delay={0.08} className="rounded-[var(--radius-panel)] border border-line bg-surface p-6 shadow-card sm:p-8">
             <h3 className="mb-6 font-display text-xl font-bold text-fg">Send accessibility feedback</h3>
             <LeadForm
+              formName="Accessibility feedback"
               submitLabel="Send feedback"
               successTitle="Thank you for your feedback"
               successBody="Our accessibility team will review your message and reply within two business days."

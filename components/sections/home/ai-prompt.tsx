@@ -66,7 +66,7 @@ export function AiPrompt() {
   return (
     <div ref={ref} className="relative mx-auto max-w-3xl" role="img" aria-label={`Example: someone asks “${p.q}” and the AI answers with sources.`}>
       <div aria-hidden="true" className="absolute -inset-6 rounded-[2.5rem] bg-brand-gradient opacity-30 blur-3xl" />
-      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#0f0e22]/90 p-5 shadow-float sm:p-7">
+      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-deep-2/90 p-5 shadow-float sm:p-7">
         <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3.5">
           <Sparkles className="size-5 shrink-0 text-pink" aria-hidden="true" />
           <p className="min-h-6 flex-1 text-left text-[0.95rem] text-white sm:text-base">

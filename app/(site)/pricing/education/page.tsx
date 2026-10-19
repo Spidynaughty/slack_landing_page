@@ -162,6 +162,7 @@ function ProgramView({ program }: { program: Program }) {
           </div>
           <Reveal className="rounded-[var(--radius-panel)] border border-line bg-surface p-6 shadow-card sm:p-8">
             <LeadForm
+              formName="Education pricing application"
               fields={applicationFields(program)}
               submitLabel={program.form.submitLabel}
               successTitle={program.form.successTitle}

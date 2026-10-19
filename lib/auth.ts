@@ -7,7 +7,7 @@
  */
 import "server-only";
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const SESSION_COOKIE = "kt_admin";
@@ -69,10 +69,14 @@ function verifyToken(token: string): Session | null {
 export async function startSession(email: string) {
   const cfg = env();
   if (!cfg) throw new Error("Admin login is not configured");
+  // Secure-only on HTTPS. Plain http (e.g. testing from a phone on the local
+  // network) would otherwise drop the cookie and the admin could never sign in.
+  const h = await headers();
+  const https = h.get("x-forwarded-proto") === "https" || (h.get("origin") ?? "").startsWith("https://");
   (await cookies()).set(SESSION_COOKIE, createToken(email.trim().toLowerCase(), cfg.key), {
     httpOnly: true,
     sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    secure: https,
     path: "/admin",
     maxAge: MAX_AGE,
   });

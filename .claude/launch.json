@@ -10,7 +10,7 @@
     {
       "name": "web-prod",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["next", "start", "-p", "4320"],
+      "runtimeArgs": ["next", "start", "-H", "0.0.0.0", "-p", "4320"],
       "port": 4320
     }
   ]

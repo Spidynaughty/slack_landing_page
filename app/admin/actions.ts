@@ -15,6 +15,7 @@ import {
 } from "@/lib/auth";
 import { settingDefaults, type SettingKey, type Settings, type StatItem } from "@/lib/content";
 import { db } from "@/lib/db";
+import { textRulesChanged } from "@/lib/text-overrides";
 
 export type FormState = { ok?: boolean; message?: string; errors?: Record<string, string> };
 
@@ -275,4 +276,49 @@ export async function deleteSubmission(fd: FormData) {
   const client = await db();
   await client.execute({ sql: "DELETE FROM submissions WHERE id = ?", args: [Number(fd.get("id"))] });
   redirect("/admin/inbox");
+}
+
+/* ------------------------------------------------------------------ */
+/* Site text                                                           */
+/* ------------------------------------------------------------------ */
+
+export async function saveTextRule(_: FormState, fd: FormData): Promise<FormState> {
+  await requireAdmin();
+  const id = Number(fd.get("id") || 0);
+  const mode = fd.get("mode") === "contains" ? "contains" : "exact";
+  const original = String(fd.get("original") ?? "").trim().slice(0, 2000);
+  const replacement = String(fd.get("replacement") ?? "").trim().slice(0, 2000);
+  const errors: Record<string, string> = {};
+  if (!original) errors.original = "Paste the text exactly as it appears on the site";
+  else if (mode === "contains" && original.length < 3) errors.original = "Use at least 3 characters so it doesn't change other words by accident";
+  if (original && original === replacement) errors.replacement = "The new text is the same as the original";
+  if (Object.keys(errors).length) return { errors, message: "Check the highlighted fields." };
+
+  const client = await db();
+  try {
+    if (id) {
+      await client.execute({
+        sql: "UPDATE text_overrides SET original = ?, replacement = ?, mode = ?, updated_at = datetime('now') WHERE id = ?",
+        args: [original, replacement, mode, id],
+      });
+    } else {
+      await client.execute({
+        sql: `INSERT INTO text_overrides (original, replacement, mode) VALUES (?, ?, ?)
+              ON CONFLICT (original, mode) DO UPDATE SET replacement = excluded.replacement, updated_at = datetime('now')`,
+        args: [original, replacement, mode],
+      });
+    }
+  } catch {
+    return { message: "There is already a change for that text. Edit that one instead." };
+  }
+  await textRulesChanged();
+  return { ok: true, message: id ? "Saved. The site now shows the new text." : "Added. The site now shows the new text." };
+}
+
+export async function deleteTextRule(fd: FormData) {
+  await requireAdmin();
+  const client = await db();
+  await client.execute({ sql: "DELETE FROM text_overrides WHERE id = ?", args: [Number(fd.get("id"))] });
+  await textRulesChanged();
+  refresh();
 }

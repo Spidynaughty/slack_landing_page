@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Home, Inbox, MessageSquareQuote, CircleHelp } from "lucide-react";
+import { ArrowRight, Home, Inbox, MessageSquareQuote, CircleHelp, Type } from "lucide-react";
 import { Badge, Card, EmptyState, formatDate, PageHeader } from "@/components/admin/ui";
 import { requireAdmin } from "@/lib/auth";
 import { db, plain } from "@/lib/db";
@@ -78,6 +78,7 @@ export default async function Dashboard() {
         <Card title="Quick actions">
           <ul className="flex flex-col gap-2">
             {[
+              { href: "/admin/text", label: "Change any text on the site", icon: Type },
               { href: "/admin/reviews/new", label: "Write a review", icon: MessageSquareQuote },
               { href: "/admin/content", label: "Edit the home page", icon: Home },
               { href: "/admin/faqs", label: "Update pricing FAQs", icon: CircleHelp },

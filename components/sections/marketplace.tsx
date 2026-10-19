@@ -45,7 +45,7 @@ export function Marketplace() {
                   )}
                 >
                   {c}
-                  <span className={cn("hidden text-xs lg:inline", category === c ? "text-primary-fg/80" : "text-subtle")}>{counts(c)}</span>
+                  <span className={cn("hidden text-xs lg:inline", category === c ? "text-primary-fg" : "text-subtle")}>{counts(c)}</span>
                 </button>
               </li>
             ))}

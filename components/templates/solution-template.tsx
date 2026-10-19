@@ -119,7 +119,7 @@ export function SolutionTemplate({ solution }: { solution: Solution }) {
 
       {/* Workflow */}
       <section className="px-3 sm:px-4" aria-labelledby="workflow-heading">
-        <div className="grain relative mx-auto max-w-[80rem] overflow-hidden rounded-[2rem] bg-deep px-5 py-16 text-on-deep sm:rounded-[2.5rem] sm:px-10 md:py-20">
+        <div className="deep-adaptive grain relative mx-auto max-w-[80rem] overflow-hidden rounded-[2rem] border border-line bg-deep px-5 py-16 text-on-deep shadow-card sm:rounded-[2.5rem] sm:px-10 md:py-20 dark:border-transparent">
           <div aria-hidden="true" className="absolute inset-0 bg-aurora opacity-80" />
           <Reveal className="relative mx-auto mb-12 flex max-w-3xl flex-col items-center gap-4 text-center">
             <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 py-1 pr-3.5 pl-2 text-[0.8rem] font-semibold">

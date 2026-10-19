@@ -9,7 +9,9 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   let response = NextResponse.next();
 
-  if (!pathname.startsWith("/admin/login") && !request.cookies.has("kt_admin")) {
+  // API routes answer 401 themselves instead of redirecting to the login page
+  const open = pathname.startsWith("/admin/login") || pathname.startsWith("/admin/api/");
+  if (!open && !request.cookies.has("kt_admin")) {
     const login = new URL("/admin/login", request.url);
     if (pathname !== "/admin") login.searchParams.set("next", pathname);
     response = NextResponse.redirect(login);

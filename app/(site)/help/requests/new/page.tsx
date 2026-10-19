@@ -28,6 +28,7 @@ export default function SupportRequestPage() {
             </p>
             <Reveal className="mt-8 rounded-[var(--radius-panel)] border border-line bg-surface p-6 shadow-card sm:p-8">
               <LeadForm
+                formName="Support request"
                 submitLabel="Submit request"
                 successTitle="Request received"
                 successBody="Thanks! Your ticket number is #482915. We've emailed you a copy and will reply as soon as possible. (Demo: nothing was sent.)"

@@ -126,6 +126,7 @@ export default function StatusPage() {
             <h2 className="font-display text-xl font-bold text-fg">Subscribe to updates</h2>
             <p className="mt-1 mb-5 text-sm text-muted">Get notified by email when we create, update or resolve an incident.</p>
             <LeadForm
+              formName="Status updates subscription"
               consent={false}
               submitLabel="Subscribe"
               successTitle="You're subscribed"

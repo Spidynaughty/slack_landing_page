@@ -52,6 +52,17 @@ const schema = [
     created_at TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
   `CREATE INDEX IF NOT EXISTS submissions_status ON submissions (status, created_at)`,
+  // Site text the admin has changed; see lib/text-overrides.ts
+  `CREATE TABLE IF NOT EXISTS text_overrides (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    original TEXT NOT NULL,
+    replacement TEXT NOT NULL,
+    mode TEXT NOT NULL DEFAULT 'exact' CHECK (mode IN ('exact', 'contains')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+    UNIQUE (original, mode)
+  )`,
+  `CREATE TABLE IF NOT EXISTS counters (key TEXT PRIMARY KEY, value INTEGER NOT NULL DEFAULT 0)`,
+  `INSERT OR IGNORE INTO counters (key, value) VALUES ('text', 0)`,
 ];
 
 /** Copies the pricing FAQs from the code into the database once, so they become editable. */

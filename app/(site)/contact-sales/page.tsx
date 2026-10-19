@@ -48,6 +48,7 @@ export default function ContactSalesPage() {
             <div className="animate-fade-up rounded-[var(--radius-panel)] border border-line bg-surface p-6 shadow-card [animation-delay:150ms] sm:p-8">
               <h2 className="mb-6 font-display text-2xl font-bold text-fg">Request a demo</h2>
               <LeadForm
+                formName="Demo request"
                 submitLabel="Request demo"
                 successTitle="Thanks! We'll be in touch soon"
                 successBody="A member of our sales team will email you within one business day to find a time that works."

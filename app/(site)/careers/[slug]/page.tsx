@@ -156,6 +156,7 @@ async function JobContent({ params }: { params: Promise<{ slug: string }> }) {
             <Reveal className="mt-14 scroll-mt-28 rounded-[var(--radius-panel)] border border-line bg-surface p-6 shadow-card sm:p-8" id="apply">
               <h2 className="mb-6 font-display text-2xl font-bold text-fg">Apply for {job.title}</h2>
               <LeadForm
+                formName="Job application"
                 submitLabel="Submit application"
                 successTitle="Application received"
                 successBody="Thanks for applying! Our recruiting team reviews every application and will be in touch within two weeks."

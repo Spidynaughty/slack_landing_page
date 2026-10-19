@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Google_Sans, Google_Sans_Code } from "next/font/google";
 import { Providers } from "@/components/providers";
+import { textRulesScript } from "@/lib/text-overrides";
 import { themeScript } from "@/lib/theme";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -48,6 +49,8 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  // Admin text changes, so client components render the same wording as the server
+  const textRules = textRulesScript();
   return (
     <html
       lang="en"
@@ -57,6 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {textRules && <script dangerouslySetInnerHTML={{ __html: textRules }} />}
       </head>
       <body className="flex min-h-dvh flex-col">
         {/* Public pages add the site header and footer in app/(site)/layout.tsx; the admin has its own chrome */}

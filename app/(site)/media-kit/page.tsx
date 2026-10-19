@@ -287,7 +287,7 @@ export default function MediaKitPage() {
 
       {/* Press contact */}
       <section className="bg-bg px-3 py-10 sm:px-6 md:py-16" aria-labelledby="press-contact-heading">
-        <div className="relative mx-auto max-w-[82rem] overflow-hidden rounded-[2rem] bg-deep px-6 py-14 md:px-16 md:py-20">
+        <div className="deep-adaptive relative mx-auto max-w-[82rem] overflow-hidden rounded-[2rem] border border-line bg-deep px-6 py-14 shadow-card md:px-16 md:py-20 dark:border-transparent">
           <GradientBlobs variant="deep" />
           <div className="relative grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]">
             <Reveal className="flex flex-col items-start gap-5">
