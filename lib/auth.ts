@@ -15,6 +15,7 @@ import { createHash, createHmac, randomBytes, scryptSync, timingSafeEqual } from
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import { rateLimiter } from "@/lib/rate-limit";
 
 export const SESSION_COOKIE = "kt_admin";
 const MAX_AGE = 60 * 60 * 8; // 8 hours
@@ -168,28 +169,23 @@ export async function requireAdmin(): Promise<Session> {
 /* ------------------------------------------------------------------ */
 /* Login throttling: 5 failed attempts locks an address for 15 minutes  */
 /* ------------------------------------------------------------------ */
-const attempts = new Map<string, { count: number; until: number }>();
-const LIMIT = 5;
 const WINDOW = 15 * 60 * 1000;
+const perAddress = rateLimiter("login", 5, WINDOW);
+// The address comes from x-forwarded-for, which can be made up, so failures
+// from all addresses together are capped too.
+const everyone = rateLimiter("login-all", 50, WINDOW);
 
 export function loginLocked(ip: string) {
-  const a = attempts.get(ip);
-  if (!a) return false;
-  if (a.until < Date.now()) {
-    attempts.delete(ip);
-    return false;
-  }
-  return a.count >= LIMIT;
+  return perAddress.limited(ip) || everyone.limited("all");
 }
 
 export function recordLoginFailure(ip: string) {
-  const a = attempts.get(ip);
-  if (!a || a.until < Date.now()) attempts.set(ip, { count: 1, until: Date.now() + WINDOW });
-  else a.count += 1;
+  perAddress.count(ip);
+  everyone.count("all");
 }
 
 export function clearLoginFailures(ip: string) {
-  attempts.delete(ip);
+  perAddress.clear(ip);
 }
 
 /* ------------------------------------------------------------------ */

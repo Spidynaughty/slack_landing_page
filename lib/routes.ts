@@ -55,3 +55,6 @@ export function allRoutes(): string[] {
   authors.forEach((a) => set.add(`/blog/authors/${a.slug}`));
   return [...set].sort((a, b) => (a === "/" ? -1 : b === "/" ? 1 : a.localeCompare(b)));
 }
+
+/** Paths search engines should not crawl (robots.txt). The sitemap leaves them out too. */
+export const NOT_CRAWLED = ["/signin", "/get-started", "/admin", "/api/", "/search-index.json"];

@@ -4,9 +4,9 @@ import { TextEditLoader } from "@/components/text-edit/loader";
 export default function FocusLayout({ children }: LayoutProps<"/">) {
   return (
     <>
-      <div id="main" className="flex min-h-dvh flex-1 flex-col">
+      <main id="main" className="flex min-h-dvh flex-1 flex-col">
         {children}
-      </div>
+      </main>
       <TextEditLoader />
     </>
   );

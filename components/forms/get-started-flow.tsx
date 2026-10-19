@@ -229,7 +229,18 @@ export function GetStartedFlow() {
                         maxLength={6}
                         value={d}
                         aria-label={`Digit ${i + 1} of 6`}
-                        onChange={(e) => fillCode(i, e.target.value || "")}
+                        onChange={(e) => {
+                          const v = e.target.value.replace(/D/g, "");
+                          if (!v) {
+                            // Backspace or Delete on a filled box clears it
+                            const next = [...code];
+                            next[i] = "";
+                            setCode(next);
+                            return;
+                          }
+                          // Typing over an existing digit replaces it
+                          fillCode(i, v.length > 1 && code[i] && v.startsWith(code[i]) ? v.slice(1) : v);
+                        }}
                         onKeyDown={(e) => onCodeKey(i, e)}
                         onPaste={(e) => onCodePaste(i, e)}
                         onFocus={(e) => e.target.select()}
@@ -343,7 +354,7 @@ export function GetStartedFlow() {
         </aside>
 
         {/* Main panel */}
-        <main className="flex min-w-0 flex-1 flex-col overflow-y-auto bg-surface text-fg md:rounded-lg">
+        <section aria-label={done ? "Your workspace" : "Workspace setup"} className="flex min-w-0 flex-1 flex-col overflow-y-auto bg-surface text-fg md:rounded-lg">
           {done ? (
             <Workspace channel={projectChannel || "general"} project={project.trim()} firstName={firstName} invites={invites.length} plan={plan} />
           ) : (
@@ -527,7 +538,7 @@ export function GetStartedFlow() {
             </motion.form>
             </AnimatePresence>
           )}
-        </main>
+        </section>
       </div>
     </div>
   );
@@ -536,12 +547,11 @@ export function GetStartedFlow() {
 function Question({ title, body, htmlFor, children }: { title: string; body: string; htmlFor?: string; children: ReactNode }) {
   return (
     <div>
-      {htmlFor ? (
-        <label htmlFor={htmlFor} className="block">
-          <h1 className="text-[2rem] leading-tight font-bold tracking-tight text-fg sm:text-[2.5rem]">{title}</h1>
+      <h1 className="text-[2rem] leading-tight font-bold tracking-tight text-fg sm:text-[2.5rem]">{title}</h1>
+      {htmlFor && (
+        <label htmlFor={htmlFor} className="sr-only">
+          {title}
         </label>
-      ) : (
-        <h1 className="text-[2rem] leading-tight font-bold tracking-tight text-fg sm:text-[2.5rem]">{title}</h1>
       )}
       <p className="mt-3 mb-7 text-[1.05rem] text-muted">{body}</p>
       {children}

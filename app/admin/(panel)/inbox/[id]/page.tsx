@@ -57,7 +57,8 @@ export default async function SubmissionPage({ params }: PageProps<"/admin/inbox
           <div className="flex flex-wrap gap-2">
             {row.email && (
               <a
-                href={`mailto:${row.email}`}
+                // Encoded so an address like "a@b.co?cc=…" can't add recipients or text to the reply
+                href={`mailto:${encodeURIComponent(row.email).replace(/%40/g, "@")}`}
                 className="inline-flex h-8 items-center gap-1.5 rounded-full bg-primary px-3.5 text-xs font-semibold text-primary-fg hover:bg-primary-hover"
               >
                 <Mail className="size-3.5" aria-hidden="true" /> Reply by email

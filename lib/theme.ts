@@ -40,12 +40,18 @@ export function subscribeTheme(callback: () => void) {
     }
     callback();
   };
+  // A theme picked in another tab: switch this page too, not just the toggle
+  const onStorage = (e: StorageEvent) => {
+    if (e.key !== null && e.key !== THEME_KEY) return;
+    document.documentElement.setAttribute("data-theme", resolve(readPreference()));
+    callback();
+  };
   window.addEventListener(EVENT, callback);
-  window.addEventListener("storage", callback);
+  window.addEventListener("storage", onStorage);
   mq.addEventListener("change", onSystem);
   return () => {
     window.removeEventListener(EVENT, callback);
-    window.removeEventListener("storage", callback);
+    window.removeEventListener("storage", onStorage);
     mq.removeEventListener("change", onSystem);
   };
 }

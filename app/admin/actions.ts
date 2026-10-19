@@ -16,6 +16,7 @@ import {
 } from "@/lib/auth";
 import { settingDefaults, type SettingKey, type Settings, type StatItem } from "@/lib/content";
 import { db } from "@/lib/db";
+import { clientAddress } from "@/lib/rate-limit";
 import { textRulesChanged } from "@/lib/text-overrides";
 
 export type FormState = { ok?: boolean; message?: string; errors?: Record<string, string> };
@@ -30,7 +31,8 @@ function flag(fd: FormData, key: string) {
 
 /** Links may point inside the site or to a full web or mailto address. */
 function validHref(href: string) {
-  return /^(\/(?!\/)|https?:\/\/|mailto:)/.test(href);
+  // Browsers read "/\" like "//", which would leave the site
+  return /^(\/(?![/\\])|https?:\/\/|mailto:)/.test(href);
 }
 
 /* ------------------------------------------------------------------ */
@@ -38,7 +40,7 @@ function validHref(href: string) {
 /* ------------------------------------------------------------------ */
 
 async function clientIp() {
-  return (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+  return clientAddress(await headers());
 }
 
 export async function login(_: FormState, fd: FormData): Promise<FormState> {
@@ -152,9 +154,11 @@ function readStats(fd: FormData): StatItem[] {
   for (let i = 0; i < 4; i++) {
     const label = text(fd, `stats.${i}.label`, 80);
     if (!label) continue;
+    const value = Number(fd.get(`stats.${i}.value`));
     stats.push({
       label,
-      value: Number(fd.get(`stats.${i}.value`)) || 0,
+      // "Infinity" would be saved as null and the counter would show NaN
+      value: Number.isFinite(value) ? value : 0,
       decimals: Math.min(2, Math.max(0, Math.round(Number(fd.get(`stats.${i}.decimals`)) || 0))),
       prefix: text(fd, `stats.${i}.prefix`, 6),
       suffix: text(fd, `stats.${i}.suffix`, 10),
@@ -292,6 +296,8 @@ export async function setSubmissionStatus(fd: FormData) {
   if (!["new", "read", "archived"].includes(status)) return;
   const client = await db();
   await client.execute({ sql: "UPDATE submissions SET status = ? WHERE id = ?", args: [status, Number(fd.get("id"))] });
+  // Staying on the submission would mark it read again straight away
+  if (status === "new") redirect("/admin/inbox");
   refresh();
 }
 

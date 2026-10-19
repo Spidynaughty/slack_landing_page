@@ -44,8 +44,8 @@ function pickName(fields: Record<string, FieldValue>) {
 export async function saveSubmission(input: { form?: unknown; page?: unknown; fields?: unknown }) {
   const form = typeof input.form === "string" ? input.form.trim().slice(0, 80) : "";
   if (!form) throw new SubmissionError("Missing form name");
-  // A path on this site only ("//host" would point somewhere else)
-  const page = typeof input.page === "string" && /^\/(?!\/)/.test(input.page) ? input.page.slice(0, 300) : "";
+  // A path on this site only ("//host" and "/\host" would point somewhere else)
+  const page = typeof input.page === "string" && /^\/(?![/\\])/.test(input.page) ? input.page.slice(0, 300) : "";
   const fields = clean(input.fields);
   if (!Object.keys(fields).length) throw new SubmissionError("The form was empty");
 

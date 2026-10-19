@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 function cell(value: unknown) {
   let s = typeof value === "string" ? value : Array.isArray(value) ? value.join("; ") : value == null ? "" : String(value);
   // Stop spreadsheet apps from running cell contents as formulas
-  if (/^[=+\-@]/.test(s)) s = `'${s}`;
+  if (/^[=+\-@\t\r]/.test(s)) s = `'${s}`;
   return `"${s.replace(/"/g, '""')}"`;
 }
 
