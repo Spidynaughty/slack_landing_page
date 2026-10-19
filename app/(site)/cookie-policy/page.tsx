@@ -6,7 +6,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { buildMetadata } from "@/lib/seo";
 import { B, site } from "@/lib/site";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Cookie Policy",
   description: `Learn which cookies and similar technologies the ${B} websites use, why we use them, how long they last and how to change your cookie preferences at any time.`,
   path: "/cookie-policy",

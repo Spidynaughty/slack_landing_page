@@ -10,7 +10,7 @@ import { B } from "@/lib/site";
 import { LogoCloud } from "@/components/sections/logo-cloud";
 import { getFaqs } from "@/lib/content";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Pricing plans",
   description: `Compare ${B} Free, Pro, Business+ and Enterprise plans. Pay only for active users, save with annual billing and start a free 30-day trial.`,
   path: "/pricing",

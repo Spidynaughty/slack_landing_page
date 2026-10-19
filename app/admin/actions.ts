@@ -17,6 +17,7 @@ import {
 import { settingDefaults, type SettingKey, type Settings, type StatItem } from "@/lib/content";
 import { db } from "@/lib/db";
 import { clientAddress } from "@/lib/rate-limit";
+import { SEO_LIMITS, seoPages, TITLE_SUFFIX } from "@/lib/seo-overrides";
 import { textRulesChanged } from "@/lib/text-overrides";
 
 export type FormState = { ok?: boolean; message?: string; errors?: Record<string, string> };
@@ -351,4 +352,61 @@ export async function deleteTextRule(fd: FormData) {
   await client.execute({ sql: "DELETE FROM text_overrides WHERE id = ?", args: [Number(fd.get("id"))] });
   await textRulesChanged();
   refresh();
+}
+
+/* ------------------------------------------------------------------ */
+/* SEO                                                                 */
+/* ------------------------------------------------------------------ */
+
+const oneLine = (fd: FormData, key: string, max: number) => String(fd.get(key) ?? "").replace(/\s+/g, " ").trim().slice(0, max);
+
+/** Saves a page's search title and description. A field left as the original keeps following the code. */
+export async function saveSeo(_: FormState, fd: FormData): Promise<FormState> {
+  await requireAdmin();
+  const path = text(fd, "path");
+  if (!seoPages().some((p) => p.path === path)) return { message: "That page can't be edited here." };
+
+  let title = String(fd.get("title") ?? "").replace(/\s+/g, " ").trim();
+  const description = String(fd.get("description") ?? "").replace(/\s+/g, " ").trim();
+  // The site name is added after the title automatically; don't let it appear twice
+  if (path !== "/" && title.endsWith(TITLE_SUFFIX)) title = title.slice(0, -TITLE_SUFFIX.length).trim();
+  const errors: Record<string, string> = {};
+  if (title.length > SEO_LIMITS.title) errors.title = `Keep it to ${SEO_LIMITS.title} characters or fewer`;
+  if (description.length > SEO_LIMITS.description) errors.description = `Keep it to ${SEO_LIMITS.description} characters or fewer`;
+  if (Object.keys(errors).length) return { errors, message: "Check the highlighted fields." };
+
+  const originalTitle = oneLine(fd, "original_title", 300);
+  const originalDescription = oneLine(fd, "original_description", 600);
+  const newTitle = title === originalTitle ? "" : title;
+  const newDescription = description === originalDescription ? "" : description;
+
+  const client = await db();
+  if (!newTitle && !newDescription) {
+    await client.execute({ sql: "DELETE FROM seo_overrides WHERE path = ?", args: [path] });
+    updateTag("seo");
+    refresh();
+    return { ok: true, message: "Nothing differs from the original, so the page uses its original title and description." };
+  }
+  await client.execute({
+    sql: `INSERT INTO seo_overrides (path, title, description, original_title, original_description) VALUES (?, ?, ?, ?, ?)
+          ON CONFLICT (path) DO UPDATE SET title = excluded.title, description = excluded.description,
+            original_title = CASE WHEN original_title = '' THEN excluded.original_title ELSE original_title END,
+            original_description = CASE WHEN original_description = '' THEN excluded.original_description ELSE original_description END,
+            updated_at = datetime('now')`,
+    args: [path, newTitle, newDescription, originalTitle, originalDescription],
+  });
+  updateTag("seo");
+  refresh();
+  return { ok: true, message: "Saved. Search engines and link previews will see the new text the next time they visit." };
+}
+
+/** Puts a page back to the title and description from the code. */
+export async function resetSeo(fd: FormData) {
+  await requireAdmin();
+  const path = text(fd, "path");
+  const client = await db();
+  await client.execute({ sql: "DELETE FROM seo_overrides WHERE path = ?", args: [path] });
+  updateTag("seo");
+  // A fresh token remounts the form so it shows the original text again
+  redirect(`/admin/seo/edit?path=${encodeURIComponent(path)}&reset=${Date.now()}`);
 }

@@ -11,7 +11,7 @@ import { B } from "@/lib/site";
 import { toneStyles } from "@/lib/tones";
 import { cn, formatDate } from "@/lib/utils";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Featured releases",
   description: `A season-by-season look at the biggest ${B} releases: the agentic work release, AI search answers, Lists automations, canvas templates and more.`,
   path: "/innovations",

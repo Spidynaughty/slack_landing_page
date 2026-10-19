@@ -5,7 +5,7 @@ import { Section } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Shop: merch for your team",
   description: `Hoodies, tees, mugs, notebooks and sticker packs from the official ${B} shop. Sustainably made merch for teams, events and your most loyal champions.`,
   path: "/shop",

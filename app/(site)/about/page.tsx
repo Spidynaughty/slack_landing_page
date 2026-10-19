@@ -12,7 +12,7 @@ import { toneAt, toneStyles, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 import { leaders } from "./_components/leadership";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "About us: our story, mission and team",
   description: `Learn how ${B} grew from a six-person studio into a work platform for 750,000 organizations, and meet the people, values and offices behind it.`,
   path: "/about",

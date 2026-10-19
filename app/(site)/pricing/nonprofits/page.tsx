@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 const program = programs.nonprofits;
 
-export const metadata = buildMetadata({ title: program.seo.title, description: program.seo.description, path: program.path });
+export const generateMetadata = () => buildMetadata({ title: program.seo.title, description: program.seo.description, path: program.path });
 
 function OfferCard({ program }: { program: Program }) {
   const t = toneStyles[program.tone];

@@ -10,7 +10,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Apps and integrations",
   description: `Connect ${B} with the tools you already use. Bring files, issues, calendars, CRM records and approvals into channels, and automate work across every app.`,
   path: "/integrations",

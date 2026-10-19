@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { navCrumbs } from "@/lib/breadcrumbs";
 import { ReviewHighlight } from "@/components/sections/reviews";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Enterprise Key Management (EKM)",
   description: `Control the encryption keys that protect your ${B} data. Revoke access by org, workspace, channel, file or time range, and audit every single key request.`,
   path: "/enterprise-key-management",

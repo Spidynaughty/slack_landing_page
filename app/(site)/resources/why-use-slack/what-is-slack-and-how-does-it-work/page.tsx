@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 const path = "/resources/why-use-slack/what-is-slack-and-how-does-it-work";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: `What is ${B} and how does it work?`,
   description: `A plain-language guide to ${B}: how workspaces, channels, huddles, canvases, lists, apps, AI and agents fit together, plus a glossary and answers to FAQs.`,
   path,

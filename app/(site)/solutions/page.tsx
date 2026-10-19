@@ -14,7 +14,7 @@ import { toneStyles } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 import { LogoCloud } from "@/components/sections/logo-cloud";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Solutions for every team and industry",
   description: `Discover how ${B} helps engineering, IT, sales, service, marketing, HR and security teams, plus industries from retail and finance to healthcare and education.`,
   path: "/solutions",

@@ -14,7 +14,7 @@ import { toneAt, toneStyles, type Tone } from "@/lib/tones";
 import { cn, monthDay } from "@/lib/utils";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Community: chapters, meetups and champions",
   description: `Join the ${B} community to meet local chapters, attend meetups, swap tips in popular discussions and grow as a champion with peers worldwide.`,
   path: "/community",

@@ -9,7 +9,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Watch the demo",
   description: `See ${B} in action in five minutes: channels, huddles, canvases, lists, AI recaps, agents and Workflow Builder working together for a real launch team.`,
   path: "/demo",

@@ -5,7 +5,7 @@ import { B } from "@/lib/site";
 import { postItems } from "@/lib/listing-items";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Engineering blog",
   description: `How the ${B} engineering team builds real-time infrastructure, search, AI and developer tools at global scale. Deep dives, postmortems and lessons learned.`,
   path: "/engineering-blog",

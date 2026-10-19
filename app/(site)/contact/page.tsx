@@ -7,7 +7,7 @@ import { Section, SectionHeader } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { B, site } from "@/lib/site";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Contact us",
   description: `Get in touch with ${B}. Reach sales, customer support, press, partnerships or our offices in San Francisco, New York, London, Dublin, Tokyo and Sydney.`,
   path: "/contact",

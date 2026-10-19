@@ -9,7 +9,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import type { Tone } from "@/lib/tones";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "All features",
   description: `Explore every ${B} feature: channels, huddles, canvases, lists, AI, agents, Workflow Builder, enterprise search, integrations and enterprise-grade security.`,
   path: "/features",

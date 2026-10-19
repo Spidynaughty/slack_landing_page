@@ -7,7 +7,7 @@ import { B } from "@/lib/site";
 import { LogoCloud } from "@/components/sections/logo-cloud";
 import { ReviewSpotlight } from "@/components/sections/reviews";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Request a demo",
   description: `Talk to the ${B} sales team. Get a tailored demo, pricing for your organization, security and compliance answers, and a rollout plan for your teams.`,
   path: "/contact-sales",

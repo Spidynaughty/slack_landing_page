@@ -5,7 +5,7 @@ import { B } from "@/lib/site";
 import { templateItems } from "@/lib/listing-items";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Template gallery",
   description: `Ready-made channels, canvases, lists, workflows and agents for project kickoffs, incident response, onboarding, deal rooms and more. Preview and use any ${B} template free.`,
   path: "/templates/gallery",

@@ -1,15 +1,11 @@
 import type { MetadataRoute } from "next";
-import { allRoutes, NOT_CRAWLED } from "@/lib/routes";
+import { allRoutes, crawlable } from "@/lib/routes";
 import { site } from "@/lib/site";
 
 const LAST_MODIFIED = new Date("2026-10-17T00:00:00Z");
 
-/** Listing a page that robots.txt blocks is reported as an error by search engines, so those are left out. */
-function crawlable(path: string) {
-  return !NOT_CRAWLED.some((p) => path === p || (p.endsWith("/") && path.startsWith(p)));
-}
-
 export default function sitemap(): MetadataRoute.Sitemap {
+  // Listing a page that robots.txt blocks is reported as an error by search engines, so those are left out
   return allRoutes()
     .filter(crawlable)
     .map((path) => {

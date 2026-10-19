@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B, site } from "@/lib/site";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Contact customer support",
   description: `Submit a request to ${B} customer support. Tell us what's happening in your workspace and our team will reply by email, 24/7 on paid plans.`,
   path: "/help/requests/new",

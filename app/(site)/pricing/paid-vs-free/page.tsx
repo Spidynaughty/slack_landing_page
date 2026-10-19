@@ -7,7 +7,7 @@ import { Section, SectionHeader } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Paid vs Free: what you get when you upgrade",
   description: `See exactly what changes when you move from ${B} Free to a paid plan: unlimited history, group huddles, unlimited apps, AI, security controls and 24/7 support.`,
   path: "/pricing/paid-vs-free",

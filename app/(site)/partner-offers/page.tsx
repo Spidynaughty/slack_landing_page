@@ -13,7 +13,7 @@ import { cn, formatDate } from "@/lib/utils";
 import { OffersGrid, type Offer, type OfferType } from "./_components/offers-grid";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Partner offers and exclusive app deals",
   description: `Exclusive partner offers for ${B} customers: free months, extended trials and annual discounts on popular apps for files, projects, finance and more.`,
   path: "/partner-offers",

@@ -16,7 +16,7 @@ import { leaders } from "../about/_components/leadership";
 import { CopyButton } from "./_components/copy-button";
 import { DownloadActions } from "./_components/download-button";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Media kit and press resources",
   description: `Download ${B} logos, read the company boilerplate and executive bios, check key facts and find the latest announcements and press contacts.`,
   path: "/media-kit",

@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { ReviewHighlight } from "@/components/sections/reviews";
 import { LogoCloud } from "@/components/sections/logo-cloud";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Enterprise: AI, agents and security at scale",
   description: `${B} Enterprise unifies AI with context, a governed home for every agent, enterprise search and world-class security, compliance and data residency at global scale.`,
   path: "/enterprise",

@@ -58,3 +58,8 @@ export function allRoutes(): string[] {
 
 /** Paths search engines should not crawl (robots.txt). The sitemap leaves them out too. */
 export const NOT_CRAWLED = ["/signin", "/get-started", "/admin", "/api/", "/search-index.json"];
+
+/** True for pages search engines may crawl: what the sitemap lists and Admin > SEO can edit. */
+export function crawlable(path: string) {
+  return !NOT_CRAWLED.some((p) => path === p || (p.endsWith("/") && path.startsWith(p)));
+}

@@ -20,14 +20,13 @@ import { buildMetadata } from "@/lib/seo";
 import { B, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export const metadata = {
-  ...buildMetadata({
+export const generateMetadata = () =>
+  buildMetadata({
     title: `${site.name} | AI-powered work platform for every team`,
     description: `${B} brings your people, apps, AI agents and knowledge together in channels, huddles, canvases and lists. Start free, scale to the enterprise.`,
     path: "/",
-  }),
-  title: { absolute: `${site.name} | AI-powered work platform for every team` },
-};
+    absoluteTitle: true,
+  });
 
 export default async function Home() {
   // Editable in the admin under "Home page"

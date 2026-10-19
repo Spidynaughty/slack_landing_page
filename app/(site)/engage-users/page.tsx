@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import { RoiCalculator } from "./_components/roi-calculator";
 import { ReviewGrid } from "@/components/sections/reviews";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Productivity: save time on every team",
   description: `See how teams use ${B} to cut meetings, share async updates, catch up with AI recaps and automate busywork, then estimate your own time savings.`,
   path: "/engage-users",

@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Marketplace: 2,600+ apps and agents",
   description: `Browse the ${B} Marketplace to find apps and AI agents for project management, developer tools, CRM, HR, security, analytics and more. Install in a click.`,
   path: "/marketplace",

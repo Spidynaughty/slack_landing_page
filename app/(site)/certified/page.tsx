@@ -12,7 +12,7 @@ import { toneStyles, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 import { ReviewHighlight } from "@/components/sections/reviews";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Certification program for admins and builders",
   description: `Earn ${B} certifications for admins, developers, workflow builders and AI champions. Compare tracks, exam details, prices and free prep resources.`,
   path: "/certified",

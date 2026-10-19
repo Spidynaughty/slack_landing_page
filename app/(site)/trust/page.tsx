@@ -14,7 +14,7 @@ import { toneAt, toneStyles, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Trust Center: security, privacy and compliance",
   description: `Learn how ${B} protects your data with layered security, privacy by design, independently audited compliance and reliability you can verify.`,
   path: "/trust",

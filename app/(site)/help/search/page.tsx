@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Search the Help Centre",
   description: `Search every ${B} Help Centre article for step-by-step answers on workspaces, channels, huddles, administration, billing, security and integrations.`,
   path: "/help/search",

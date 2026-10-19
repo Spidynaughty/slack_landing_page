@@ -12,7 +12,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { ReviewHighlight } from "@/components/sections/reviews";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Winning in the AI era of work: rethinking email",
   description: `New research on email overload and conversational work: why AI summaries are replacing status emails and how leaders can help teams move beyond the inbox.`,
   path: "/resources/why-use-slack/rethinking-email-ai-conversations-work",

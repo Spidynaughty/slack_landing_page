@@ -7,7 +7,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Terms of Service",
   description: `The ${B} Terms of Service cover accounts, acceptable use, your content, plans and billing, AI features, termination and how disputes are resolved.`,
   path: "/legal/terms",

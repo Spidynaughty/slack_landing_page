@@ -12,7 +12,7 @@ import { B } from "@/lib/site";
 import { toneStyles, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Built to scale: from 5 people to 500,000",
   description: `${B} grows with you from a five-person startup to a 500,000-person enterprise, with global infrastructure, an enterprise grid and a guided rollout program.`,
   path: "/scale",

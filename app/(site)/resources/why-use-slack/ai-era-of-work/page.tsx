@@ -14,7 +14,7 @@ import { toneStyles, toneAt } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 import { ReviewHighlight } from "@/components/sections/reviews";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Work in the AI era: 2026 research report",
   description: `What 18,000 desk workers told us about AI adoption, trust, focus time and collaboration, plus a practical playbook for leaders, from the ${B} research team.`,
   path: "/resources/why-use-slack/ai-era-of-work",

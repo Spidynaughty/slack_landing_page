@@ -1,6 +1,6 @@
 "use client";
 
-import { ExternalLink, Home, Inbox, LayoutDashboard, LogOut, Menu, MessageSquareQuote, CircleHelp, Building2, KeyRound, Type, X } from "lucide-react";
+import { ExternalLink, Home, Inbox, LayoutDashboard, LogOut, Menu, MessageSquareQuote, CircleHelp, Building2, KeyRound, Search, Type, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 const items = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/text", label: "Site text", icon: Type },
+  { href: "/admin/seo", label: "SEO", icon: Search },
   { href: "/admin/reviews", label: "Reviews", icon: MessageSquareQuote },
   { href: "/admin/content", label: "Home page", icon: Home },
   { href: "/admin/logos", label: "Customer logos", icon: Building2 },

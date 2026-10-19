@@ -11,7 +11,7 @@ import { resourceItems } from "@/lib/listing-items";
 import { toneStyles } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Resources library",
   description: `Guides, reports, webinars, e-books and checklists to help your team get more from ${B}, roll out AI responsibly and work more productively.`,
   path: "/resources",

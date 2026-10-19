@@ -5,9 +5,8 @@ import { buildMetadata } from "@/lib/seo";
 
 const feature = getFeature("connect");
 
-export const metadata = feature
-  ? buildMetadata({ title: feature.seo.title, description: feature.seo.description, path: "/connect" })
-  : {};
+export const generateMetadata = async () =>
+  feature ? buildMetadata({ title: feature.seo.title, description: feature.seo.description, path: "/connect" }) : {};
 
 export default function ConnectPage() {
   if (!feature) notFound();

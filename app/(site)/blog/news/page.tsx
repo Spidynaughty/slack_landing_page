@@ -5,7 +5,7 @@ import { B } from "@/lib/site";
 import { postItems } from "@/lib/listing-items";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Newsroom",
   description: `The latest announcements, product launches, partnerships and company news from ${B}. Press inquiries and media resources in one place.`,
   path: "/blog/news",

@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { cn, formatDate } from "@/lib/utils";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "System status",
   description: `Live operational status for ${B} messaging, huddles, files, search, AI, workflows, integrations and login, with 90-day uptime history and past incidents.`,
   path: "/status",

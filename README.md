@@ -29,6 +29,7 @@ soon as you save.
 | Section | What it controls |
 | --- | --- |
 | Site text | Change any words on the public site. Click **Edit on the site** to open it in editing mode and click any text (headings, paragraphs, buttons, menus, footer, prices) to change it, or add changes by hand, including replace-everywhere rules. Every change can be undone. |
+| SEO | Change the title and description any public page shows in search results and link previews (also used for its OpenGraph and Twitter cards). Shows a Google-style preview and length hints; " \| ktTeams" is added after titles automatically. Fields left as the original keep following the code, and **Put back the original** removes a change. |
 | Reviews | Write, edit, publish, feature and delete reviews. Published reviews fill the home page review wall, the customer stories carousel, the contact sales card and the hero's average rating; featured ones fill the large quotes on solution, pricing, careers, enterprise and other pages. Every review section stays hidden until at least one review is published. |
 | Home page | The announcement badge, hero headline, subtitle and buttons, the numbers band, the reviews heading and the closing call to action. Each section can be reset to its original text. |
 | Customer logos | The scrolling strip of company names and its heading. |

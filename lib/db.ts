@@ -69,6 +69,16 @@ const schema = [
     password_hash TEXT NOT NULL,
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   )`,
+  // Page titles and descriptions changed under Admin > SEO; see lib/seo-overrides.ts.
+  // Empty means "use the one from the code". original_* keep what the page said before.
+  `CREATE TABLE IF NOT EXISTS seo_overrides (
+    path TEXT PRIMARY KEY,
+    title TEXT NOT NULL DEFAULT '',
+    description TEXT NOT NULL DEFAULT '',
+    original_title TEXT NOT NULL DEFAULT '',
+    original_description TEXT NOT NULL DEFAULT '',
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  )`,
   `INSERT OR IGNORE INTO counters (key, value) VALUES ('text', 0)`,
 ];
 

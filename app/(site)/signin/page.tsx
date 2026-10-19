@@ -4,7 +4,7 @@ import { GradientBlobs } from "@/components/ui/blobs";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Sign in",
   description: `Sign in to your ${B} workspace with your work email, single sign-on or a passkey to pick up your conversations, huddles, canvases and lists.`,
   path: "/signin",

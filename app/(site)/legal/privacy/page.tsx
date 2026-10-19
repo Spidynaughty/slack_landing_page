@@ -7,7 +7,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B, site } from "@/lib/site";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Privacy Policy",
   description: `Read the ${B} Privacy Policy: what information we collect, how we use and share it, how long we keep it and the choices and rights you have over your data.`,
   path: "/legal/privacy",

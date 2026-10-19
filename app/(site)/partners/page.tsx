@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { navCrumbs } from "@/lib/breadcrumbs";
 import { ReviewHighlight } from "@/components/sections/reviews";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Partner program for consultancies and builders",
   description: `Grow with the ${B} partner program. Solutions, technology, reseller and agency partners get revenue share, co-selling, training and marketing support.`,
   path: "/partners",

@@ -15,7 +15,7 @@ import { B } from "@/lib/site";
 import { toneStyles } from "@/lib/tones";
 import { cn, formatDate } from "@/lib/utils";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "What's new: latest product releases",
   description: `The newest ${B} features: agents in every channel, code channels, AI huddle notes, Lists automations, enterprise search answers and expanded data residency.`,
   path: "/whats-new",

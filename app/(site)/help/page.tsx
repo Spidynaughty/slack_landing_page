@@ -12,7 +12,7 @@ import { cn, slugify } from "@/lib/utils";
 import { helpItems } from "@/lib/listing-items";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Help Centre",
   description: `Step-by-step guides, troubleshooting and answers for everything in ${B}: getting started, channels, administration, billing, security and integrations.`,
   path: "/help",

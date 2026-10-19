@@ -5,9 +5,8 @@ import { buildMetadata } from "@/lib/seo";
 
 const feature = getFeature("native-crm");
 
-export const metadata = feature
-  ? buildMetadata({ title: feature.seo.title, description: feature.seo.description, path: "/crm" })
-  : {};
+export const generateMetadata = async () =>
+  feature ? buildMetadata({ title: feature.seo.title, description: feature.seo.description, path: "/crm" }) : {};
 
 export default function NativeCrmPage() {
   if (!feature) notFound();

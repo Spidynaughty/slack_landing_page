@@ -6,7 +6,7 @@ import { Section } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Change log",
   description: `Release notes for every ${B} update across desktop, web, mobile and admin tools, including new features, improvements, bug fixes and security updates.`,
   path: "/changelog",

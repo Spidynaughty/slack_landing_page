@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { ReviewHighlight } from "@/components/sections/reviews";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Careers: build the future of work",
   description: `Join ${B} to build software millions of people use every day. Explore open roles in engineering, design, product, sales and more, with remote and hybrid options.`,
   path: "/careers",

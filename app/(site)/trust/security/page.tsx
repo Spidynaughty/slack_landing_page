@@ -13,7 +13,7 @@ import { toneStyles, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Security overview: how we protect your data",
   description: `A detailed look at ${B} security: encryption, SSO and SCIM, data governance, infrastructure monitoring, secure development and our bug bounty program.`,
   path: "/trust/security",

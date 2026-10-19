@@ -7,7 +7,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Interactive product tour",
   description: `Take a guided, interactive tour of ${B}. Learn channels, threads, huddles, canvases, lists, AI recaps and Workflow Builder step by step in about five minutes.`,
   path: "/product-tour",

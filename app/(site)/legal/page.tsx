@@ -11,7 +11,7 @@ import { B } from "@/lib/site";
 import { toneAt, toneStyles } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Legal center: policies, terms and notices",
   description: `Every ${B} policy in one place: Privacy Policy, Terms of Service, Cookie Policy, accessibility, security, compliance, AI principles and privacy requests.`,
   path: "/legal",

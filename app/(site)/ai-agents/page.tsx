@@ -5,9 +5,8 @@ import { buildMetadata } from "@/lib/seo";
 
 const feature = getFeature("ai-agents");
 
-export const metadata = feature
-  ? buildMetadata({ title: feature.seo.title, description: feature.seo.description, path: "/ai-agents" })
-  : {};
+export const generateMetadata = async () =>
+  feature ? buildMetadata({ title: feature.seo.title, description: feature.seo.description, path: "/ai-agents" }) : {};
 
 export default function AgentsPage() {
   if (!feature) notFound();

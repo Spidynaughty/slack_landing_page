@@ -12,7 +12,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Accessibility: our commitment and features",
   description: `See how ${B} works toward WCAG 2.2 AA with screen reader support, full keyboard navigation, high contrast, huddle captions and reduced motion options.`,
   path: "/accessibility",

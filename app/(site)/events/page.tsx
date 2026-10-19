@@ -4,7 +4,7 @@ import { B } from "@/lib/site";
 import { eventItems } from "@/lib/listing-items";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Events and webinars",
   description: `Join ${B} at conferences, live webinars, hands-on workshops and community meetups, or watch past sessions on demand whenever it suits you.`,
   path: "/events",

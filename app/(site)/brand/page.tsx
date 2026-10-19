@@ -13,7 +13,7 @@ import { toneStyles, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 import { CopyButton } from "../media-kit/_components/copy-button";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Brand guidelines and logo usage",
   description: `The ${B} brand center: logo usage dos and don'ts, clear space, color palette with hex values, typography, voice and tone, and illustration style.`,
   path: "/brand",

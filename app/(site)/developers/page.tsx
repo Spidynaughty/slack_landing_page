@@ -12,7 +12,7 @@ import { B } from "@/lib/site";
 import { toneStyles, type Tone } from "@/lib/tones";
 import { cn } from "@/lib/utils";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Developer platform: APIs, SDKs and CLI",
   description: `Build apps, workflows and AI agents on the ${B} platform with the Web API, Events API, official SDKs for JavaScript, Python and Java, and a powerful CLI.`,
   path: "/developers",

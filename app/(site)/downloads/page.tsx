@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 import { B } from "@/lib/site";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Download the apps",
   description: `Download ${B} for Mac, Windows, Linux, iPhone, iPad and Android, or use it in your browser. Stay connected on every device with automatic updates.`,
   path: "/downloads",

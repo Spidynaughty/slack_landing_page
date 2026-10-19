@@ -8,7 +8,7 @@ import { navCrumbs } from "@/lib/breadcrumbs";
 import { LogoCloud } from "@/components/sections/logo-cloud";
 import { ReviewCarousel } from "@/components/sections/reviews";
 
-export const metadata = buildMetadata({
+export const generateMetadata = () => buildMetadata({
   title: "Customer stories",
   description: `See how retailers, banks, hospitals, tech companies and logistics leaders use ${B} to move faster, automate work and collaborate securely at scale.`,
   path: "/customer-stories",
