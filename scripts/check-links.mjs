@@ -72,6 +72,10 @@ const NOT_FOUND = [
   "/resources/nothing/nothing", "/resources/collections/nothing", "/solutions/nothing", "/templates/nothing", "/trust/nothing",
 ];
 
+// Capitalised addresses must redirect to the lowercase page, and visiting them must not break the real page
+// (on Windows a cached "not found" for /pricing/Free used to overwrite /pricing/free).
+const MIXED_CASE = ["/Pricing", "/pricing/Free", "/trust/COMPLIANCE", "/blog/List-Automations", "/features/AI/demo", "/Admin/Login"];
+
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "-p", String(PORT)], {
   stdio: ["ignore", "pipe", "pipe"],
   env: { ...process.env, NODE_ENV: "production" },
@@ -143,6 +147,19 @@ try {
   if (soft404.length) {
     failed = true;
     console.log("  Should be 404:\n   " + soft404.join("\n   "));
+  }
+  const badCase = [];
+  for (const p of MIXED_CASE) {
+    const res = await fetch(BASE + p, { redirect: "manual" });
+    const loc = new URL(res.headers.get("location") ?? "/", BASE).pathname;
+    const real = await fetch(BASE + p.toLowerCase(), { redirect: "manual" });
+    if (res.status !== 308 || loc !== p.toLowerCase()) badCase.push(`${p} -> ${res.status} ${loc}`);
+    else if (real.status !== 200) badCase.push(`${p.toLowerCase()} -> ${real.status} after visiting ${p}`);
+  }
+  console.log(`Capitalised URLs sent to lowercase: ${MIXED_CASE.length - badCase.length}/${MIXED_CASE.length}`);
+  if (badCase.length) {
+    failed = true;
+    console.log("  Problems:\n   " + badCase.join("\n   "));
   }
 
   const sitemap = (await get("/sitemap.xml")).body;
