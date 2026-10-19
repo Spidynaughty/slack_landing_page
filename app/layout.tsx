@@ -20,6 +20,8 @@ const mono = Google_Sans_Code({
   subsets: ["latin"],
   display: "swap",
   adjustFontFallback: false,
+  // Only a few labels use it; let it load when needed instead of on every page
+  preload: false,
 });
 
 export const metadata: Metadata = {

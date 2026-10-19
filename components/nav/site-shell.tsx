@@ -4,7 +4,6 @@ import { Footer } from "@/components/nav/footer";
 import { SearchPalette } from "@/components/nav/search-palette";
 import { CookieConsent } from "@/components/nav/cookie-consent";
 import { TextEditLoader } from "@/components/text-edit/loader";
-import { buildSearchIndex } from "@/lib/search-index";
 
 /** Header, footer, search and consent around every public page (the admin has its own chrome). */
 export function SiteShell({ children }: { children: ReactNode }) {
@@ -15,7 +14,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         {children}
       </main>
       <Footer />
-      <SearchPalette entries={buildSearchIndex()} />
+      <SearchPalette />
       <CookieConsent />
       <TextEditLoader />
     </>

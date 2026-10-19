@@ -12,6 +12,16 @@ export type SearchEntry = { label: string; href: string; description?: string; g
 
 const POPULAR = ["/pricing", "/features/channels", "/features/huddles", "/features/ai", "/templates/gallery", "/help", "/get-started"];
 
+// The index is fetched once, the first time search opens, instead of being sent with every page
+let indexRequest: Promise<SearchEntry[]> | null = null;
+function loadIndex() {
+  indexRequest ??= fetch("/search-index.json").then((r) => {
+    if (!r.ok) throw new Error("Search index unavailable");
+    return r.json() as Promise<SearchEntry[]>;
+  });
+  return indexRequest;
+}
+
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 /** Word-start matches in the label rank highest, then word-start matches anywhere, then substrings. */
@@ -30,8 +40,22 @@ function score(entry: SearchEntry, terms: string[]) {
   return total;
 }
 
-export function SearchPalette({ entries }: { entries: SearchEntry[] }) {
+export function SearchPalette() {
   const { searchOpen, openSearch, closeSearch } = useUI();
+  const [entries, setEntries] = useState<SearchEntry[]>([]);
+
+  useEffect(() => {
+    if (!searchOpen || entries.length) return;
+    let alive = true;
+    loadIndex()
+      .then((list) => alive && setEntries(list))
+      .catch(() => {
+        indexRequest = null;
+      });
+    return () => {
+      alive = false;
+    };
+  }, [searchOpen, entries.length]);
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
