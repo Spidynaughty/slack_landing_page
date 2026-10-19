@@ -64,7 +64,7 @@ async function HelpCategoryContent({ params }: { params: Promise<{ slug: string 
         subtitle={cat.description}
         className="!pb-10"
       >
-        <HelpSearchBox className="mt-2 max-w-xl animate-fade-up [animation-delay:240ms]" />
+        <HelpSearchBox className="mt-2 max-w-xl animate-fade-up [animation-delay:120ms]" />
       </PageHero>
       <Section className="!pt-6">
         <div className="grid gap-10 lg:grid-cols-[1fr_18rem]">

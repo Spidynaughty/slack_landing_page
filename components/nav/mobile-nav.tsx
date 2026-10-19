@@ -50,8 +50,8 @@ export function MobileNav() {
             aria-label="Site menu"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 40, transition: { duration: 0.18 } }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            exit={{ opacity: 0, x: 40, transition: { duration: 0.12 } }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-0 z-[70] flex flex-col bg-bg lg:hidden"
           >
             <div className="container-page flex h-[4.5rem] shrink-0 items-center justify-between border-b border-line">
@@ -121,7 +121,7 @@ export function MobileNav() {
                               initial={{ height: 0, opacity: 0 }}
                               animate={{ height: "auto", opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.25 }}
+                              transition={{ duration: 0.18 }}
                               className="overflow-hidden"
                             >
                               <div className="pb-5">

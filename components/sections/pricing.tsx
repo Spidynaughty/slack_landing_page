@@ -21,7 +21,7 @@ function Price({ value, annual }: { value: number | null; annual: boolean }) {
           initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -12, opacity: 0 }}
-          transition={{ duration: 0.25 }}
+          transition={{ duration: 0.15 }}
           className="font-display text-5xl font-extrabold tracking-tight text-fg tabular-nums"
         >
           ${value % 1 === 0 ? value : value.toFixed(2)}

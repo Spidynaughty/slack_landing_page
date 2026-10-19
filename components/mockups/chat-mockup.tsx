@@ -159,7 +159,7 @@ function TypingDots({ who }: { who?: PersonKey }) {
             key={i}
             className="size-1.5 rounded-full bg-subtle"
             animate={{ y: [0, -3, 0], opacity: [0.5, 1, 0.5] }}
-            transition={{ duration: 0.9, repeat: Infinity, delay: i * 0.15 }}
+            transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.1 }}
           />
         ))}
       </span>
@@ -184,14 +184,14 @@ export function ChatMockup({ script = "launch", className }: { script?: ChatScri
       t = setTimeout(() => {
         setShown(1);
         setTyping(false);
-      }, 5200);
+      }, 3000);
     } else if (!typing) {
-      t = setTimeout(() => setTyping(true), 900);
+      t = setTimeout(() => setTyping(true), 400);
     } else {
       t = setTimeout(() => {
         setTyping(false);
         setShown((n) => n + 1);
-      }, 1300);
+      }, 700);
     }
     return () => clearTimeout(t);
   }, [shown, typing, inView, reduce, s.lines.length]);
@@ -212,7 +212,7 @@ export function ChatMockup({ script = "launch", className }: { script?: ChatScri
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Message who={line.who} bot={line.bot} botName={line.botName} time={line.time}>
                   {line.body}

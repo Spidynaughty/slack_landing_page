@@ -16,7 +16,7 @@ export function WallOfLove({ items }: { items: Testimonial[] }) {
           <div key={c} className={cn("group overflow-hidden", c === 2 && "hidden lg:block", c === 1 && "hidden md:block")}>
             <div
               className="flex animate-marquee-y flex-col gap-5 group-hover:[animation-play-state:paused]"
-              style={{ "--marquee-duration": `${36 + c * 10}s`, animationDirection: c === 1 ? "reverse" : "normal" } as CSSProperties}
+              style={{ "--marquee-duration": `${(36 + c * 10) * 0.75}s`, animationDirection: c === 1 ? "reverse" : "normal" } as CSSProperties}
             >
               {[...col, ...col].map((t, i) => (
                 <div key={`${t.name}-${i}`} aria-hidden={i >= col.length ? true : undefined}>

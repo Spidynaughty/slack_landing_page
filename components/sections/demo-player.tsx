@@ -45,7 +45,7 @@ export function DemoPlayer({ chapters }: { chapters: DemoChapter[] }) {
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.25 }}
                 className="w-full max-w-2xl"
               >
                 {chapters[current].visual}

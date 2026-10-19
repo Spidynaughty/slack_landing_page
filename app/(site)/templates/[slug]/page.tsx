@@ -100,9 +100,9 @@ async function TemplateContent({ params }: { params: Promise<{ slug: string }> }
                 <Icon name={tpl.icon} className="size-7" />
               </span>
               <p className={cn("animate-fade-up text-sm font-bold tracking-[0.12em] uppercase", t.ink)}>{tpl.category} template</p>
-              <h1 className="animate-fade-up text-display-lg font-extrabold text-fg [animation-delay:80ms]">{tpl.name}</h1>
-              <p className="max-w-xl animate-fade-up text-lead text-muted [animation-delay:160ms]">{tpl.description}</p>
-              <ul className="flex animate-fade-up flex-wrap gap-2 [animation-delay:200ms]">
+              <h1 className="animate-fade-up text-display-lg font-extrabold text-fg [animation-delay:40ms]">{tpl.name}</h1>
+              <p className="max-w-xl animate-fade-up text-lead text-muted [animation-delay:80ms]">{tpl.description}</p>
+              <ul className="flex animate-fade-up flex-wrap gap-2 [animation-delay:100ms]">
                 {tpl.includes.map((p) => (
                   <li key={p} className="inline-flex items-center gap-1.5 rounded-full bg-surface px-3 py-1.5 text-sm font-semibold text-fg shadow-soft">
                     <Icon name={parts[p].icon} className="size-4" />
@@ -113,11 +113,11 @@ async function TemplateContent({ params }: { params: Promise<{ slug: string }> }
                   <Users className="size-4" aria-hidden="true" /> Used by {tpl.uses} teams
                 </li>
               </ul>
-              <div className="animate-fade-up [animation-delay:260ms]">
+              <div className="animate-fade-up [animation-delay:130ms]">
                 <InstallButton label="Use this template" doneLabel="Template added" />
               </div>
             </div>
-            <div className="animate-fade-up [animation-delay:200ms]">
+            <div className="animate-fade-up [animation-delay:100ms]">
               <Mockup kind={categoryMockup[tpl.category]} />
             </div>
           </div>

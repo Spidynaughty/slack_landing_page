@@ -38,7 +38,7 @@ export default function FeaturesPage() {
         visual={<Mockup kind="chat" />}
       >
         <LinkChips
-          className="animate-fade-up [animation-delay:320ms]"
+          className="animate-fade-up [animation-delay:160ms]"
           links={groups.map((g) => ({ label: g.category, href: `#${g.category.toLowerCase().replace(/\s+/g, "-")}` }))}
         />
       </PageHero>

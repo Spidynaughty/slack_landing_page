@@ -149,7 +149,7 @@ function PreviewModal({ item, onClose }: { item: ListingItem | null; onClose: ()
             initial={{ y: 30, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 20, opacity: 0 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="relative max-h-[92dvh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-line bg-surface shadow-float"
           >
             <div className={cn("relative p-6 sm:p-8", toneStyles[item.tone].tint)}>
@@ -347,7 +347,7 @@ export function Listing({
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.2 }}
                 className="h-full"
               >
                 <Card item={item} style={cardStyle} onPreview={setPreview} />

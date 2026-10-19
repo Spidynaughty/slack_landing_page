@@ -54,7 +54,7 @@ export default function LegalHubPage() {
       >
         <div
           role="note"
-          className="mt-2 flex max-w-2xl animate-fade-up items-start gap-3 rounded-2xl border border-sun/40 bg-surface/80 p-4 text-left text-sm text-fg shadow-soft backdrop-blur [animation-delay:300ms]"
+          className="mt-2 flex max-w-2xl animate-fade-up items-start gap-3 rounded-2xl border border-sun/40 bg-surface/80 p-4 text-left text-sm text-fg shadow-soft backdrop-blur [animation-delay:150ms]"
         >
           <Info className="mt-0.5 size-5 shrink-0 text-sun-ink" aria-hidden="true" />
           <p>

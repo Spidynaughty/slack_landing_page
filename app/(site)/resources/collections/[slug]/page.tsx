@@ -74,7 +74,7 @@ async function CollectionContent({ params }: { params: Promise<{ slug: string }>
         note={`${c.items.length} hand-picked resources`}
         className="!pb-12"
       >
-        <span className={cn("inline-flex size-14 animate-fade-up items-center justify-center rounded-2xl [animation-delay:320ms]", t.solid)}>
+        <span className={cn("inline-flex size-14 animate-fade-up items-center justify-center rounded-2xl [animation-delay:160ms]", t.solid)}>
           <Icon name={c.icon} className="size-7" />
         </span>
       </PageHero>

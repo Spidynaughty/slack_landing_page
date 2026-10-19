@@ -102,19 +102,19 @@ export function PageHero({
             ))}
           <h1
             className={cn(
-              "animate-fade-up text-display-lg font-extrabold tracking-tight [animation-delay:80ms]",
+              "animate-fade-up text-display-lg font-extrabold tracking-tight [animation-delay:40ms]",
               deep ? "text-white" : "text-fg",
             )}
           >
             {title}
           </h1>
           {subtitle && (
-            <p className={cn("max-w-2xl animate-fade-up text-lead [animation-delay:160ms]", deep ? "text-on-deep-muted" : "text-muted")}>
+            <p className={cn("max-w-2xl animate-fade-up text-lead [animation-delay:80ms]", deep ? "text-on-deep-muted" : "text-muted")}>
               {subtitle}
             </p>
           )}
           {(primary || secondary) && (
-            <div className="flex animate-fade-up flex-wrap items-center justify-center gap-3 [animation-delay:240ms]">
+            <div className="flex animate-fade-up flex-wrap items-center justify-center gap-3 [animation-delay:120ms]">
               {primary && (
                 <ButtonLink href={primary.href} size="lg" variant={deep ? "light" : "primary"} arrow>
                   {primary.label}
@@ -128,12 +128,12 @@ export function PageHero({
             </div>
           )}
           {note && (
-            <div className={cn("animate-fade-up text-sm [animation-delay:300ms]", deep ? "text-on-deep-muted" : "text-subtle")}>{note}</div>
+            <div className={cn("animate-fade-up text-sm [animation-delay:150ms]", deep ? "text-on-deep-muted" : "text-subtle")}>{note}</div>
           )}
           {children}
         </div>
         {visual && (
-          <div className="relative mx-auto mt-14 max-w-4xl animate-fade-up [perspective:1600px] [animation-delay:220ms] md:mt-16">
+          <div className="relative mx-auto mt-14 max-w-4xl animate-fade-up [perspective:1600px] [animation-delay:110ms] md:mt-16">
             <div aria-hidden="true" className="absolute -inset-x-10 -inset-y-8 rounded-[3rem] bg-brand-gradient opacity-25 blur-3xl" />
             <div className="relative rounded-[1.75rem] border border-white/40 bg-white/50 p-2 shadow-float transition-transform duration-700 [transform:rotateX(8deg)] hover:[transform:rotateX(0deg)] dark:border-white/10 dark:bg-white/5 sm:p-3">
               {visual}

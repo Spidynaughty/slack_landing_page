@@ -13,8 +13,8 @@ import { cn } from "@/lib/utils";
 import { CardsPanel, MegaPanel } from "./mega-menu";
 import { MobileNav } from "./mobile-nav";
 
-const OPEN_DELAY = 90;
-const CLOSE_DELAY = 160;
+const OPEN_DELAY = 60;
+const CLOSE_DELAY = 120;
 
 export function Header() {
   const { openSearch } = useUI();
@@ -154,8 +154,8 @@ export function Header() {
                         aria-label={`${item.label} menu`}
                         initial={{ opacity: 0, y: -10, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -6, scale: 0.99, transition: { duration: 0.12 } }}
-                        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                        exit={{ opacity: 0, y: -6, scale: 0.99, transition: { duration: 0.08 } }}
+                        transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
                         className="absolute top-[calc(100%+0.75rem)] left-1/2 max-h-[calc(100dvh-6.5rem)] w-[min(72rem,calc(100vw-2rem))] -translate-x-1/2 origin-top overflow-y-auto rounded-[1.75rem] border border-line bg-surface shadow-float"
                       >
                         {item.kind === "mega" ? <MegaPanel menu={item} onNavigate={close} /> : <CardsPanel menu={item} onNavigate={close} />}

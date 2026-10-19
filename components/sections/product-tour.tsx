@@ -85,7 +85,7 @@ export function ProductTour({ steps }: { steps: TourStep[] }) {
       <div className="flex flex-col gap-5">
         <div className="relative rounded-[var(--radius-panel)] bg-bg-soft p-4 sm:p-8">
           <AnimatePresence mode="wait">
-            <motion.div key={i} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.3 }} className="relative">
+            <motion.div key={i} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -24 }} transition={{ duration: 0.2 }} className="relative">
               {step.visual}
               {!done && (
                 <span

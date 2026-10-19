@@ -136,7 +136,7 @@ function TrustTemplate({ page }: { page: TrustPage }) {
         visual={page.mockup ? <Mockup kind={page.mockup} /> : undefined}
       >
         {!page.mockup && page.heroPoints && (
-          <ul className="mt-2 flex animate-fade-up flex-wrap justify-center gap-2.5 [animation-delay:320ms]">
+          <ul className="mt-2 flex animate-fade-up flex-wrap justify-center gap-2.5 [animation-delay:160ms]">
             {page.heroPoints.map((c) => (
               <li
                 key={c}

@@ -272,7 +272,7 @@ export default function SecurityPage() {
         primary={{ label: "Talk to our security team", href: "/contact-sales" }}
         secondary={{ label: "Back to Trust Center", href: "/trust" }}
       >
-        <ul className="mt-2 flex animate-fade-up flex-wrap justify-center gap-2.5 [animation-delay:320ms]">
+        <ul className="mt-2 flex animate-fade-up flex-wrap justify-center gap-2.5 [animation-delay:160ms]">
           {["AES-256 at rest", "TLS 1.3 in transit", "24/7 security operations", "Public bug bounty"].map((c) => (
             <li
               key={c}

@@ -119,7 +119,7 @@ export function SearchPalette() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.15 }}
+          transition={{ duration: 0.1 }}
         >
           <div className="absolute inset-0 bg-deep/50 backdrop-blur-sm" onClick={close} aria-hidden="true" />
           <motion.div
@@ -130,7 +130,7 @@ export function SearchPalette() {
             initial={{ opacity: 0, y: -12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.14, ease: [0.22, 1, 0.36, 1] }}
             className="relative w-full max-w-2xl overflow-hidden rounded-3xl border border-line bg-surface shadow-float"
           >
             <div className="flex items-center gap-3 border-b border-line px-5">

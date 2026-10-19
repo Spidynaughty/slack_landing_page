@@ -23,7 +23,7 @@ export default function SupportRequestPage() {
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
           <div>
             <h1 className="animate-fade-up text-display-md font-extrabold text-fg">How can we help?</h1>
-            <p className="mt-3 max-w-2xl animate-fade-up text-lead text-muted [animation-delay:80ms]">
+            <p className="mt-3 max-w-2xl animate-fade-up text-lead text-muted [animation-delay:40ms]">
               Tell us what&apos;s going on and include as much detail as you can. We&apos;ll reply to your email, usually within a few hours.
             </p>
             <Reveal className="mt-8 rounded-[var(--radius-panel)] border border-line bg-surface p-6 shadow-card sm:p-8">

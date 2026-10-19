@@ -95,7 +95,7 @@ export function FeatureTabs({ tabs }: { tabs: FeatureTab[] }) {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2 }}
             className="flex flex-col items-start gap-5"
           >
             <span className={cn("inline-flex size-12 items-center justify-center rounded-2xl", toneStyles[current.tone].solid)}>
@@ -114,7 +114,7 @@ export function FeatureTabs({ tabs }: { tabs: FeatureTab[] }) {
               initial={{ opacity: 0, scale: 0.97, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
               className="relative"
             >
               {current.visual}

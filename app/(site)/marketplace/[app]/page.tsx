@@ -73,16 +73,16 @@ async function AppContent({ params }: { params: Promise<{ app: string }> }) {
                   </p>
                 </div>
               </div>
-              <h1 className="animate-fade-up text-display-lg font-extrabold text-fg [animation-delay:80ms]">{app.name}</h1>
-              <p className="max-w-xl animate-fade-up text-lead text-muted [animation-delay:160ms]">{app.description}</p>
-              <div className="flex animate-fade-up flex-wrap items-start gap-4 [animation-delay:240ms]">
+              <h1 className="animate-fade-up text-display-lg font-extrabold text-fg [animation-delay:40ms]">{app.name}</h1>
+              <p className="max-w-xl animate-fade-up text-lead text-muted [animation-delay:80ms]">{app.description}</p>
+              <div className="flex animate-fade-up flex-wrap items-start gap-4 [animation-delay:120ms]">
                 <InstallButton />
                 <Link href="/help/categories/integrations" className="inline-flex h-12 items-center rounded-full border border-line-strong bg-surface px-6 font-semibold text-fg hover:bg-surface-2">
                   Setup help
                 </Link>
               </div>
             </div>
-            <div className="animate-fade-up [animation-delay:200ms]">
+            <div className="animate-fade-up [animation-delay:100ms]">
               <Mockup kind={d.mockup} />
             </div>
           </div>

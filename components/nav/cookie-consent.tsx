@@ -124,7 +124,7 @@ function Modal({
             initial={{ y: 24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 16, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
             className="relative max-h-[90dvh] w-full max-w-xl overflow-y-auto rounded-3xl border border-line bg-surface p-6 shadow-float sm:p-8"
           >
             <button
@@ -271,7 +271,7 @@ export function CookieConsent() {
             role="region"
             aria-label="Cookie consent"
             initial={{ y: 40, opacity: 0 }}
-            animate={{ y: 0, opacity: 1, transition: { delay: 0.8, duration: 0.4 } }}
+            animate={{ y: 0, opacity: 1, transition: { delay: 0.3, duration: 0.3 } }}
             exit={{ y: 40, opacity: 0 }}
             className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-4xl rounded-3xl border border-line bg-glass-strong p-5 shadow-float backdrop-blur-xl sm:inset-x-6 sm:bottom-6 sm:p-6"
           >

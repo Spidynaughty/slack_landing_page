@@ -48,14 +48,14 @@ export function AiPrompt() {
   useEffect(() => {
     if (!inView || reduce) return;
     let t: ReturnType<typeof setTimeout>;
-    if (typed < p.q.length) t = setTimeout(() => setTyped((n) => n + 1), 32);
-    else if (!done) t = setTimeout(() => setWords((n) => n + 1), 55);
+    if (typed < p.q.length) t = setTimeout(() => setTyped((n) => n + 1), 16);
+    else if (!done) t = setTimeout(() => setWords((n) => n + 1), 28);
     else
       t = setTimeout(() => {
         setIdx((i) => (i + 1) % prompts.length);
         setTyped(0);
         setWords(0);
-      }, 4200);
+      }, 2600);
     return () => clearTimeout(t);
   }, [inView, reduce, typed, done, p.q.length]);
 

@@ -200,7 +200,7 @@ export function OffersGrid({ offers }: { offers: Offer[] }) {
                 initial={reduce ? false : { opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                 className="h-full"
               >
                 <OfferCard offer={o} />

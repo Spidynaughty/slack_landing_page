@@ -30,7 +30,7 @@ export default function MarketplacePage() {
         subtitle={`Connect the tools your team already uses, or discover new ones built to work beautifully in ${B}.`}
         className="!pb-10"
       >
-        <div className="mt-2 grid w-full max-w-3xl animate-fade-up grid-cols-2 gap-3 [animation-delay:300ms] sm:grid-cols-4">
+        <div className="mt-2 grid w-full max-w-3xl animate-fade-up grid-cols-2 gap-3 [animation-delay:150ms] sm:grid-cols-4">
           {featuredApps.slice(0, 4).map((a) => (
             <AppLinkCard key={a.slug} app={a} />
           ))}

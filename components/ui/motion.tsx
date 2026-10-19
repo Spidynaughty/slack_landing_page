@@ -21,7 +21,7 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  y = 24,
+  y = 16,
   as = "div",
   id,
 }: {
@@ -39,8 +39,9 @@ export function Reveal({
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.05 }}
+      // Quick, so content is readable as soon as it scrolls in; page delays are halved too
+      transition={{ duration: 0.35, delay: delay * 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </Cmp>
@@ -49,12 +50,12 @@ export function Reveal({
 
 const containerVariants: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+  show: { transition: { staggerChildren: 0.04, delayChildren: 0 } },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 22 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
 };
 
 /** Staggers its StaggerItem children as the group scrolls into view. */
@@ -74,7 +75,7 @@ export function Stagger({
       variants={containerVariants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.1 }}
+      viewport={{ once: true, amount: 0.05 }}
     >
       {children}
     </Cmp>
@@ -128,7 +129,7 @@ export function CountUp({
   decimals = 0,
   prefix = "",
   suffix = "",
-  duration = 1.8,
+  duration = 1,
   className,
 }: {
   value: number;

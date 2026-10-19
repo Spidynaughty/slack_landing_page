@@ -42,7 +42,7 @@ export function HeroShowcase() {
         </p>
         <p className="mt-1.5 text-xs leading-relaxed text-muted">3 decisions, 2 action items for you, launch moved to Oct 28.</p>
         <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-surface-3">
-          <motion.div className="h-full rounded-full bg-brand-gradient" initial={{ width: "15%" }} animate={{ width: "82%" }} transition={{ duration: 2.4, repeat: Infinity, repeatType: "reverse" }} />
+          <motion.div className="h-full rounded-full bg-brand-gradient" initial={{ width: "15%" }} animate={{ width: "82%" }} transition={{ duration: 1.6, repeat: Infinity, repeatType: "reverse" }} />
         </div>
       </motion.div>
 

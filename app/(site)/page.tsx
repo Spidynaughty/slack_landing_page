@@ -65,11 +65,11 @@ export default async function Home() {
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
               </Link>
             )}
-            <h1 className="animate-fade-up text-display-xl font-extrabold tracking-tight text-fg [animation-delay:80ms]">
+            <h1 className="animate-fade-up text-display-xl font-extrabold tracking-tight text-fg [animation-delay:40ms]">
               {hero.headline} {hero.highlight && <span className="text-gradient">{hero.highlight}</span>}
             </h1>
-            {hero.subtitle && <p className="mt-6 max-w-2xl animate-fade-up text-lead text-muted [animation-delay:160ms]">{hero.subtitle}</p>}
-            <div className="mt-9 flex animate-fade-up flex-wrap justify-center gap-3 [animation-delay:240ms]">
+            {hero.subtitle && <p className="mt-6 max-w-2xl animate-fade-up text-lead text-muted [animation-delay:80ms]">{hero.subtitle}</p>}
+            <div className="mt-9 flex animate-fade-up flex-wrap justify-center gap-3 [animation-delay:120ms]">
               {hero.primaryLabel && (
                 <ButtonLink href={hero.primaryHref || "/get-started"} size="lg" arrow>
                   {hero.primaryLabel}
@@ -82,9 +82,9 @@ export default async function Home() {
               )}
             </div>
             {/* Only shown once real reviews are published in the admin */}
-            <RatingSummary className="mt-8 animate-fade-up text-sm text-muted [animation-delay:320ms]" />
+            <RatingSummary className="mt-8 animate-fade-up text-sm text-muted [animation-delay:160ms]" />
           </div>
-          <div className="mt-16 animate-fade-up [animation-delay:200ms] md:mt-20">
+          <div className="mt-16 animate-fade-up [animation-delay:100ms] md:mt-20">
             <HeroShowcase />
           </div>
         </div>

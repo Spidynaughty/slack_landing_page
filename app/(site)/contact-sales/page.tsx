@@ -25,10 +25,10 @@ export default function ContactSalesPage() {
               <h1 className="animate-fade-up text-display-lg font-extrabold text-fg">
                 See how {B} fits <span className="text-gradient">your team</span>
               </h1>
-              <p className="animate-fade-up text-lead text-muted [animation-delay:100ms]">
+              <p className="animate-fade-up text-lead text-muted [animation-delay:50ms]">
                 Tell us a little about your organization and a product specialist will set up a personalized demo.
               </p>
-              <ul className="flex animate-fade-up flex-col gap-3 [animation-delay:180ms]">
+              <ul className="flex animate-fade-up flex-col gap-3 [animation-delay:90ms]">
                 {[
                   "A demo tailored to your workflows and tools",
                   "Pricing for your team size and plan",
@@ -43,9 +43,9 @@ export default function ContactSalesPage() {
                   </li>
                 ))}
               </ul>
-              <ReviewSpotlight className="mt-4 hidden animate-fade-up [animation-delay:260ms] lg:block" />
+              <ReviewSpotlight className="mt-4 hidden animate-fade-up [animation-delay:130ms] lg:block" />
             </div>
-            <div className="animate-fade-up rounded-[var(--radius-panel)] border border-line bg-surface p-6 shadow-card [animation-delay:150ms] sm:p-8">
+            <div className="animate-fade-up rounded-[var(--radius-panel)] border border-line bg-surface p-6 shadow-card [animation-delay:75ms] sm:p-8">
               <h2 className="mb-6 font-display text-2xl font-bold text-fg">Request a demo</h2>
               <LeadForm
                 formName="Demo request"

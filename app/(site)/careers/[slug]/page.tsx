@@ -85,8 +85,8 @@ async function JobContent({ params }: { params: Promise<{ slug: string }> }) {
         <div className="container-page relative">
           <Breadcrumbs items={[{ label: "Careers", href: "/careers" }, { label: job.team }, { label: job.title }]} />
           <p className="animate-fade-up text-sm font-bold tracking-[0.12em] text-pink-ink uppercase">{job.team}</p>
-          <h1 className="mt-3 max-w-4xl animate-fade-up text-display-lg font-extrabold text-fg [animation-delay:80ms]">{job.title}</h1>
-          <ul className="mt-6 flex animate-fade-up flex-wrap gap-3 text-sm [animation-delay:160ms]">
+          <h1 className="mt-3 max-w-4xl animate-fade-up text-display-lg font-extrabold text-fg [animation-delay:40ms]">{job.title}</h1>
+          <ul className="mt-6 flex animate-fade-up flex-wrap gap-3 text-sm [animation-delay:80ms]">
             {[
               { icon: MapPin, text: `${job.location} · ${job.workplace}` },
               { icon: Clock, text: job.type },
@@ -99,7 +99,7 @@ async function JobContent({ params }: { params: Promise<{ slug: string }> }) {
               </li>
             ))}
           </ul>
-          <a href="#apply" className="mt-8 inline-flex h-12 animate-fade-up items-center rounded-full bg-primary px-6 font-semibold text-primary-fg hover:bg-primary-hover [animation-delay:220ms]">
+          <a href="#apply" className="mt-8 inline-flex h-12 animate-fade-up items-center rounded-full bg-primary px-6 font-semibold text-primary-fg hover:bg-primary-hover [animation-delay:110ms]">
             Apply for this role
           </a>
         </div>

@@ -70,12 +70,12 @@ async function AuthorContent({ params }: { params: Promise<{ slug: string }> }) 
               {a.initials}
             </span>
             <div className="max-w-3xl">
-              <h1 className="animate-fade-up text-display-lg font-extrabold text-fg [animation-delay:80ms]">{a.name}</h1>
-              <p className="mt-2 animate-fade-up text-lead font-semibold text-fg [animation-delay:120ms]">{a.role}</p>
-              <p className="mt-2 inline-flex animate-fade-up items-center gap-1.5 text-muted [animation-delay:160ms]">
+              <h1 className="animate-fade-up text-display-lg font-extrabold text-fg [animation-delay:40ms]">{a.name}</h1>
+              <p className="mt-2 animate-fade-up text-lead font-semibold text-fg [animation-delay:60ms]">{a.role}</p>
+              <p className="mt-2 inline-flex animate-fade-up items-center gap-1.5 text-muted [animation-delay:80ms]">
                 <MapPin className="size-4" aria-hidden="true" /> {a.location}
               </p>
-              <ul className="mt-4 flex animate-fade-up flex-wrap gap-2 [animation-delay:200ms]">
+              <ul className="mt-4 flex animate-fade-up flex-wrap gap-2 [animation-delay:100ms]">
                 {a.focus.map((f) => (
                   <li key={f} className="rounded-full bg-surface px-3 py-1 text-sm font-semibold text-fg shadow-soft">
                     {f}
@@ -84,7 +84,7 @@ async function AuthorContent({ params }: { params: Promise<{ slug: string }> }) 
               </ul>
             </div>
           </div>
-          <div className="mt-8 grid max-w-3xl animate-fade-up gap-4 text-muted [animation-delay:240ms]">
+          <div className="mt-8 grid max-w-3xl animate-fade-up gap-4 text-muted [animation-delay:120ms]">
             {a.bio.map((p) => (
               <p key={p.slice(0, 24)}>{p}</p>
             ))}

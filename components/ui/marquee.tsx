@@ -19,7 +19,8 @@ export function Marquee({
         className="flex w-max shrink-0 animate-marquee items-center group-hover:[animation-play-state:paused]"
         style={
           {
-            "--marquee-duration": `${duration}s`,
+            // Scrolls a quarter faster than the durations callers pass
+            "--marquee-duration": `${duration * 0.75}s`,
             animationDirection: reverse ? "reverse" : "normal",
           } as CSSProperties
         }

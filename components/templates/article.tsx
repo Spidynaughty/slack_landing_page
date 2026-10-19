@@ -91,9 +91,9 @@ export function ArticleTemplate({
             <Eyebrow tone={tone} className="animate-fade-up">
               {eyebrow}
             </Eyebrow>
-            <h1 className="mt-5 animate-fade-up text-display-lg font-extrabold text-fg [animation-delay:80ms]">{title}</h1>
-            {excerpt && <p className="mt-5 max-w-3xl animate-fade-up text-lead text-muted [animation-delay:160ms]">{excerpt}</p>}
-            <div className="mt-8 flex animate-fade-up flex-wrap items-center gap-x-6 gap-y-4 [animation-delay:240ms]">
+            <h1 className="mt-5 animate-fade-up text-display-lg font-extrabold text-fg [animation-delay:40ms]">{title}</h1>
+            {excerpt && <p className="mt-5 max-w-3xl animate-fade-up text-lead text-muted [animation-delay:80ms]">{excerpt}</p>}
+            <div className="mt-8 flex animate-fade-up flex-wrap items-center gap-x-6 gap-y-4 [animation-delay:120ms]">
               {author && (
                 <div className="flex items-center gap-3">
                   <span className={cn("inline-flex size-11 items-center justify-center rounded-full font-bold", t.solid)}>{author.initials}</span>
@@ -122,7 +122,7 @@ export function ArticleTemplate({
                 </span>
               )}
             </div>
-            {header && <div className="mt-10 animate-fade-up [animation-delay:300ms]">{header}</div>}
+            {header && <div className="mt-10 animate-fade-up [animation-delay:150ms]">{header}</div>}
           </div>
         </div>
       </header>
