@@ -17,6 +17,9 @@ const notices: Record<string, string> = {
   deleted: "Review deleted.",
 };
 
+// Every admin page checks the session first, so navigations here wait for the server
+export const instant = false;
+
 export default async function ReviewsPage({ searchParams }: PageProps<"/admin/reviews">) {
   await requireAdmin();
   const { saved } = await searchParams;

@@ -9,6 +9,9 @@ import { db, plain } from "@/lib/db";
 
 export const metadata: Metadata = { title: "Pricing FAQs" };
 
+// Every admin page checks the session first, so navigations here wait for the server
+export const instant = false;
+
 export default async function FaqsPage() {
   await requireAdmin();
   const client = await db();

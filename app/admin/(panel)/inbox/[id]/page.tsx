@@ -24,6 +24,9 @@ function show(value: unknown) {
   return String(value ?? "") || "Not given";
 }
 
+// Every admin page checks the session first, so navigations here wait for the server
+export const instant = false;
+
 export default async function SubmissionPage({ params }: PageProps<"/admin/inbox/[id]">) {
   await requireAdmin();
   const { id } = await params;

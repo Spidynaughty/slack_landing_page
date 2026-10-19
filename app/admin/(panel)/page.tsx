@@ -9,6 +9,9 @@ export const metadata: Metadata = { title: "Dashboard" };
 
 type Recent = { id: number; form: string; name: string; email: string; status: string; created_at: string };
 
+// Every admin page checks the session first, so navigations here wait for the server
+export const instant = false;
+
 export default async function Dashboard() {
   await requireAdmin();
   const client = await db();

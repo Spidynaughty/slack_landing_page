@@ -5,6 +5,9 @@ import { loginSource, MIN_PASSWORD, requireAdmin } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "Login & password" };
 
+// Every admin page checks the session first, so navigations here wait for the server
+export const instant = false;
+
 export default async function AccountPage() {
   const admin = await requireAdmin();
   const source = await loginSource();

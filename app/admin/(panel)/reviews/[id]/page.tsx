@@ -11,6 +11,9 @@ import { db, plain } from "@/lib/db";
 
 export const metadata: Metadata = { title: "Edit review" };
 
+// Every admin page checks the session first, so navigations here wait for the server
+export const instant = false;
+
 export default async function EditReviewPage({ params }: PageProps<"/admin/reviews/[id]">) {
   await requireAdmin();
   const { id } = await params;

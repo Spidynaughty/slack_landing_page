@@ -6,6 +6,9 @@ import { requireAdmin } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "New review" };
 
+// Every admin page checks the session first, so navigations here wait for the server
+export const instant = false;
+
 export default async function NewReviewPage() {
   await requireAdmin();
   return (

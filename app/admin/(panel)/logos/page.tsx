@@ -8,6 +8,9 @@ import { readSetting } from "@/lib/content";
 
 export const metadata: Metadata = { title: "Customer logos" };
 
+// Every admin page checks the session first, so navigations here wait for the server
+export const instant = false;
+
 export default async function LogosPage({ searchParams }: PageProps<"/admin/logos">) {
   await requireAdmin();
   const [{ reset }, logos] = await Promise.all([searchParams, readSetting("logos")]);

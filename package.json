@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/setup-env.mjs",
     "dev": "next dev",
+    "setup": "node scripts/setup-env.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

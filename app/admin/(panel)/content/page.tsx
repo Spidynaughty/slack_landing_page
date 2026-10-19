@@ -16,6 +16,9 @@ function Reset({ settingKey }: { settingKey: SettingKey }) {
   );
 }
 
+// Every admin page checks the session first, so navigations here wait for the server
+export const instant = false;
+
 export default async function ContentPage({ searchParams }: PageProps<"/admin/content">) {
   await requireAdmin();
   const { reset } = await searchParams;

@@ -10,6 +10,9 @@ import type { TextOverride } from "@/lib/text-overrides";
 
 export const metadata: Metadata = { title: "Site text" };
 
+// Every admin page checks the session first, so navigations here wait for the server
+export const instant = false;
+
 export default async function TextPage({ searchParams }: PageProps<"/admin/text">) {
   await requireAdmin();
   const { q } = await searchParams;

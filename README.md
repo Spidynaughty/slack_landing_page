@@ -8,7 +8,6 @@ The marketing site for ktTeams: about 215 public pages plus an admin panel, buil
 
 ```bash
 npm install
-cp .env.example .env.local   # then set ADMIN_EMAIL, ADMIN_PASSWORD and SESSION_SECRET
 npm run dev          # http://localhost:3000, admin at /admin
 npm run build        # production build
 npm run start        # serve the build
@@ -16,6 +15,11 @@ npm run check:links  # after a build: verifies every required route, every inter
 npm run lint
 npm run typecheck
 ```
+
+The first `npm run dev` creates `.env.local` (Git leaves it out because it holds the admin password) with a random
+admin password and session secret, and prints the login once in the terminal. To set it up without starting the server,
+run `npm run setup`. An existing `.env.local` is never changed; the script only warns about values that would stop the
+admin from working, such as the example password from `.env.example`.
 
 ## Admin panel
 

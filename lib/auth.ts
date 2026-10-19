@@ -14,6 +14,7 @@ import "server-only";
 import { createHash, createHmac, randomBytes, scryptSync, timingSafeEqual } from "node:crypto";
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { db } from "@/lib/db";
 import { rateLimiter } from "@/lib/rate-limit";
 
@@ -155,6 +156,9 @@ export async function endSession() {
 
 /** The signed-in admin, or null. Reads the request, so call it inside a Suspense boundary. */
 export async function getAdmin(): Promise<Session | null> {
+  // Wait for a real request: the expiry check reads the clock, and the dev-mode
+  // prefetch check would otherwise report it (and the sign-in redirect) as errors.
+  await connection();
   const token = (await cookies()).get(SESSION_COOKIE)?.value;
   return token ? verifyToken(token) : null;
 }
