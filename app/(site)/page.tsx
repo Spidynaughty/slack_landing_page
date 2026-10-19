@@ -49,6 +49,10 @@ export default async function Home() {
       url: site.url,
       logo: `${site.url}/icon.png`,
       description: site.description,
+      contactPoint: [
+        { "@type": "ContactPoint", contactType: "sales", url: `${site.url}/contact-sales`, availableLanguage: ["English"] },
+        { "@type": "ContactPoint", contactType: "customer support", url: `${site.url}/help`, availableLanguage: ["English"] },
+      ],
     },
     {
       "@context": "https://schema.org",

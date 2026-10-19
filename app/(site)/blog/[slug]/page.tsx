@@ -31,6 +31,9 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
     type: "article",
     publishedTime: post.publishedAt,
     authors: [post.author.name],
+    section: post.category,
+    tags: post.tags,
+    readMinutes: post.readMinutes,
   });
 }
 

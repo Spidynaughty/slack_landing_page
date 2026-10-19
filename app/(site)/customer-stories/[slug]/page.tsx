@@ -8,6 +8,7 @@ import { CustomerLogo } from "@/components/ui/customer-logo";
 import { CountUp } from "@/components/ui/motion";
 import { PageSkeleton } from "@/components/ui/page-skeleton";
 import { buildMetadata } from "@/lib/seo";
+import { site } from "@/lib/site";
 import { toneStyles } from "@/lib/tones";
 import { cn, formatDate } from "@/lib/utils";
 import { navCrumbs } from "@/lib/breadcrumbs";
@@ -29,6 +30,8 @@ export async function generateMetadata({ params }: PageProps<"/customer-stories/
     path: `/customer-stories/${slug}`,
     type: "article",
     publishedTime: story.publishedAt,
+    section: "Customer stories",
+    tags: [story.industry, story.region],
   });
 }
 
@@ -45,9 +48,22 @@ async function StoryContent({ params }: { params: Promise<{ slug: string }> }) {
   const story = getStory(slug);
   if (!story) notFound();
   const t = toneStyles[story.tone];
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: story.headline,
+    description: story.summary,
+    datePublished: story.publishedAt,
+    author: { "@type": "Organization", name: site.name, url: site.url },
+    publisher: { "@type": "Organization", name: site.name, logo: { "@type": "ImageObject", url: `${site.url}/icon.png` } },
+    about: { "@type": "Organization", name: story.company },
+    articleSection: "Customer stories",
+    mainEntityOfPage: `${site.url}/customer-stories/${story.slug}`,
+  };
 
   return (
     <ArticleTemplate
+      structuredData={structuredData}
       crumbs={navCrumbs("/customer-stories", { section: "resources", label: "Customer stories" }, [{ label: story.company }])}
       eyebrow={story.industry}
       tone={story.tone}

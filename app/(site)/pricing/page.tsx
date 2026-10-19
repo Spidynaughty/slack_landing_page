@@ -6,7 +6,9 @@ import { ArrowLink } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/motion";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { buildMetadata } from "@/lib/seo";
-import { B } from "@/lib/site";
+import { B, site } from "@/lib/site";
+import { JsonLd } from "@/components/ui/json-ld";
+import { plans } from "@/data/pricing";
 import { LogoCloud } from "@/components/sections/logo-cloud";
 import { getFaqs } from "@/lib/content";
 
@@ -19,8 +21,29 @@ export const generateMetadata = () => buildMetadata({
 export default async function PricingPage() {
   // Editable in the admin under "Pricing FAQs"
   const faqs = await getFaqs("pricing");
+  // Each plan's monthly price per active user, for search engines (Enterprise is "contact sales", so it has no price)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: B,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web, Windows, macOS, Linux, iOS, Android",
+    url: `${site.url}/pricing`,
+    offers: plans
+      .filter((p) => p.monthly !== null)
+      .map((p) => ({
+        "@type": "Offer",
+        name: `${p.name} plan`,
+        description: p.tagline,
+        price: String(p.monthly),
+        priceCurrency: "USD",
+        url: `${site.url}/pricing/${p.id === "business" ? "business-plus" : p.id}`,
+        priceSpecification: { "@type": "UnitPriceSpecification", price: String(p.monthly), priceCurrency: "USD", unitText: "per active user per month" },
+      })),
+  };
   return (
     <>
+      <JsonLd data={jsonLd} />
       <PageHero
         layout="center"
         eyebrow="Pricing"

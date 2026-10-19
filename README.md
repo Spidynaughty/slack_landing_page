@@ -40,6 +40,17 @@ soon as you save.
 The session is a signed, httpOnly cookie that lasts 8 hours. Changing `ADMIN_PASSWORD` signs every session out, and five
 failed sign-ins lock an address out for 15 minutes.
 
+## SEO
+
+| What | Where |
+| --- | --- |
+| Titles, descriptions, canonical URLs, language alternates (`en-US`, `x-default`), OpenGraph and X cards | `buildMetadata` in `lib/seo.ts`, used by every page; editable per page under Admin > SEO |
+| Share pictures | Every page gets one showing its own title from `/og` (`app/og/route.tsx`, signed with `SESSION_SECRET`); the home page uses `app/opengraph-image.tsx` |
+| Site-wide tags | `app/layout.tsx`: keywords, author/publisher, robots and Googlebot rules, colour scheme, theme colour, Apple web app, X handle |
+| Ownership checks and app banner | Set `GOOGLE_SITE_VERIFICATION`, `BING_SITE_VERIFICATION` and `IOS_APP_ID` in `.env.local` (see `.env.example`) |
+| Structured data (JSON-LD) | Organization, WebSite with search, SoftwareApplication (home); plan offers (pricing); BlogPosting, Article, TechArticle, Event, JobPosting, Person, FAQPage; BreadcrumbList wherever breadcrumbs show. Rendered with `components/ui/json-ld.tsx` |
+| Feeds and files | `/sitemap.xml` (real dates, blog cover images), `/robots.txt`, `/blog/rss.xml`, `/llms.txt` for AI assistants, `/manifest.webmanifest` |
+
 ## Backend
 
 | Piece | Where |

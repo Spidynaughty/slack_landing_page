@@ -9,6 +9,7 @@ import { ArticleTemplate } from "@/components/templates/article";
 import { ButtonLink } from "@/components/ui/button";
 import { PageSkeleton } from "@/components/ui/page-skeleton";
 import { buildMetadata } from "@/lib/seo";
+import { site } from "@/lib/site";
 import { formatDate, slugify } from "@/lib/utils";
 import { navCrumbs } from "@/lib/breadcrumbs";
 
@@ -23,7 +24,15 @@ export async function generateMetadata({ params }: PageProps<"/help/[slug]">): P
   const { slug } = await params;
   const article = getHelpArticle(slug);
   if (!article) return { title: "Help article not found" };
-  return buildMetadata({ title: article.title, description: article.excerpt, path: `/help/${slug}`, type: "article" });
+  return buildMetadata({
+    title: article.title,
+    description: article.excerpt,
+    path: `/help/${slug}`,
+    type: "article",
+    modifiedTime: article.updatedAt,
+    section: "Help Centre",
+    readMinutes: article.readMinutes,
+  });
 }
 
 export default function HelpArticlePage({ params }: PageProps<"/help/[slug]">) {
@@ -44,9 +53,21 @@ async function HelpArticleContent({ params }: { params: Promise<{ slug: string }
     .filter((a): a is HelpArticle => Boolean(a))
     .map((a) => ({ title: a.title, href: `/help/${a.slug}`, eyebrow: a.category, excerpt: a.excerpt, tone: cat?.tone ?? "violet" }));
   const sameCategory = helpArticles.filter((a) => a.category === article.category && a.slug !== article.slug);
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: article.title,
+    description: article.excerpt,
+    dateModified: article.updatedAt,
+    articleSection: article.category,
+    author: { "@type": "Organization", name: site.name, url: site.url },
+    publisher: { "@type": "Organization", name: site.name, logo: { "@type": "ImageObject", url: `${site.url}/icon.png` } },
+    mainEntityOfPage: `${site.url}/help/${article.slug}`,
+  };
 
   return (
     <ArticleTemplate
+      structuredData={structuredData}
       crumbs={navCrumbs("/help", { section: "resources", label: "Help Centre" }, [{ label: article.category, href: `/help/categories/${slugify(article.category)}` }, { label: article.title }])}
       eyebrow={article.category}
       tone={cat?.tone ?? "violet"}

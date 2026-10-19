@@ -30,7 +30,10 @@ export async function generateMetadata({ params }: PageProps<"/resources/[catego
     path: `/resources/${guide.category}/${guide.slug}`,
     type: "article",
     publishedTime: guide.updatedAt,
+    modifiedTime: guide.updatedAt,
     authors: [guide.author.name],
+    section: guide.type,
+    readMinutes: guide.readMinutes,
   });
 }
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DEFAULT_SHARE_IMAGE, OG_SIZE, shareImageUrl } from "./og";
 import { getSeoOverrides } from "./seo-overrides";
 import { site } from "./site";
 
@@ -9,22 +10,27 @@ type SeoInput = {
   /** OpenGraph type; articles get article metadata. */
   type?: "website" | "article";
   publishedTime?: string;
+  /** When the content last changed (articles), ISO date */
+  modifiedTime?: string;
   authors?: string[];
+  /** Article section and tags, e.g. the blog category and post tags */
+  section?: string;
+  tags?: string[];
+  /** Shown as "Reading time" on X/Twitter cards */
+  readMinutes?: number;
   noIndex?: boolean;
   /** Use the title as written, without the " | ktTeams" the template adds (the home page). */
   absoluteTitle?: boolean;
 };
 
-/**
- * The share picture from app/opengraph-image.tsx. Pages set their own openGraph
- * and twitter fields, which replace the root layout's, so it is added here.
- */
-const SHARE_IMAGE = { url: "/opengraph-image", width: 1200, height: 630, alt: `${site.name}: where teams and AI get things done` };
+/** The blog feed, linked from every page so feed readers can find it. */
+export const FEED = { url: "/blog/rss.xml", title: `${site.name} blog` };
 
 /**
- * Builds per-page metadata: unique title, description, canonical URL and
- * OpenGraph/Twitter cards. A title or description changed under Admin > SEO
- * replaces the one passed in here.
+ * Builds per-page metadata: unique title, description, canonical URL, language
+ * alternates, the blog feed link, OpenGraph/Twitter cards with a share picture
+ * showing the page title, and article details. A title or description changed
+ * under Admin > SEO replaces the one passed in here (the picture follows it).
  */
 export async function buildMetadata({
   title: codeTitle,
@@ -32,7 +38,11 @@ export async function buildMetadata({
   path,
   type = "website",
   publishedTime,
+  modifiedTime,
   authors,
+  section,
+  tags,
+  readMinutes,
   noIndex,
   absoluteTitle,
 }: SeoInput): Promise<Metadata> {
@@ -41,10 +51,22 @@ export async function buildMetadata({
   const description = saved?.description || codeDescription;
   const fullTitle = absoluteTitle ? title : `${title} | ${site.name}`;
   const url = path === "/" ? site.url : `${site.url}${path}`;
+  // Pages set their own openGraph and twitter fields, which replace the root layout's, so the picture goes here
+  const image = {
+    url: path === "/" ? DEFAULT_SHARE_IMAGE : shareImageUrl(title, path),
+    ...OG_SIZE,
+    alt: path === "/" ? `${site.name}: where teams and AI get things done` : title,
+  };
+  const article = type === "article";
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
-    alternates: { canonical: path },
+    alternates: {
+      canonical: path,
+      // One language today; x-default tells search engines this is the page for everyone else too
+      languages: { "en-US": path, "x-default": path },
+      types: { "application/rss+xml": [FEED] },
+    },
     openGraph: {
       title: fullTitle,
       description,
@@ -52,8 +74,16 @@ export async function buildMetadata({
       siteName: site.name,
       type,
       locale: "en_US",
-      images: [SHARE_IMAGE],
-      ...(type === "article" && publishedTime ? { publishedTime, authors } : {}),
+      images: [image],
+      ...(article
+        ? {
+            ...(publishedTime ? { publishedTime } : {}),
+            ...(modifiedTime ? { modifiedTime } : {}),
+            ...(authors?.length ? { authors } : {}),
+            ...(section ? { section } : {}),
+            ...(tags?.length ? { tags } : {}),
+          }
+        : {}),
     },
     twitter: {
       card: "summary_large_image",
@@ -61,8 +91,9 @@ export async function buildMetadata({
       description,
       site: site.twitter,
       creator: site.twitter,
-      images: [SHARE_IMAGE],
+      images: [image],
     },
+    ...(readMinutes ? { other: { "twitter:label1": "Reading time", "twitter:data1": `${readMinutes} min read` } } : {}),
     ...(noIndex ? { robots: { index: false, follow: true } } : {}),
   };
 }

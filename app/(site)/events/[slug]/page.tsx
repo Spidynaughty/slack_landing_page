@@ -7,6 +7,7 @@ import { LeadForm } from "@/components/forms/lead-form";
 import { ArticleTemplate } from "@/components/templates/article";
 import { PageSkeleton } from "@/components/ui/page-skeleton";
 import { buildMetadata } from "@/lib/seo";
+import { site } from "@/lib/site";
 import { toneStyles } from "@/lib/tones";
 import { cn, formatDate } from "@/lib/utils";
 import { navCrumbs } from "@/lib/breadcrumbs";
@@ -40,8 +41,31 @@ async function EventContent({ params }: { params: Promise<{ slug: string }> }) {
   const t = toneStyles[event.tone];
   const onDemand = event.format === "On demand";
 
+  // Lets search engines list the event with its date and place (recordings have no date, so they're left out)
+  const page = `${site.url}/events/${event.slug}`;
+  const online = { "@type": "VirtualLocation", url: page };
+  const venue = { "@type": "Place", name: event.location.split(",")[0], address: event.location };
+  const mode = event.format === "Virtual" ? "Online" : event.format === "In person" ? "Offline" : "Mixed";
+  const structuredData = onDemand
+    ? undefined
+    : {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        name: event.title,
+        description: event.excerpt,
+        startDate: event.date,
+        eventStatus: "https://schema.org/EventScheduled",
+        eventAttendanceMode: `https://schema.org/${mode}EventAttendanceMode`,
+        location: mode === "Online" ? online : mode === "Offline" ? venue : [venue, online],
+        organizer: { "@type": "Organization", name: site.name, url: site.url },
+        performer: event.speakers.map((s) => ({ "@type": "Person", name: s.name })),
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD", availability: "https://schema.org/InStock", url: page },
+        url: page,
+      };
+
   return (
     <ArticleTemplate
+      structuredData={structuredData}
       crumbs={navCrumbs("/events", { section: "resources", label: "Events" }, [{ label: event.title }])}
       eyebrow={`${event.category} · ${event.format}`}
       tone={event.tone}

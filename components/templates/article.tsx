@@ -5,6 +5,7 @@ import { ArrowRight, CalendarDays, Clock } from "lucide-react";
 import type { ArticleSection } from "@/data/types";
 import { Breadcrumbs, type Crumb } from "@/components/sections/page-hero";
 import { GradientBlobs } from "@/components/ui/blobs";
+import { JsonLd } from "@/components/ui/json-ld";
 import { Eyebrow, Section } from "@/components/ui/section";
 import { Stagger, StaggerItem } from "@/components/ui/motion";
 import { toneStyles, type Tone } from "@/lib/tones";
@@ -59,6 +60,7 @@ export function ArticleTemplate({
   aside,
   header,
   cover,
+  structuredData,
   children,
 }: {
   crumbs: Crumb[];
@@ -78,11 +80,14 @@ export function ArticleTemplate({
   header?: ReactNode;
   /** Cover picture shown above the article text */
   cover?: string;
+  /** schema.org data describing the page (an Article, Event and so on) */
+  structuredData?: object;
   children?: ReactNode;
 }) {
   const t = toneStyles[tone];
   return (
     <>
+      {structuredData && <JsonLd data={structuredData} />}
       <header className={cn("relative overflow-hidden pt-10 pb-14 sm:pt-14 md:pb-20", t.tint)}>
         <GradientBlobs className="opacity-60" />
         <div className="container-page relative">

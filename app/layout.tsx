@@ -56,6 +56,12 @@ export const metadata: Metadata = {
   },
   formatDetection: { telephone: false, email: false, address: false },
   appleWebApp: { capable: true, title: site.name, statusBarStyle: "default" },
+  // Search Console / Bing Webmaster ownership checks and the iPhone app banner, each shown once set in .env.local
+  verification: {
+    ...(process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : {}),
+    ...(process.env.BING_SITE_VERIFICATION ? { other: { "msvalidate.01": process.env.BING_SITE_VERIFICATION } } : {}),
+  },
+  ...(process.env.IOS_APP_ID ? { itunes: { appId: process.env.IOS_APP_ID } } : {}),
   openGraph: {
     siteName: site.name,
     type: "website",
@@ -68,6 +74,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  // Both themes are supported, so browsers can match form controls and scrollbars before CSS loads
+  colorScheme: "light dark",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f4f7fb" },
     { media: "(prefers-color-scheme: dark)", color: "#051121" },
