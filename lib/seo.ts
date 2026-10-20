@@ -26,6 +26,22 @@ type SeoInput = {
 /** The blog feed, linked from every page so feed readers can find it. */
 export const FEED = { url: "/blog/rss.xml", title: `${site.name} blog` };
 
+/** Roughly what search results show before cutting text off. */
+export const SEARCH_LIMITS = { title: 60, description: 160 } as const;
+
+/** The title search engines see: " | ktTeams" is added only while it still fits, so long titles keep their own words. */
+export function searchTitle(title: string, absolute = false) {
+  const withName = `${title} | ${site.name}`;
+  return absolute || withName.length > SEARCH_LIMITS.title ? title : withName;
+}
+
+/** Shortens a description from the code to what results show, at a word boundary. */
+function clamp(text: string, max: number) {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[\s,;:–—-]+$/, "")}…`;
+}
+
 /**
  * Builds per-page metadata: unique title, description, canonical URL, language
  * alternates, the blog feed link, OpenGraph/Twitter cards with a share picture
@@ -48,8 +64,9 @@ export async function buildMetadata({
 }: SeoInput): Promise<Metadata> {
   const saved = (await getSeoOverrides())[path];
   const title = saved?.title || codeTitle;
-  const description = saved?.description || codeDescription;
-  const fullTitle = absoluteTitle ? title : `${title} | ${site.name}`;
+  // Wording saved in the admin is used as typed; the code's longer page summaries are trimmed for results
+  const description = saved?.description || clamp(codeDescription, SEARCH_LIMITS.description);
+  const fullTitle = searchTitle(title, absoluteTitle);
   const url = path === "/" ? site.url : `${site.url}${path}`;
   // Pages set their own openGraph and twitter fields, which replace the root layout's, so the picture goes here
   const image = {
@@ -59,7 +76,8 @@ export async function buildMetadata({
   };
   const article = type === "article";
   return {
-    title: absoluteTitle ? { absolute: title } : title,
+    // The layout's title template would add " | ktTeams" again, so the final title is set as is
+    title: { absolute: fullTitle },
     description,
     alternates: {
       canonical: path,

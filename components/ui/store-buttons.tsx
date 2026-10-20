@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { buttonClasses } from "@/components/ui/button";
-import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /* Marks from Simple Icons (CC0), drawn in the current text colour */
@@ -9,7 +8,8 @@ const APPLE =
 const GOOGLE_PLAY =
   "M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z";
 
-function StoreButton({ href, mark, small, big, label }: { href: string; mark: string; small: string; big: string; label: string }) {
+// The visible words ("Download on the App Store") are the accessible name, so voice control users can say what they see
+function StoreButton({ href, mark, small, big }: { href: string; mark: string; small: string; big: string }) {
   const className = cn(buttonClasses("secondary", "lg"), "gap-3 px-5 text-left");
   const body = (
     <>
@@ -24,11 +24,11 @@ function StoreButton({ href, mark, small, big, label }: { href: string; mark: st
   );
   // Real store listings open in a new tab; until then the links point at the Downloads page
   return /^https?:\/\//.test(href) ? (
-    <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className={className}>
+    <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
       {body}
     </a>
   ) : (
-    <Link href={href} aria-label={label} className={className}>
+    <Link href={href} className={className}>
       {body}
     </Link>
   );
@@ -40,10 +40,10 @@ export function StoreButtons({ appStoreHref, playStoreHref, className }: { appSt
   return (
     <div className={cn("flex flex-wrap justify-center gap-3", className)}>
       {appStoreHref && (
-        <StoreButton href={appStoreHref} mark={APPLE} small="Download on the" big="App Store" label={`Download ${site.name} on the App Store`} />
+        <StoreButton href={appStoreHref} mark={APPLE} small="Download on the" big="App Store" />
       )}
       {playStoreHref && (
-        <StoreButton href={playStoreHref} mark={GOOGLE_PLAY} small="Get it on" big="Google Play" label={`Get ${site.name} on Google Play`} />
+        <StoreButton href={playStoreHref} mark={GOOGLE_PLAY} small="Get it on" big="Google Play" />
       )}
     </div>
   );

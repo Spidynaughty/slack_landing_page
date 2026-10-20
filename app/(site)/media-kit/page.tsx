@@ -209,7 +209,8 @@ export default function MediaKitPage() {
                         <h3 className="font-display text-lg font-bold text-fg">{b.label}</h3>
                         <p className="text-xs text-subtle">{b.words}</p>
                       </div>
-                      <CopyButton text={b.text} label="Copy text" srLabel={`Copy ${b.label.toLowerCase()}`} />
+                      {/* The accessible name starts with the visible words, so voice control can find the button */}
+                      <CopyButton text={b.text} label="Copy text" srLabel={`Copy text: ${b.label.toLowerCase()}`} />
                     </div>
                     <p className="mt-4 rounded-xl bg-surface-2 p-4 leading-relaxed text-fg">{b.text}</p>
                   </article>

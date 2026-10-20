@@ -4,6 +4,12 @@ import { LOGO_PATHS } from "@/lib/logo-paths";
 import { DEFAULT_SHARE_IMAGE, OG_SIZE, signOg } from "@/lib/og";
 import { site } from "@/lib/site";
 
+const HEADERS = { "Content-Type": "image/png", "Cache-Control": "public, max-age=31536000, immutable" };
+
+// Finished pictures, so repeat requests skip drawing (one per page, so this stays small)
+const cache = new Map<string, ArrayBuffer>();
+const MAX_CACHED = 400;
+
 /**
  * GET /og?t=<title>&k=<section>&s=<signature>: the share picture for one page,
  * with its title. Links come from buildMetadata (lib/seo.ts); anything unsigned
@@ -19,8 +25,11 @@ export async function GET(request: Request) {
     return new Response(null, { status: 307, headers: { Location: DEFAULT_SHARE_IMAGE } });
   }
 
+  const hit = cache.get(sig);
+  if (hit) return new Response(hit, { headers: HEADERS });
+
   const size = title.length > 70 ? 50 : title.length > 45 ? 60 : 72;
-  return new ImageResponse(
+  const image = new ImageResponse(
     (
       <div
         style={{
@@ -62,6 +71,10 @@ export async function GET(request: Request) {
         </div>
       </div>
     ),
-    { ...OG_SIZE, headers: { "Cache-Control": "public, max-age=31536000, immutable" } },
+    OG_SIZE,
   );
+  const png = await image.arrayBuffer();
+  if (cache.size >= MAX_CACHED) cache.delete(cache.keys().next().value!);
+  cache.set(sig, png);
+  return new Response(png, { headers: HEADERS });
 }

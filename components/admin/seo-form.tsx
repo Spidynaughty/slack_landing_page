@@ -34,7 +34,9 @@ function SeoFields({ errors, ...p }: Props & { errors: Record<string, string> })
   const [title, setTitle] = useState(p.title);
   const [description, setDescription] = useState(p.description);
   const isHome = p.path === "/";
-  const fullTitle = isHome ? title : `${title} | ${p.siteName}`;
+  // Same rule as searchTitle() in lib/seo.ts: the site name is added only while the whole title fits in 60 characters
+  const withName = `${title} | ${p.siteName}`;
+  const fullTitle = isHome || withName.length > 60 ? title : withName;
   const host = p.siteUrl.replace(/^https?:\/\//, "");
   const crumbs = p.path === "/" ? host : `${host} › ${p.path.split("/").filter(Boolean).join(" › ")}`;
 
@@ -48,7 +50,7 @@ function SeoFields({ errors, ...p }: Props & { errors: Record<string, string> })
         label="Title"
         htmlFor={`${id}-t`}
         error={errors.title}
-        hint={isHome ? "Shown exactly as written." : `“ | ${p.siteName}” is added after it automatically.`}
+        hint={isHome ? "Shown exactly as written." : `“ | ${p.siteName}” is added after it while the whole title fits in 60 characters.`}
       >
         <input
           id={`${id}-t`}

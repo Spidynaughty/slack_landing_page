@@ -7,6 +7,8 @@ export type PostCategory = "Product" | "News" | "Engineering" | "Design" | "Prod
 export type Post = {
   slug: string;
   title: string;
+  /** Shorter title for search results when `title` is long (Google shows about 60 characters) */
+  seoTitle?: string;
   excerpt: string;
   category: PostCategory;
   author: Person;
@@ -422,6 +424,7 @@ export const posts: Post[] = [
   {
     slug: "shared-channels-at-scale",
     title: "Shared channels at scale: new tools for organizations with hundreds of partners",
+    seoTitle: "Shared channels at scale: tools for hundreds of partners",
     excerpt: `The average enterprise on ${B} now works with more than 140 outside organizations in shared channels. A new connections hub, verified organizations and per-partner policies make that scale manageable.`,
     category: "Product",
     author: { name: "Rachel Kim", role: "SVP, Partnerships", initials: "RK" },
@@ -536,6 +539,7 @@ export const posts: Post[] = [
   {
     slug: "meridian-cloud-partnership",
     title: `${B} and Meridian Cloud partner to bring AI-powered collaboration to regulated industries`,
+    seoTitle: `${B} and Meridian Cloud partner for regulated industries`,
     excerpt: `A new partnership brings ${B} to Meridian Cloud's sovereign regions, with dedicated data residency and compliance tooling for financial services, healthcare and the public sector.`,
     category: "News",
     author: { name: "Rachel Kim", role: "SVP, Partnerships", initials: "RK" },

@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): P
   const post = getPost(slug);
   if (!post) return { title: "Article not found" };
   return buildMetadata({
-    title: post.title,
+    title: post.seoTitle ?? post.title,
     description: post.excerpt,
     path: `/blog/${slug}`,
     type: "article",
